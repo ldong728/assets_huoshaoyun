@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+	<title>登录-火烧云</title>
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/main.js"></script>
+	<link href="../css/main.css" rel="stylesheet">
+</head>
+
+<body>
+<section>
+	<div class="container">
+		<div class="row">
+			<button class="login-close"></button>
+		</div>
+		<div class="row text-center logo-box">
+			<img src="../images/logo.png" alt="Logo">
+		</div>
+	</div>
+</section>
+<section>
+	<div class="container hidden">
+		<div class="row login-input set-place">
+			<input type="text" name="user" placeholder="用户名/绑定手机" class="set-place" id="user_tel">
+			<input type="password" name="pwd" placeholder="登录密码" class="set-place" id="user_password">
+			<button class="icon-eyes c1 show_pwd"><i class="icon icon-eye"></i></button>
+			<p class="lost-pwd"><a href="#">忘记密码？</a></p>
+			<button value="login" class="btn bg-black login_btn">登&nbsp;&nbsp;录</button>
+			<div class="h4 l-register"><a href="#" class="color6 register_btn">免费注册</a><span class="text-black mobile_login_btn"><a href="#">手机号快捷登录</a></span></div>
+		</div>
+		<div class="row login-wei">
+			<p class="color3 size15">或以以下方式登录</p>
+			<div class="weixin">
+				<img src="../images/weixin.png" alt="weixin">
+			</div>
+		</div>
+	</div>
+</section>
+</body>
+</html>
+
+<script>
+	registerEvent();
+
+    function callback_jsonCallback(back) {
+        var backValue = handleBack(back);
+        console.log(backValue);
+        if(backValue['success'] != true){
+            console.log(backValue['message']);
+            return;
+		}
+
+        switch (backValue['callback']) {
+            case 'login':
+                console.log(backValue['message']);
+                header('index');
+                break;
+        }
+    }
+
+    function registerEvent() {
+        $(document).on('click','.login_btn',function () {
+            var username = $('#user_tel').val();
+            var password = $('#user_password').val();
+            var loginValue = {username:username,password:password};
+            app.login(loginValue);
+        });
+        $(document).on('click','.register_btn',function () {
+            header('register');
+        });
+        $(document).on('touchstart','.show_pwd',function () {
+            $('#user_password').attr('type','text');
+        });
+        $(document).on('touchend','.show_pwd',function () {
+            $('#user_password').attr('type','password');
+        });
+        $(document).on('click','.lost-pwd',function () {
+            header('mobileLogin', 'isLostPwd=true');
+        });
+        $(document).on('click','.mobile_login_btn',function () {
+            header('mobileLogin');
+        });
+        $(document).on('click','.login-close',function () {
+            header('index');
+        });
+    }
+</script>

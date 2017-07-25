@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+	<title>收货地址</title>
+	<link href="../css/main.css" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/main.js"></script>
+	<script type="text/javascript" src="../js/template.js"></script>
+	<style>
+		.hiddenElement{
+			display: none;
+		}
+	</style>
+</head>
+
+<body class="gray">
+<div id="template_header"></div>
+
+<div id="template_body">
+	<section>
+		<div class="container">
+			<div class="row set-place address delivery" id="AddressContainer">
+				<div class="li hiddenElement" id="AddressElement">
+					<i class="AddressId hiddenElement"></i>
+					<div class="bg-magin h4 bg-white">
+						<p class="height50"><i class="AddressName">收件人</i><span class="span-left"><i class="AddressTel">13500009999</i></span></p>
+						<p class="lineheight15"><i class="AddressFullAddress">收件人详细地址完全</i></p>
+						<p class="magintop15 AddressDefaultTag hiddenElement"><i>默认收货地址</i></p>
+						<div class="delivery-btn text-right border-top magintop10">
+							<button type="button" name="delect" class="btn-white black AddressDelete_btn">
+								删除
+								<i class="AddressId hiddenElement"></i>
+							</button>
+							<button type="button" name="edit" class="btn-white black AddressEdit_btn">
+								编辑
+								<i class="AddressId hiddenElement"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="row bg-magin add-top addAddress_btn">
+				<p class="size16 text-left h-middle">添加收货地址</p>
+				<button class="btn-white h2 right btn-deli"><i class="icon icon-angle-right"></i></button>
+			</div>
+		</div>
+	</section>
+</div>
+
+<div id="template_footer"></div>
+
+
+</body>
+</html>
+
+<script>
+    var fromPage,elementList;
+    setInitParam();
+
+    $(document).ready(function () {
+        Templates.loadTemplates('allAddress','收货地址');
+        registerClickEvent();
+        app.getReceivingList();
+    });
+
+    function setInitParam() {
+        fromPage = getUrlParam('fromPage');
+        if(fromPage == ''){
+            fromPage = 'pageCur';
+        }
+
+        elementList=prepareElement('#AddressElement');
+    }
+
+    function registerClickEvent() {
+        $(document).on('click','.header-back',function () {
+            header(fromPage);
+        });
+        $(document).on('click','.addAddress_btn',function () {
+            header('newAddress');
+        });
+        $(document).on('click','.AddressDelete_btn',function () {
+            var rid = $(this).find('.AddressId').text();
+            console.log('delete address ' + rid);
+            deleteAddress(rid);
+        });
+        $(document).on('click','.AddressEdit_btn',function () {
+            var id = $(this).find('.AddressId').text();
+            console.log('edit address ' + id);
+            header('reviseAddress',{addressId: id});
+        });
+    }
+
+    function callback_jsonCallback(back) {
+        var backValue = handleBack(back);
+        console.log(backValue);
+        if(backValue['success'] == false){
+            console.log('callback ERR: '+backValue['message']);
+            return;
+        }
+
+        switch (backValue['callback']) {
+            case 'getReceivingList':
+                console.log(backValue['data']);
+                displayReceivingList(backValue['data']['list']);
+                break;
+            case 'receivingDel':
+//                alert(backValue['message']);
+                break;
+        }
+    }
+
+    function displayReceivingList(list) {
+		console.log(list);
+        var container = $('#AddressContainer');
+
+        $.each(list,function(k,v) {
+//            console.log(v);
+            var address_element = elementList['#AddressElement'].clone();
+            address_element.removeClass('hiddenElement');
+            address_element.removeAttr('id');
+            address_element.addClass('displayedAddress');
+            address_element.find('.AddressId').text(v['id']);
+            address_element.find('.AddressName').text(v['name']);
+            address_element.find('.AddressTel').text(v['tel']);
+            address_element.find('.AddressFullAddress').text(v['address_full']);
+            if(v['is_default']){
+                address_element.find('.AddressDefaultTag').removeClass('hiddenElement');
+			}
+
+            container.append(address_element);
+        });
+    }
+    function deleteAddress(rid) {
+        if(confirm('确认要删除收货地址吗？')){
+            app.receivingDel({rid:rid});
+            $('.displayedAddress').each(function (k, v) {
+                var tag = $(v).find('.AddressId')[0];
+                var id = $(tag).text();
+                if(id == rid){
+                    $(v).addClass('hiddenElement');
+                }
+            });
+        }
+    }
+</script>
+
+
+
+
+

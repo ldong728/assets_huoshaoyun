@@ -1,0 +1,560 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+	<title>公告</title>
+	<link href="../css/main.css" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/main.js"></script>
+	<script type="text/javascript" src="../js/template.js"></script>
+	<style>
+		#slidebox{
+			width: 100%;
+			height: 20vh;
+			overflow: hidden;
+		}
+		.flex{
+			display: -webkit-flex; /* Safari */
+			display: flex;
+		}
+		.flexHeader{
+			justify-content: space-evenly;
+			align-items: center;
+			background: white;
+		}
+		.search-form{
+			justify-content: center;
+			align-items: center;
+			border: 1px solid #ddd;
+			border-radius: 15px;
+			width: 90%;
+			height: 60%;
+		}
+		.search-form form{
+			align-items: center;
+			background: none;
+			height: 80%;
+		}
+		.search-form button{
+			width: 15%;
+		}
+		.search-form input{
+			width: 85%;
+			-webkit-appearance: none;
+			border: none;
+			background: none;
+		}
+		.clearBtn{
+			background: none;
+			border: none;
+		}
+		.flexHeaderSearch_index{
+			height: 50px;
+			font-size: 12px;
+			width: 50%;
+			justify-content: center;
+			align-items: center;
+		}
+		.flexHeaderLogo_index{
+			width: 25%;
+			justify-content: center;
+		}
+		.flexHeaderButtons_index{
+			width: 25%;
+			font-size: 1.7em;
+			justify-content: center;
+		}
+		.flexHeaderButtons_index div{
+			width: 80%;
+			justify-content: space-around;
+		}
+		.hiddenElement{
+			display: none;
+		}
+	</style>
+</head>
+
+
+<body class="gray">
+<div id="template_header">
+	<div class="flex flexHeader">
+		<div class="flex flexHeaderLogo_index">
+			<div>
+				<img src="../images/logo66.png" alt="logo">
+			</div>
+		</div>
+		<div class="flex flexHeaderSearch_index">
+			<div class="flex search-form">
+				<form action="" class="flex">
+					<button class="clearBtn"><i class="icon icon-search"></i></button>
+					<input type="search" name="search" placeholder="输入关键字搜索物品">
+				</form>
+			</div>
+		</div>
+		<div class="flex flexHeaderButtons_index">
+			<div class="flex">
+				<button class="clearBtn"><i class="icon icon-comment-o"></i></button>
+				<button class="clearBtn cart_btn"><i class="icon icon-shopping-cart"></i></button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="template_body">
+	<section>
+		<div class="focus magin-b5 ads-container" id="slidebox">
+			<a class="ads-element">
+				<img class="ads-img" src="" alt="轮播图">
+			</a>
+			<!--<img src="../images/66.jpg" alt="轮播图">-->
+			<!--<img src="../images/66.jpg" alt="轮播图">-->
+		</div>
+		<div class="container">
+			<!--总分类-->
+			<div class="row bg-magin padding-none magin-b5">
+				<div class=" h-nav clearfix section-container">
+					<div class="li text-center section-element">
+						<p class="list-goods h4 section-name">商城</p>
+						<p class="list-pic section-select"><img src="../images/12.png" alt="商城" class="section-img"></p>
+					</div>
+					<div class="li text-center">
+						<p class="list-goods h4">婚庆礼仪</p>
+						<p class="list-pic"><img src="../images/13.png" alt="婚庆礼仪"></p>
+
+					</div>
+					<div class="li text-center">
+						<p class="list-goods h4">农家乐</p>
+						<p class="list-pic"><img src="../images/14.png" alt="农家乐"></p>
+					</div>
+					<div class="li text-center">
+						<p class="list-goods h4">农资产品</p>
+						<p class="list-pic"><img src="../images/15.png" alt="农资产品"></p>
+					</div>
+					<div class="li text-center">
+						<p class="list-goods h4">旅游</p>
+						<p class="list-pic"><img src="../images/16.png" alt="旅游"></p>
+					</div>
+					<div class="li text-center">
+						<p class="list-goods h4">生活服务</p>
+						<p class="list-pic"><img src="../images/17.png" alt="生活服务"></p>
+					</div>
+				</div>
+			</div>
+			<!--商城分类-->
+			<div class="row bg-magin bg-white  magin-b5">
+				<div class="clearfix row-tab-bg">
+					<p class="left vo-up"><img src="../images/a1.png"></p>
+					<p class="size16 p-notice left height50">商城</p>
+					<button class="btn-more btn-white more_category_btn">更多</button>
+				</div>
+				<!--商城分类栏-->
+				<div class="pro-menu">
+					<ul class="clearfix category-container">
+						<li class="category-select category-element">
+							<i class="category-id hiddenElement"></i>
+							<p class="p category-img"><img src="../images/1.png"></p>
+							<p class="category-name">女装</p>
+						</li>
+						<li>
+							<p class="p p2"><img src="../images/2.png"></p>
+							<p>男装</p>
+						</li>
+						<li>
+							<p class="p p3"><img src="../images/3.png"></p>
+							<p>内衣</p>
+						</li>
+						<li>
+							<p class="p p4"><img src="../images/4.png"></p>
+							<p>鞋靴</p>
+						</li>
+						<li>
+							<p class="p p5"><img src="../images/5.png"></p>
+							<p>家具</p>
+						</li>
+						<li>
+							<p class="p p6"><img src="../images/6.png"></p>
+							<p>家电</p>
+						</li>
+						<li>
+							<p class="p p7"><img src="../images/7.png"></p>
+							<p>母婴</p>
+						</li>
+						<li>
+							<p class="p p8"><img src="../images/8.png"></p>
+							<p>箱包</p>
+						</li>
+					</ul>
+				</div>
+				<!--推荐商品栏-->
+				<div class="magin-b5">
+					<div class="clearfix row-tab-bg">
+						<p class="left vo-up"><img src="../images/a7.png"></p>
+						<p class="size16 p-notice left height50">推荐商品</p>
+						<!--					<button class="btn-more btn-white">更多</button>-->
+					</div>
+					<div class="index-two two-w-auto clearfix">
+						<ul class="ul-left" id="protbox">
+							<li>
+								<p class="two-img"><img src="../images/two1.jpg"></p>
+								<p class="two-p">婚礼策划仙境小筑系列</p>
+								<p class="two-m"><em class="red">￥8888</em><span>销量4521</span></p>
+							</li>
+							<li>
+								<p class="two-img"><img src="../images/two2.jpg"></p>
+								<p class="two-p">婚礼策划仙境小筑系列</p>
+								<p class="two-m"><em class="red">￥8888</em><span>销量4521</span></p>
+							</li>
+							<li>
+								<p class="two-img"><img src="../images/two1.jpg"></p>
+								<p class="two-p">婚礼策划仙境小筑系列</p>
+								<p class="two-m"><em class="red">￥8888</em><span>销量4521</span></p>
+							</li>
+							<li>
+								<p class="two-img"><img src="../images/two2.jpg"></p>
+								<p class="two-p">婚礼策划仙境小筑系列</p>
+								<p class="two-m"><em class="red">￥8888</em><span>销量4521</span></p>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!--促销商品栏-->
+				<div class="magin-b5">
+					<div class="clearfix row-tab-bg">
+						<p class="left vo-up"><img src="../images/a8.png"></p>
+						<p class="size16 p-notice left height50">促销商品</p>
+						<!--					<button class="btn-more btn-white">更多</button>-->
+					</div>
+					<div class="index-two clearfix">
+						<ul>
+							<li>
+								<p class="two-img"><img src="../images/two1.jpg"></p>
+								<p class="two-p">婚礼策划仙境小筑系列</p>
+								<p class="two-m"><em class="red">￥8888</em><span>销量4521</span></p>
+							</li>
+							<li>
+								<p class="two-img"><img src="../images/two2.jpg"></p>
+								<p class="two-p">婚礼策划仙境小筑系列</p>
+								<p class="two-m"><em class="red">￥8888</em><span>销量4521</span></p>
+							</li>
+							<li>
+								<p class="two-img"><img src="../images/two1.jpg"></p>
+								<p class="two-p">婚礼策划仙境小筑系列</p>
+								<p class="two-m"><em class="red">￥8888</em><span>销量4521</span></p>
+							</li>
+							<li>
+								<p class="two-img"><img src="../images/two2.jpg"></p>
+								<p class="two-p">婚礼策划仙境小筑系列</p>
+								<p class="two-m"><em class="red">￥8888</em><span>销量4521</span></p>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!--婚庆-->
+			<div class="row bg-magin bg-white  magin-b5">
+				<div class="clearfix row-tab-bg">
+					<p class="left vo-up"><img src="../images/a2.png"></p>
+					<p class="size16 p-notice left height50">婚庆公司</p>
+					<button class="btn-more btn-white">更多</button>
+				</div>
+				<div class="index-two clearfix">
+					<ul>
+						<li>
+							<p class="two-img"><img src="../images/two1.jpg"></p>
+							<p class="two-p">婚礼策划仙境小筑系列</p>
+							<p class="two-m"><em class="red">￥8888</em><span>销量4521</span></p>
+						</li>
+						<li>
+							<p class="two-img"><img src="../images/two2.jpg"></p>
+							<p class="two-p">婚礼策划仙境小筑系列</p>
+							<p class="two-m"><em class="red">￥8888</em><span>销量4521</span></p>
+						</li>
+						<li>
+							<p class="two-img"><img src="../images/two1.jpg"></p>
+							<p class="two-p">婚礼策划仙境小筑系列</p>
+							<p class="two-m"><em class="red">￥8888</em><span>销量4521</span></p>
+						</li>
+						<li>
+							<p class="two-img"><img src="../images/two2.jpg"></p>
+							<p class="two-p">婚礼策划仙境小筑系列</p>
+							<p class="two-m"><em class="red">￥8888</em><span>销量4521</span></p>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!--农家乐-->
+			<div class="row bg-magin bg-white  magin-b5">
+				<div class="clearfix row-tab-bg">
+					<p class="left vo-up"><img src="../images/a3.png"></p>
+					<p class="size16 p-notice left height50">农家乐</p>
+					<button class="btn-more btn-white">更多</button>
+				</div>
+				<div class="index-two clearfix">
+					<ul>
+						<li>
+							<p class="two-img"><img src="../images/two1.jpg"></p>
+							<p class="two-p">临安大明山百合农家乐三人间</p>
+							<p class="two-m"><em class="red">￥8888</em><span>销量4521</span></p>
+						</li>
+						<li>
+							<p class="two-img"><img src="../images/two2.jpg"></p>
+							<p class="two-p">婚礼策划仙境小筑系列</p>
+							<p class="two-m"><em class="red">￥8888</em><span>销量4521</span></p>
+						</li>
+						<li>
+							<p class="two-img"><img src="../images/two3.jpg"></p>
+							<p class="two-p">婚礼策划仙境小筑系列</p>
+							<p class="two-m"><em class="red">￥8888</em><span>销量4521</span></p>
+						</li>
+						<li>
+							<p class="two-img"><img src="../images/two4.jpg"></p>
+							<p class="two-p">丹州/普陀山/沈家门/朱家尖南沙阳光假日农家乐旅馆住宿宾馆酒店</p>
+							<p class="two-m"><em class="red">￥8888</em><span>销量4521</span></p>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!--农资-->
+			<div class="row bg-magin bg-white  magin-b5">
+				<div class="clearfix row-tab-bg">
+					<p class="left vo-up"><img src="../images/a4.png"></p>
+					<p class="size16 p-notice left height50">农资产品</p>
+					<button class="btn-more btn-white">更多</button>
+				</div>
+				<div class="index-two clearfix">
+					<ul>
+						<li>
+							<p class="two-img"><img src="../images/two1.jpg"></p>
+							<p class="two-p">临安大明山百合农家乐三人间</p>
+							<p class="two-m"><em class="red">￥8888</em><span>销量4521</span></p>
+						</li>
+						<li>
+							<p class="two-img"><img src="../images/two2.jpg"></p>
+							<p class="two-p">婚礼策划仙境小筑系列</p>
+							<p class="two-m"><em class="red">￥8888</em><span>销量4521</span></p>
+						</li>
+						<li>
+							<p class="two-img"><img src="../images/two3.jpg"></p>
+							<p class="two-p">婚礼策划仙境小筑系列</p>
+							<p class="two-m"><em class="red">￥8888</em><span>销量4521</span></p>
+						</li>
+						<li>
+							<p class="two-img"><img src="../images/two4.jpg"></p>
+							<p class="two-p">丹州/普陀山/沈家门/朱家尖南沙阳光假日农家乐旅馆住宿宾馆酒店</p>
+							<p class="two-m"><em class="red">￥8888</em><span>销量4521</span></p>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!--旅游-->
+			<div class="row bg-magin bg-white  magin-b5">
+				<div class="clearfix row-tab-bg">
+					<p class="left vo-up"><img src="../images/a5.png"></p>
+					<p class="size16 p-notice left height50">旅游</p>
+					<button class="btn-more btn-white">更多</button>
+				</div>
+				<div class="index-two clearfix">
+					<ul>
+						<li>
+							<p class="two-img"><img src="../images/two1.jpg"></p>
+							<p class="two-p">临安大明山百合农家乐三人间</p>
+							<p class="two-m"><em class="red">￥8888</em><span>销量4521</span></p>
+						</li>
+						<li>
+							<p class="two-img"><img src="../images/two2.jpg"></p>
+							<p class="two-p">婚礼策划仙境小筑系列</p>
+							<p class="two-m"><em class="red">￥8888</em><span>销量4521</span></p>
+						</li>
+						<li>
+							<p class="two-img"><img src="../images/two3.jpg"></p>
+							<p class="two-p">婚礼策划仙境小筑系列</p>
+							<p class="two-m"><em class="red">￥8888</em><span>销量4521</span></p>
+						</li>
+						<li>
+							<p class="two-img"><img src="../images/two4.jpg"></p>
+							<p class="two-p">丹州/普陀山/沈家门/朱家尖南沙阳光假日农家乐旅馆住宿宾馆酒店</p>
+							<p class="two-m"><em class="red">￥8888</em><span>销量4521</span></p>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!--生活服务-->
+			<div class="row bg-magin bg-white  magin-b5">
+				<div class="clearfix row-tab-bg">
+					<p class="left vo-up"><img src="../images/a6.png"></p>
+					<p class="size16 p-notice left height50">生活服务</p>
+				</div>
+				<div class="index-three clearfix">
+					<ul>
+						<li>
+							<p class="three-img"><img src="../images/80.png"></p>
+							<p class="three-txt">充值中心</p>
+						</li>
+						<li>
+							<p class="three-img"><img src="../images/81.png"></p>
+							<p class="three-txt">信用卡还款</p>
+						</li>
+						<li>
+							<p class="three-img"><img src="../images/84.png"></p>
+							<p class="three-txt">生活缴费</p>
+						</li>
+						<li>
+							<p class="three-img"><img src="../images/83.png"></p>
+							<p class="three-txt">城市服务</p>
+						</li>
+						<li>
+							<p class="three-img"><img src="../images/86.png"></p>
+							<p class="three-txt">车主服务</p>
+						</li>
+						<li>
+							<p class="three-img"><img src="../images/85.png"></p>
+							<p class="three-txt">我的快递</p>
+						</li>
+						<li>
+							<p class="three-img"><img src="../images/87.png"></p>
+							<p class="three-txt">火车票机票</p>
+						</li>
+						<li>
+							<p class="three-img"><img src="../images/88.png"></p>
+							<p class="three-txt">加油服务</p>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+
+<div id="template_footer"></div>
+
+<link href="../slick/slick.css" rel="stylesheet">
+<script src="../slick/slick.min.js"></script>
+</body>
+</html>
+
+<script>
+    var fromPage,elementList,AdNames;
+    setInitParam();
+
+    $(document).ready(function () {
+        Templates.loadTemplates('index','首页');
+        scrollWatcher(null,null);
+        app.getAds({names: AdNames});
+        app.getSection();
+        app.getCategory({level:1});
+        registerClickEvent();
+    });
+
+    function setInitParam() {
+        fromPage = null;
+
+        //克隆元素列表
+        elementList=prepareElement('.section-element','.category-element','.ads-element');
+        //广告获取请求参数设置（新）
+		var AdList = ['banner','hotItem'];
+        AdNames = AdList.join('_');
+    }
+
+    function registerClickEvent() {
+		$(document).on('click','.section-select',function () {
+            var id = $(this).attr('data-id');
+            var name = $(this).find('.section-img').attr('alt');
+            console.log('跳转到分类：'+name+' 分类id：'+id);
+        });
+        $(document).on('click','.cart_btn',function () {
+            header('shopCart');
+        });
+        $(document).on('click','.more_category_btn',function () {
+            var id = $(this).attr('data-id');
+            var name = $(this).find('.section-img').attr('alt');
+            console.log('跳转到分类：'+name+' 分类id：'+id);
+        });
+        $(document).on('click','.more_category_btn',function () {
+//            var cid = $(this).find('.category-id').text();
+			var cid = 1;
+            header('classify',{cid: cid});
+        });
+        $(document).on('click','.category-select',function () {
+            var cid = $(this).find('.category-id').text();
+            header('classify',{cid: cid});
+        });
+    }
+
+    function callback_jsonCallback(back) {
+        var backValue = handleBack(back);
+        console.log(backValue);
+        if(backValue['success'] == false){
+            console.log('callback ERR: '+backValue['message']);
+            return;
+		}
+
+        switch (backValue['callback']) {
+            case 'ads':
+                var ads = backValue.data.aa;
+                if (ads.imgs.length > 0) {
+                    refreshAds(ads.imgs);
+                    checkImgLoad('.span-container','../images/img-load-error.jpeg');
+                }
+                activeBanner();
+                break;
+            case 'getSection':
+                refreshSection(backValue.data['sections']);
+                break;
+            case 'getCategory':
+                refreshCategory(backValue.data['categories']);
+                break;
+        }
+    }
+
+    function refreshAds(data){
+        var container=$('.ads-container');
+        container.empty();
+        $.each(data,function(k,v){
+            var content=elementList['.ads-element'].clone();
+            content.find('img').attr('src', v);
+            //var content = ' <div class="swiper-slide"><img class="swiper-img swiper-lazy" data-src="' + v + '"/></div>';
+            container.append(content);
+        });
+    }
+
+    function activeBanner(){
+        $('#slidebox').slick({autoplay:true,arrows:true,prevArrow:'<span class="slick-prev fa-angle-left"></span>',nextArrow:'<span class="slick-next fa-angle-right"></span>'});
+        $('#protbox').slick({autoplay:false,dots:true,slidesToShow:2,slidesToScroll:2});
+    }
+
+    function refreshSection(sections) {
+        var container = $('.section-container');
+        container.empty();
+        $.each(sections,function(k,v){
+            var section=elementList['.section-element'].clone();
+            section.find('.section-select').attr('data-id', v.cid);
+            section.find('.section-img').attr('src', v.img);
+            section.find('.section-img').attr('alt', v.name);
+            section.find('.section-name').text(v.name);
+            container.append(section);
+        });
+
+        checkImgLoad('.section-container','../images/img-load-error.jpeg');
+
+    }
+
+    function refreshCategory(categories) {
+        console.log(categories);
+        var container = $('.category-container');
+        container.empty();
+        $.each(categories,function(k,v){
+            var category=elementList['.category-element'].clone();
+            category.find('.category-id').text(v['cid']);
+            category.find('.category-img img').attr('src', v['img']);
+            category.find('.category-img img').attr('alt', v['name']);
+            category.find('.category-img').css('background-color', v['background-color']);
+            category.find('.category-name').text(v['name']);
+            container.append(category);
+        });
+
+        checkImgLoad('.category-container','../images/img-load-error.jpeg');
+
+    }
+
+</script>

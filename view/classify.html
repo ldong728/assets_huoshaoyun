@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+	<title>分类</title>
+	<link href="../css/main.css" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/main.js"></script>
+	<script type="text/javascript" src="../js/template.js"></script>
+</head>
+
+<body>
+<div id="template_header"></div>
+
+<div id="template_body">
+	<section class="clearfix">
+		<aside class="aside-left">
+			<ul>
+				<li class="aside-cur">美容美妆</li>
+				<li>奶粉纸尿裤</li>
+				<li>母婴专区</li>
+				<li>箱包服饰</li>
+				<li>家居个护</li>
+				<li>营养保健</li>
+				<li>服饰鞋靴</li>
+				<li>数码家电</li>
+				<li>家装材料</li>
+				<li>运动户外</li>
+				<li>环球美食</li>
+				<li>生鲜</li>
+			</ul>
+		</aside>
+		<div class="main-right">
+			<h3>分类</h3>
+			<div class="li">
+				<p class="li-img"><img src="../images/11.png"></p>
+				<p class="li-name">洗发护发</p>
+			</div>
+			<div class="li">
+				<p class="li-img"><img src="../images/22.png"></p>
+				<p class="li-name">糖果/巧克力</p>
+			</div>
+			<div class="li">
+				<p class="li-img"><img src="../images/33.png"></p>
+				<p class="li-name">饼干</p>
+			</div>
+			<div class="li">
+				<p class="li-img"><img src="../images/11.png"></p>
+				<p class="li-name">洗发护发</p>
+			</div>
+			<div class="li">
+				<p class="li-img"><img src="../images/22.png"></p>
+				<p class="li-name">糖果/巧克力</p>
+			</div>
+			<div class="li">
+				<p class="li-img"><img src="../images/33.png"></p>
+				<p class="li-name">饼干</p>
+			</div>
+			<div class="li">
+				<p class="li-img"><img src="../images/11.png"></p>
+				<p class="li-name">洗发护发</p>
+			</div>
+			<div class="li">
+				<p class="li-img"><img src="../images/22.png"></p>
+				<p class="li-name">糖果/巧克力</p>
+			</div>
+			<div class="li">
+				<p class="li-img"><img src="../images/33.png"></p>
+				<p class="li-name">饼干</p>
+			</div>
+			<div class="li">
+				<p class="li-img"><img src="../images/11.png"></p>
+				<p class="li-name">洗发护发</p>
+			</div>
+			<div class="li">
+				<p class="li-img"><img src="../images/22.png"></p>
+				<p class="li-name">糖果/巧克力</p>
+			</div>
+			<div class="li">
+				<p class="li-img"><img src="../images/33.png"></p>
+				<p class="li-name">饼干</p>
+			</div>
+		</div>
+	</section>
+
+</div>
+
+
+<div id="template_footer"></div>
+
+</body>
+</html>
+
+<script>
+    var fromPage;
+    setInitParam();
+
+    $(document).ready(function () {
+        Templates.loadTemplates('classify','产品分类');
+        registerClickEvent();
+    });
+
+    function setInitParam() {
+        fromPage = getUrlParam('fromPage');
+        if(fromPage == null){
+            fromPage = 'index';
+        }
+    }
+
+    function registerClickEvent() {
+        $(document).on('click','.header-back',function () {
+            header(fromPage);
+        });
+        $(document).on('click','.aside-left li',function () {
+            $('.aside-cur').removeClass('aside-cur');
+            $(this).addClass('aside-cur');
+        });
+    }
+</script>

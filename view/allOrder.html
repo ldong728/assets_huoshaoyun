@@ -1,0 +1,374 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+	<title>全部订单</title>
+	<link href="../css/main.css" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/main.js"></script>
+	<script type="text/javascript" src="../js/template.js"></script>
+	<style>
+		#OrderElement{
+			display: none;
+		}
+		.hiddenElement{
+			display: none;
+		}
+		.noMoreDiv {
+			height: 60px;
+			line-height: 60px;
+			text-align: center;
+			color: #777;
+		}
+	</style>
+</head>
+
+<body class="gray">
+<div id="template_header"></div>
+
+<div id="template_body">
+	<nav class="navbar address bg-white">
+		<ul class="height50 clearfix text-center h4 orderTypeList">
+			<li class="TypeBtn"><a href="#" class="li-cur">全部订单</a><i class="TypeId" style="display: none;">1</i></li>
+			<li class="TypeBtn"><a href="#">预约中</a><i class="TypeId" style="display: none;">2</i></li>
+			<li class="TypeBtn"><a href="#">待配送</a><i class="TypeId" style="display: none;">3</i></li>
+			<li class="TypeBtn"><a href="#">待确认</a><i class="TypeId" style="display: none;">4</i></li>
+		</ul>
+	</nav>
+	<section>
+		<!--订单容器-->
+		<div class="container" id="OrderContainer">
+			<!--订单元素-->
+			<div class="row bg-magin border-bottom2 address hiddenElement" id="OrderElement">
+				<!--订单ID-->
+				<i class="OrderID" style="display: none;"></i>
+				<!--订单头-->
+				<p class="size15 h-middle height50 border-bottom">订单编号 <i class="OrderNumber">order number err</i><span class="right color6 size13 orderStateTag">oder state tag err</span></p>
+				<!--订单体-->
+				<div class="all-goods border-d-bottom">
+					<!--物品容器-->
+					<div class="OrderItemContainer">
+						<div class="color3 goods-li clearfix border-none hiddenElement" id="OrderItemElement">
+							<dl>
+								<dt><img src="../images/未标题-2.jpg" alt="商品图片" class="OrderItemImg"></dt>
+								<dd>
+									<p class="goods-name magintop15"><i class="OrderItemTitle">产品名称</i></p>
+								</dd>
+							</dl>
+							<div class="goods-li-right">
+								<p class="goods-price">￥ <i class="OrderItemPrice">err</i> <br><em> x <i class="OrderItemNum">num</i> </em></p>
+							</div>
+						</div>
+					</div>
+					<!--订单体尾部描述-->
+					<div class="all-money OrderBillInfo" style="height: auto;">
+					<p class="size15 text-right"><i class="OrderBillDesc">金额描述</i> <span class="red">￥ <i class="OrderTotalSum">total Sum</i></span></p>
+					<p class="text-right">(含运费)</p>
+				</div>
+				</div>
+				<!--订单尾 状态按键组-->
+				<div>
+					<div class="delivery-btn text-right btn-order-d OrderStatusConfirmed hiddenElement">
+						<button type="button" name="delect" class="btn-white">删除订单</button>
+						<button type="button" name="edit" class="btn-white btn2">再次购买</button>
+					</div>
+					<div class="delivery-btn text-right btn-order-d OrderStatusNotPay hiddenElement">
+						<button type="button" name="edit" class="btn-white btn2">取消订单</button>
+					</div>
+					<div class="delivery-btn text-right btn-order-d OrderStatusNotConfirmed hiddenElement">
+						<button type="button" name="edit" class="btn-white btn2">提醒发货</button>
+					</div>
+					<div class="delivery-btn text-right btn-order-d OrderStatusPayed hiddenElement">
+						<button type="button" name="edit" class="btn-white btn-cur">确认收货</button>
+					</div>
+				</div>
+			</div>
+			<!--备用素材元素-->
+			<div class="hiddenElement">
+				<div class="row bg-magin border-bottom2 address hiddenElement">
+					<p class="size15 h-middle height50 border-bottom">订单编号 12345678978946<span class="right color6 size13">预约中</span></p>
+					<div class="all-goods border-d-bottom">
+						<div class="color3 goods-li clearfix border-none">
+							<dl>
+								<dt><img src="../images/未标题-2.jpg" alt="商品图片"></dt>
+								<dd>
+									<p class="goods-name magintop15">全面压缩面膜 严选品质更好呵护</p>
+								</dd>
+							</dl>
+							<div class="goods-li-right">
+								<p class="goods-price">￥ 4.60<br><em> x 2 </em></p>
+							</div>
+						</div>
+						<div class="color3 goods-li clearfix border-none">
+							<dl>
+								<dt><img src="../images/未标题-3.jpg" alt="商品图片"></dt>
+								<dd>
+									<p class="goods-name magintop15">全面压缩面膜 严选品质更好呵护</p>
+								</dd>
+							</dl>
+							<div class="goods-li-right">
+								<p class="goods-price">￥ 4.60<br><em> x 2 </em></p>
+							</div>
+						</div>
+						<div class="all-money" style="height: auto;">
+							<p class="size15 text-right">实付金额 <span class="red">￥ 1233.20</span></p>
+							<p class="text-right">(含运费)</p>
+						</div>
+					</div>
+					<div class="delivery-btn text-right btn-order-d">
+						<button type="button" name="edit" class="btn-white btn2">取消订单</button>
+					</div>
+				</div>
+				<div class="row bg-magin border-bottom2 address hiddenElement">
+					<p class="size15 h-middle height50 border-bottom">订单编号 12345678978946<span class="right color6 size13">待配送</span></p>
+					<div class="all-goods border-d-bottom">
+						<div class="color3 goods-li clearfix border-none">
+							<dl>
+								<dt><img src="../images/未标题-2.jpg" alt="商品图片"></dt>
+								<dd>
+									<p class="goods-name magintop15">全面压缩面膜 严选品质更好呵护</p>
+								</dd>
+							</dl>
+							<div class="goods-li-right">
+								<p class="goods-price">￥ 4.60<br><em> x 2 </em></p>
+							</div>
+						</div>
+						<div class="color3 goods-li clearfix border-none">
+							<dl>
+								<dt><img src="../images/未标题-3.jpg" alt="商品图片"></dt>
+								<dd>
+									<p class="goods-name magintop15">全面压缩面膜 严选品质更好呵护</p>
+								</dd>
+							</dl>
+							<div class="goods-li-right">
+								<p class="goods-price">￥ 4.60<br><em> x 2 </em></p>
+							</div>
+						</div>
+						<div class="all-money" style="height: auto;">
+							<p class="size15 text-right">实付金额 <span class="red">￥ 1233.20</span></p>
+							<p class="text-right">(含运费)</p>
+						</div>
+					</div>
+					<div class="delivery-btn text-right btn-order-d">
+						<button type="button" name="edit" class="btn-white btn2">提醒发货</button>
+					</div>
+				</div>
+				<div class="row bg-magin border-bottom2 address hiddenElement">
+					<p class="size15 h-middle height50 border-bottom">订单编号 12345678978946<span class="right color6 size13">待确认</span></p>
+					<div class="all-goods border-d-bottom">
+						<div class="color3 goods-li clearfix border-none">
+							<dl>
+								<dt><img src="../images/未标题-2.jpg" alt="商品图片"></dt>
+								<dd>
+									<p class="goods-name magintop15">全面压缩面膜 严选品质更好呵护</p>
+								</dd>
+							</dl>
+							<div class="goods-li-right">
+								<p class="goods-price">￥ 4.60<br><em> x 2 </em></p>
+							</div>
+						</div>
+						<div class="color3 goods-li clearfix border-none">
+							<dl>
+								<dt><img src="../images/未标题-3.jpg" alt="商品图片"></dt>
+								<dd>
+									<p class="goods-name magintop15">全面压缩面膜 严选品质更好呵护</p>
+								</dd>
+							</dl>
+							<div class="goods-li-right">
+								<p class="goods-price">￥ 4.60<br><em> x 2 </em></p>
+							</div>
+						</div>
+						<div class="all-money" style="height: auto;">
+							<p class="size15 text-right">实付金额 <span class="red">￥ 1233.20</span></p>
+							<p class="text-right">(含运费)</p>
+						</div>
+					</div>
+					<div class="delivery-btn text-right btn-order-d">
+						<button type="button" name="edit" class="btn-white btn-cur">确认发货</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--底部没有更多标签-->
+		<div class="hiddenElement noMoreDiv">
+			----没有更多----
+		</div>
+	</section>
+</div>
+
+<div id="template_footer"></div>
+
+<script>
+	var typeIDList = {
+	    '全部订单': 1,
+        '预约中': 2,
+        '待配送': 3,
+        '待确认': 4
+	};
+	var fromPage,type_name,type,page,hasMore,firstShow,elementList;
+	setInitParam();
+
+	$(document).ready(function () {
+        Templates.loadTemplates('allOrder','订单');
+        registerClickEvent();
+		scrollWatcher(null,showNextPage);
+//		console.log(type_name);
+        showTypeList(type);
+    });
+
+    function registerClickEvent() {
+        $(document).on('click','.header-back',function () {
+            header(fromPage);
+        });
+        $(document).on('click','.TypeBtn',function () {
+            var type = $(this).find('a').text();
+            var typeID = $(this).find('.TypeId').text();
+            console.log('type:'+type+' typeId:'+typeID);
+            showTypeList(typeID);
+        });
+    }
+
+    function setInitParam() {
+        fromPage = getUrlParam('fromPage');
+        if(fromPage == ''){
+            fromPage = 'pageCur';
+        }
+
+        type_name = getUrlParam('type_name');
+        if(type_name == null){
+            type_name = '全部订单';
+        }
+
+        //订单类型 1：全部  2：预约中  3：待配送  4：待确认
+        type = typeIDList[type_name];
+        //订单页码
+        page = 0;
+        //是否有更多订单
+        hasMore = false;
+        //是否第一次加载
+        firstShow = true;
+
+        elementList=prepareElement('#OrderElement','#OrderItemElement');
+    }
+
+    function callback_jsonCallback(back) {
+        var backValue = handleBack(back);
+        console.log(backValue);
+        if(backValue['success'] == false){
+            console.log('callback ERR: '+backValue['message']);
+            return;
+        }
+
+        switch (backValue['callback']) {
+            case 'getOrderList':
+                refreshOrderList(backValue['data']);
+                break;
+        }
+    }
+
+    function refreshOrderList(data) {
+//        console.log(data);
+        var list = data['list'];
+        hasMore = data['has_more'];
+
+        var container = $('#OrderContainer');
+        if(firstShow){container.empty();}
+        firstShow = false;
+
+        $.each(list,function(k,v) {
+//            console.log(v);
+            var order_element = elementList['#OrderElement'].clone();
+            order_element.removeClass('hiddenElement');
+            order_element.removeAttr('id');
+            order_element.find('.OrderID').text(v['order_id']);
+            order_element.find('.OrderNumber').text(v['order_no']);
+            order_element.find('.orderStateTag').text(v['status_desc']);
+            displayOrderButtonGroup(order_element,v['status']);
+            displayOrderItems(order_element,v['order_detail']);
+            displayOrderBillInfo(order_element,v);
+            
+
+            container.append(order_element);
+        });
+		checkImgLoad('#OrderContainer',"../images/未标题-2.jpg");
+		if(!hasMore){
+		    $('.noMoreDiv').removeClass('hiddenElement');
+		}
+    }
+    function displayOrderButtonGroup(orderElement, status) {
+		var status_desc;
+		var button_group;
+		switch (status){
+			case 1:
+                status_desc = 'ordered';
+			    button_group = orderElement.find('.OrderStatusNotConfirmed');
+                orderElement.find('.OrderBillDesc').text('实付金额');
+			    break;
+			case 2:
+                status_desc = 'payed';
+                button_group = orderElement.find('.OrderStatusPayed');
+                orderElement.find('.OrderBillDesc').text('实付金额');
+                break;
+            case 5:
+                status_desc = 'finished';
+                button_group = orderElement.find('.OrderStatusConfirmed');
+                orderElement.find('.OrderBillDesc').text('实付金额');
+                break;
+            case 7:
+                status_desc = 'paying';
+                button_group = orderElement.find('.OrderStatusNotPay');
+                orderElement.find('.OrderBillDesc').text('待付金额');
+                break;
+			default:
+			    alert('unknow status number: '+status);
+		}
+		button_group.removeClass('hiddenElement');
+//		console.log(status_desc);
+    }
+    function displayOrderItems(orderElement, itemList) {
+		var container = orderElement.find('.OrderItemContainer');
+        $.each(itemList,function(k,v) {
+//            console.log(v);
+            var item_element = elementList['#OrderItemElement'].clone();
+            item_element.removeClass('hiddenElement');
+            item_element.removeAttr('id');
+            item_element.find('.OrderItemImg').attr('src',v['img']);
+            item_element.find('.OrderItemImg').attr('alt',v['title']);
+            item_element.find('.OrderItemTitle').text(v['title']);
+            item_element.find('.OrderItemPrice').text(disPlayPrice(v['price']));
+            item_element.find('.OrderItemNum').text(v['num']);
+
+            container.append(item_element);
+        });
+    }
+    function displayOrderBillInfo(orderElement, order) {
+		orderElement.find('.OrderTotalSum').text(disPlayPrice(order['total_price']));
+    }
+
+    function showNextPage() {
+//        console.log('showNextPage');
+		if(hasMore){
+		    app.getOrderList({type: type, p: ++page});
+		}
+    }
+    function showTypeList(typeID) {
+        //处理头部标签
+        $('.orderTypeList').find('.li-cur').removeClass('li-cur');
+        $('.TypeBtn').each(function (k,v) {
+			var id = $(v).find('.TypeId').text();
+			if(typeID == id){
+			    $(v).find('a').addClass('li-cur');
+			}
+        });
+        //初始化全局变量
+		type = typeID;
+        hasMore = false;
+        firstShow = true;
+        page = 0;
+        //获取页面
+        app.getOrderList({type: type, p: page});
+    }
+</script>
+</body>
+</html>

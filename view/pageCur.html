@@ -1,0 +1,264 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+	<title>我的</title>
+	<link href="../css/main.css" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/main.js"></script>
+	<script type="text/javascript" src="../js/template.js"></script>
+</head>
+<style>
+	.header-page-cur .header-h{
+		/*overflow: hidden;*/
+	}
+	.header-page-cur .header-h img{
+		height: 100px;
+		border-radius: 50%;
+	}
+	#template_body{
+		overflow-x: hidden;
+	}
+	.figcaption{
+		/*background: cadetblue;*/
+	}
+	.type_name{
+		display: none;
+	}
+	.info_section{
+		display: none;
+	}
+</style>
+
+<body class="gray">
+
+<div id="template_header"></div>
+
+<div id="template_body">
+<header class="header-page-cur">
+	<figure class="clearfix">
+		<figcaption class="figcaption">
+			<div class="header-main clearfix text-center">
+				<a class="set-up h2 cart_btn">
+					<i class="icon icon-shopping-cart"></i><span class="shop-nub right cart_num" style="display: none;">10</span>
+				</a>
+				<a class="set-up h2 left">
+					<i class="icon icon-comment-o"></i>
+				</a>
+				<p class="header-h text-center" id="user_pic">
+					<img src="../images/p-2.png">
+				</p>
+				<a class="header-main-login white h4" id="login_button">登录/注册</a>
+				<p class="p-name size16" id="user_name">MC大队长</p>
+			</div>
+		</figcaption>
+	</figure>
+</header>
+<section class="info_section">
+	<div class="container">
+		<div class="row">
+			<div class="bg-magin border-bottom main-state">
+				<ul class="clearfix orderTypeList">
+					<li>
+						<p class="text-center state-pic pic1">
+							<i class="icon icon-credit-card-alt"></i>
+							<span class="p-number white h6 text-center submit" style="display: none;">4</span>
+						</p>
+						<p class="text-center li-text">预约中</p>
+						<i class="type_name">预约中</i>
+					</li>
+					<li>
+						<p class="text-center state-pic pic2">
+							<i class="icon icon-truck"></i>
+							<span class="p-number white h6 text-center to_sending" style="display: none;">4</span>
+						</p>
+						<p class="text-center li-text">待配送</p>
+						<i class="type_name">待配送</i>
+					</li>
+					<li>
+						<p class="text-center state-pic pic3">
+							<i class="icon icon-gift"></i>
+							<span class="p-number white h6 text-center to_verify" style="display: none;">4</span>
+						</p>
+						<p class="text-center li-text">待确认</p>
+						<i class="type_name">待确认</i>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="row bg-magin">
+			<div class="dt allOrder_btn">
+				<div class="dt-left">
+					<i class="icon icon-list-alt"></i>
+				</div>
+				<div class="dt-right"><a href="#">全部订单<i class="icon icon-angle-right"></i></a></div>
+			</div>
+			<div class="dt userInfo_btn">
+				<div class="dt-left">
+					<i class="icon icon-user-o"></i>
+				</div>
+				<div class="dt-right"><a href="#">个人资料<i class="icon icon-angle-right"></i></a></div>
+			</div>
+			<div class="dt myCommission_btn">
+				<div class="dt-left">
+					<i class="icon icon-user-o"></i>
+				</div>
+				<div class="dt-right"><a href="#">我的佣金<i class="icon icon-angle-right"></i></a></div>
+			</div>
+			<div class="dt allAddress_btn">
+				<div class="dt-left">
+					<i class="icon icon-edit"></i>
+				</div>
+				<div class="dt-right"><a href="#">收货地址<i class="icon icon-angle-right"></i></a></div>
+			</div>
+			<div class="dt accountSafe_btn">
+				<div class="dt-left">
+					<i class="icon icon-link"></i>
+				</div>
+				<div class="dt-right"><a href="#">账户与安全<i class="icon icon-angle-right"></i></a></div>
+			</div>
+			<div class="dt systemSet_btn">
+				<div class="dt-left">
+					<i class="icon icon-cog"></i>
+				</div>
+				<div class="dt-right"><a href="#">系统设置<i class="icon icon-angle-right"></i></a></div>
+			</div>
+		</div>
+		<div class="row bg-white bg-magin">
+			<div class="dt re-jxs applyDealer_btn">
+				<div class="dt-left">
+					<i class="icon icon-users"></i>
+				</div>
+				<div class="dt-right"><a href="#">申请经销商<i class="icon icon-angle-right"></i></a></div>
+			</div>
+		</div>
+		<div class="row text-center bg-magin">
+			<button type="button" class="btn-white btn-w-all size15 logout_btn">退出当前账号</button>
+		</div>
+	</div>
+</section>
+</div>
+
+<div id="template_footer"></div>
+
+<script>
+
+    $(document).ready(function () {
+        Templates.loadTemplates('pageCur','我的');
+        registerClickEvent();
+        app.getUserInfo();
+        app.getUserOrdersData();
+    });
+
+    function registerClickEvent() {
+        $(document).on('click','#login_button',function () {
+            header('login');
+        });
+        $(document).on('click','.cart_btn',function () {
+            header('shopCart');
+        });
+        $(document).on('click','.orderTypeList li',function () {
+            var type_name = $(this).find('.type_name').text();
+//            header('userMessage-xiugai','fromPage=pageCur');
+//            console.log(type_name);
+            header('allOrder',{type_name:type_name});
+        });
+        $(document).on('click','.allOrder_btn',function () {
+            header('allOrder');
+        });
+        $(document).on('click','.userInfo_btn',function () {
+            header('userMessage');
+//			console.log('前往userMessage');
+        });
+        $(document).on('click','.myCommission_btn',function () {
+//            header('userMessage-xiugai','fromPage=pageCur');
+//            console.log('前往我的佣金');
+            header('yj');
+        });
+        $(document).on('click','.allAddress_btn',function () {
+//            header('userMessage-xiugai','fromPage=pageCur');
+//            console.log('前往收货地址');
+            header('allAddress');
+        });
+        $(document).on('click','.accountSafe_btn',function () {
+//            header('userMessage-xiugai','fromPage=pageCur');
+//            console.log('前往账户与安全');
+            header('pwdChange');
+        });
+        $(document).on('click','.systemSet_btn',function () {
+//            header('userMessage-xiugai','fromPage=pageCur');
+//            console.log('前往系统设置');
+            header('setSystem');
+        });
+        $(document).on('click','.applyDealer_btn',function () {
+//            header('userMessage-xiugai','fromPage=pageCur');
+//            console.log('前往申请经销商');
+            header('dealer');
+        });
+        $(document).on('click','.logout_btn',function () {
+//            header('userMessage-xiugai','fromPage=pageCur');
+            console.log('退出账号');
+        });
+    }
+
+    function callback_jsonCallback(back) {
+        var backValue = handleBack(back);
+        console.log(backValue);
+        if(backValue['success'] == false){
+            console.log('callback ERR: '+backValue['message']);
+            return;
+        }
+
+        switch (backValue['callback']) {
+            case 'getUserOrdersData':
+                console.log(backValue['data']);
+                showOrdersData(backValue['data']);
+                break;
+            case 'getUserInfo':
+                console.log(backValue['data']);
+                refreshUserInfo(backValue['data']);
+                break;
+            case 'getCartList':
+                console.log(backValue['data']);
+                break;
+        }
+    }
+
+    function showOrdersData(data) {
+        var orderData = data['orders_data'];
+        $.each(orderData,function(k,v){
+            if(v){
+                $('.'+k).show();
+                $('.'+k).text(v);
+            }
+        })
+    }
+
+    function refreshUserInfo(data) {
+        if(data){
+            $('#login_button').css('display','none');
+            $('#user_name').text(data.entity_name);
+//            $('#user_pic').children(0)[0].src = 'aaa';
+            $('#user_pic').find('img').attr('src',data['avatar']);
+            checkImgLoad('#user_pic',"../images/p-2.png");
+            $('.info_section').css('display','block');
+            var user_level = data['user_level'];
+            switch(user_level){
+                case "用户":
+					$('.myCommission_btn').css('display','none');
+                    break;
+                case "经销商":
+                    $('.applyDealer_btn').css('display','none');
+                    break;
+            }
+
+        }else{
+            $('#user_name').css('display','none');
+            $('#login_button').css('display','block');
+        }
+
+    }
+</script>
+</body>
+</html>

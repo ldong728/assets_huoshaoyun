@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+	<title>注册</title>
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/main.js"></script>
+	<script type="text/javascript" src="../js/template.js"></script>
+	<script type="text/javascript" src="../js/Pattern.js"></script>
+	<link href="../css/main.css" rel="stylesheet">
+</head>
+
+<body class="gray">
+<header class="header bg-white border-bottom">
+	<div class="container">
+		<div class="row">
+			<button class="btn-white header-back h2"><i class="icon icon-angle-left"></i></button>
+			<div class="text-center h-middle"><p class="h3">注册</p></div>
+		</div>
+	</div>
+</header>
+<section>
+	<div class="container">
+		<div class="row set-place address">
+			<div class="input bg-white border-bottom safe">
+				<label class="label-con">手机号</label>
+				<button class="ab-btn btn-white clean_phone_btn"></button>
+				<input type="text" name="user" placeholder="123465798" class="btn-white right text-left new-input register-inf code-tel" data-field="phone">
+			</div>
+			<div class="bg-white input border-bottom safe">
+				<label class="label-con">验证码</label>
+				<input type="text" name="card" class="btn-white register-inf" data-field="code">
+				<button class="right btn-white get-card get-code-button">获取验证码</button>
+			</div>
+			<div class="input bg-white border-bottom safe">
+				<label class="label-con">推荐人</label>
+				<input type="text" name="name" placeholder="6位数字组合" class="btn-white right text-left new-input register-inf" data-field="reference">
+			</div>
+			<div class="input bg-white border-bottom safe">
+				<label class="label-con">设置密码</label>
+				<input type="password" name="pwd" placeholder="6-20位字母、数字组合" class="btn-white right text-left new-input register-inf" data-field="user_password" id="psw1">
+			</div>
+			<div class="input bg-white border-bottom safe">
+				<label class="label-con">确认密码</label>
+				<input type="password" name="pwd" placeholder="6-20位字母、数字组合" class="btn-white right text-left new-input" id="psw2">
+			</div>
+		</div>
+		<div class="row">
+			<button value="phone-login" class="btn bg-black submit-register">注&nbsp;&nbsp;册</button>
+			<div class="re-bt clearfix">
+				<button class="re-login right header_login">登录</button>
+				<p class="color6 right">已有账号？</p>
+			</div>
+		</div>
+	</div>
+</section>
+</body>
+</html>
+
+<script>
+    var values;
+
+    $('.clean_phone_btn').click(function () {
+        $('.code-tel').val('');
+    });
+    $('.header_login').click(function () {
+        header('login');
+    });
+    $('.submit-register').click(function(){
+        var inputs=$('.register-inf');
+        values={};
+        var hasError=false;
+        inputs.each(function(k,v){
+            var dataField=$(v).data('field');
+            console.log(dataField);
+            hasError=Pattern.checkErr(dataField, v.value);
+            if(hasError){
+                return false;
+            }
+            values[dataField]= v.value;
+        });
+        if(hasError){
+            alert(hasError);
+        }else{
+            if($('#psw1').val()!=$('#psw2').val()){
+                alert('输入密码不一致');
+            }else{
+//                values.user_password=btoa(values.user_password);
+                console.log(values);
+//                app.regist(values);
+            }
+        }
+    });
+    $('.header-back').click(function () {
+        header('login');
+    });
+    $('.get-code-button').click(function(){
+        var tel=$('.code-tel').val();
+        app.getCode({account:tel});
+    });
+
+
+    function callback_jsonCallback(data){
+
+        var backValue=handleBack(data);
+        console.log(backValue);
+
+        if('getCode'==backValue.callback){
+            if(backValue.success){
+                alert(backValue.message);
+                $('.get-code-button').get(0).disabled=true;
+                var timeCount=60;
+                var interval=setInterval(function(){
+                    $('.get-code-button').text((--timeCount)+'秒后重新获取');
+                },1000);
+                setTimeout(function(){
+                    clearInterval(interval);
+                    $('.get-code-button').get(0).disabled=false;
+                    $('.get-code-button').text('获取短信验证码');
+                },60000);
+            }else{
+                alert(backValue.message);
+            }
+        }
+
+
+    }
+    function callback_getSession(data){
+        alert('getSession');
+        var backValue=handleBack(data);
+        if(backValue.success){
+            app.saveUserInf(values);
+            header('index');
+        }else{
+            alert(backValue.message);
+        }
+
+    }
+
+
+</script>

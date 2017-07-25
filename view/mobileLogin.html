@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+<title>手机快捷登录</title>
+	<link href="../css/main.css" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/main.js"></script>
+	<script type="text/javascript" src="../js/template.js"></script>
+	<script type="text/javascript" src="../js/Pattern.js"></script>
+</head>
+
+<body class="gray">
+<div id="template_header"></div>
+<div id="template_body">
+	<section>
+		<div class="container">
+			<div class="row phone-card address set-place">
+				<div class="set-pwd bg-white input">
+					<label>手机号</label>
+					<input type="text" name="setpwd" class="set btn-white code-tel values" data-field="user_tel">
+				</div>
+				<div class="card bg-white input">
+					<label>验证码</label>
+					<input type="text" name="card" class="btn-white values" data-field="code">
+					<button class="right btn-white btn-center get-code-button">获取验证码</button>
+				</div>
+			</div>
+			<div class="row">
+				<button value="phone-login" class="btn bg-d confirm_btn">登&nbsp;&nbsp;录</button>
+				<p class="mobie-login-mess login_tip">若您输入的手机号未注册，将会进入注册流程</p>
+			</div>
+		</div>
+	</section>
+</div>
+<div id="template_footer"></div>
+
+</body>
+</html>
+<script>
+	//判断页面类型
+	var isLostPwd = getUrlParam('isLostPwd');
+	var destPage = null;
+	if(isLostPwd){
+        Templates.loadTemplates('mobileLogin','忘记密码');
+        $('.confirm_btn').text('下一步');
+        $('.login_tip').hide();
+        destPage = 'pwdChange';
+	}else{
+        Templates.loadTemplates('mobileLogin','手机快捷登录');
+        destPage = 'index';
+	}
+
+	//注册按键事件
+    $('.get-code-button').click(function(){
+        var tel=$('.code-tel').val();
+        app.getCode({account:tel});
+    });
+	$('.header-back').click(function () {
+		header('login');
+    });
+    $('.confirm_btn').click(function(){
+        var data={};
+        var error_tag=false;
+        $('.values').each(function(k,v){
+            var value=$(v).val();
+            var field=$(v).data('field');
+            var error=Pattern.checkErr(field,value);
+            if(!error){
+                data[field]=value;
+            }else{
+                alert(error);
+                error_tag = true;
+            }
+        });
+
+        if(!error_tag){
+            console.log(data);
+            app.loginQuick(data);
+        }
+    });
+
+
+    function callback_jsonCallback(data){
+
+        var backValue=handleBack(data);
+        console.log(backValue);
+        if(backValue.success != true) {
+            alert(backValue.message);
+            return;
+        }
+
+        if('loginQuick'==backValue.callback){
+            header(destPage);
+        }
+
+        if('getCode'==backValue.callback){
+            alert(backValue.message);
+            $('.get-code-button').get(0).disabled=true;
+            var timeCount=60;
+            var interval=setInterval(function(){
+                $('.get-code-button').text((--timeCount)+'秒后重新获取');
+            },1000);
+            setTimeout(function(){
+                clearInterval(interval);
+                $('.get-code-button').get(0).disabled=false;
+                $('.get-code-button').text('获取短信验证码');
+            },60000);
+        }
+
+
+    }
+
+</script>

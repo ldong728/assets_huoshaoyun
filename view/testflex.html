@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test flex</title>
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+        }
+        .container{
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            background: darkgray;
+        }
+        .boxElement{
+            display: none;
+        }
+        .item{
+            height: 10vw;
+            width: 50vw;
+            background: orangered;
+            border: 1px solid white;
+        }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="item boxElement"></div>
+</div>
+
+</body>
+</html>
+<script>
+    function addbox(height,width) {
+        var container = $('.container');
+        var box = $('.boxElement').clone();
+        box.removeClass('boxElement');
+        if(height){
+            box.height(height+'vw');
+        }
+        if(width){
+            box.height(width+'vw');
+        }
+        container.append(box);
+    }
+</script>

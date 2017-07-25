@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+	<title>修改登录密码</title>
+	<link href="../css/main.css" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/main.js"></script>
+	<script type="text/javascript" src="../js/template.js"></script>
+	<script type="text/javascript" src="../js/Pattern.js"></script>
+</head>
+
+<body class="gray">
+
+<div id="template_header"></div>
+
+<div id="template_body">
+	<section>
+		<div class="container">
+			<div class="row set-place address">
+				<div class="input bg-white border-bottom safe">
+					<label class="label-con">账&nbsp;&nbsp;&nbsp;号</label>
+					<input type="text" name="user" placeholder="158 1234 5678" class="btn-white right text-left new-input user_tel" readonly>
+
+				</div>
+				<div class="input bg-white border-bottom safe">
+					<label class="label-con">登录密码</label>
+					<input type="password" name="pwd" placeholder="填写当前登录密码" class="btn-white right text-left new-input newDataInfo" data-field="password_old">
+				</div>
+				<p class="validate">请重新设置登录密码</p>
+				<div class="input bg-white border-bottom safe">
+					<label class="label-con">设置新密码</label>
+					<input type="password" name="user" placeholder="6-20位字母、数字结合" class="btn-white right text-left new-input newDataInfo" data-field="password_new">
+				</div>
+				<div class="input bg-white border-bottom safe">
+					<label class="label-con">确认新密码</label>
+					<input type="password" name="pwd" placeholder="再次填写密码" class="btn-white right text-left new-input pwd_confirm">
+				</div>
+			</div>
+			<div class="row">
+				<button value="register" class="btn bg-black submit_btn">完&nbsp;&nbsp;成</button>
+			</div>
+		</div>
+	</section>
+</div>
+
+<div id="template_footer"></div>
+
+</body>
+</html>
+
+<script>
+    var fromPage;
+    setInitParam();
+
+    $(document).ready(function () {
+        Templates.loadTemplates('pwdChange','修改登录密码');
+        registerClickEvent();
+        app.getUserInfo();
+    });
+
+    function setInitParam() {
+        fromPage = getUrlParam('fromPage');
+        if(fromPage == null){
+            fromPage = 'index';
+        }
+    }
+
+    function registerClickEvent() {
+        $(document).on('click','.header-back',function () {
+            header(fromPage);
+        });
+        $(document).on('click','.submit_btn',function () {
+            submit_pwd_change();
+        });
+    }
+
+    function callback_jsonCallback(back) {
+        var backValue = handleBack(back);
+        console.log(backValue);
+        if(backValue['success'] == false){
+            console.log('callback ERR: '+backValue['message']);
+            return;
+        }
+
+        switch (backValue['callback']) {
+            case 'getUserInfo':
+                console.log(backValue['data']);
+                refreshUserInfo(backValue['data']);
+                break;
+            case 'userInfoModify':
+                alert(backValue['message']);
+                header(fromPage);
+        }
+    }
+
+    function refreshUserInfo(data) {
+        $('.user_tel').val(data.user_tel);
+    }
+
+    function submit_pwd_change() {
+        console.log('submit_pwd_change');
+        var inputs=$('.newDataInfo');
+        var newDataInfo = {};
+        var hasError=false;
+
+
+        inputs.each(function(k,v){
+            var dataField=$(v).data('field');
+            hasError=Pattern.checkErr(dataField, v.value);
+            if(hasError){
+                return false;
+            }
+            newDataInfo[dataField]= v.value;
+        });
+
+        if(hasError){
+            alert(hasError);
+            return false;
+        }
+
+        var pwd_confirm = $('.pwd_confirm').val();
+
+        if(pwd_confirm != newDataInfo['password_new']){
+            console.log(pwd_confirm,newDataInfo['password_new']);
+            alert('两次密码输入不同');
+            return false;
+		}
+        console.log(newDataInfo);
+
+        app.userInfoModify(newDataInfo);
+    }
+</script>

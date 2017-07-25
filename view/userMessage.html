@@ -1,0 +1,201 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+	<title>个人资料</title>
+	<link href="../css/main.css" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/main.js"></script>
+	<script type="text/javascript" src="../js/template.js"></script>
+	<script type="text/javascript" src="../js/Pattern.js"></script>
+	
+	<style>
+		.m-section{display: none;}
+		.section2{display: block;}
+		.user_pic img{
+			border-radius: 50%;
+		}
+	</style>
+</head>
+
+<body class="gray">
+
+<div id="template_header"></div>
+
+<div id="template_body">
+	<section class="m-section">
+		<div class="container">
+			<div class="row set-place address">
+				<div class="input bg-white border-bottom safe" style="height: 120px;line-height: 120px">
+					<label>头&nbsp;&nbsp;&nbsp;像</label>
+					<p class="right user-head text-center user_pic">
+						<img src="../images/p-2.png" alt="">
+					</p>
+				</div>
+				<div class="input bg-white border-bottom safe">
+					<label class="label-con">用户名</label>
+					<button class="ab-btn btn-white btn-delete-js"></button>
+					<input type="text" name="user" class="btn-white right text-left new-input entity_name newDataInfo" data-field="entity_name">
+				</div>
+				<div class="input bg-white border-bottom safe">
+					<label class="label-con">手机号</label>
+					<button class="ab-btn btn-white btn-delete-js"></button>
+					<input type="text" name="tel" class="btn-white right text-left new-input user_tel newDataInfo" data-field="user_tel">
+				</div>
+<!--
+				<div class="input bg-white border-bottom safe">
+					<label class="label-con">性&nbsp;&nbsp;&nbsp;别</label>
+					<input type="text" name="user" placeholder="男" class="btn-white right text-left new-input">
+				</div>
+-->
+			</div>
+		</div>
+	</section>
+	<section class="m-section section2">
+		<div class="container">
+			<div class="row set-place address">
+				<div class="input bg-white border-bottom safe" style="height: 120px;line-height: 120px">
+					<label>头&nbsp;&nbsp;&nbsp;像</label>
+					<p class="right user-head text-center user_pic">
+						<img src="../images/p-2.png" alt="">
+					</p>
+				</div>
+				<div class="input bg-white border-bottom safe">
+					<label class="label-con">用户名</label>
+					<input type="text" name="user" placeholder="MC大队长" class="btn-white right text-right new-input entity_name" readonly>
+				</div>
+				<div class="input bg-white border-bottom safe">
+					<label class="label-con">手机号</label>
+					<input type="text" name="user" class="btn-white right text-right new-input user_tel" readonly>
+				</div>
+<!--
+				<div class="input bg-white border-bottom safe">
+					<label class="label-con">性&nbsp;&nbsp;&nbsp;别</label>
+					<input type="text" name="user" placeholder="男" class="btn-white right text-right new-input" readonly>
+				</div>
+-->
+			</div>
+		</div>
+	</section>
+</div>
+<div id="template_footer"></div>
+
+<script>
+    var fromPage,newDataInfo;
+    setInitParam();
+
+    $(document).ready(function () {
+        Templates.loadTemplates('userMessage','个人资料');
+		registerClickEvent();
+		app.getUserInfo();
+    });
+	
+	 function callback_jsonCallback(back) {
+        var backValue = handleBack(back);
+        console.log(backValue);
+        if(backValue['success'] == false){
+            console.log('callback ERR: '+backValue['message']);
+            return;
+        }
+
+        switch (backValue['callback']) {
+            case 'getUserInfo':
+                console.log(backValue['data']);
+                refreshUserInfo(backValue['data']);
+                break;
+            case 'userInfoModify':
+                console.log(backValue['data']);
+                refreshUserInfo(newDataInfo);
+                var btn = $('.btn-wan');
+                btn.addClass('btn-xiu').html('修改').removeClass('btn-wan');
+                $('.m-section:eq(1)').show().siblings('.m-section').hide();
+                break;
+        }
+    }
+	
+	 function refreshUserInfo(data) {
+            $('.entity_name').val(data.entity_name);
+            $('.user_tel').val(data.user_tel);
+//            $('#user_pic').children(0)[0].src = 'aaa';
+            $('.user_pic').find('img').attr('src',data['avatar']);
+//            checkImgLoad('.user_pic',"../images/p-2.png");
+		 newDataInfo = data;
+
+    }
+
+    function setInitParam() {
+        fromPage = getUrlParam('fromPage');
+        if(fromPage == null){
+            fromPage = 'pageCur';
+        }
+
+        //在 refreshUserInfo() 中真正赋值
+        newDataInfo={};
+    }
+
+    function registerClickEvent() {
+        $(document).on('click','.header-back',function () {
+			console.log('aaa');
+            if(fromPage){
+                header(fromPage);
+			}else{
+                header('pageCur');
+			}
+
+        });
+        $(document).on('click','button.btn-xiu',function(){
+			$(this).addClass('btn-wan').html('完成').removeClass('btn-xiu');
+			$('.m-section:eq(0)').show().siblings('.m-section').hide();
+		});
+		$(document).on('click','button.btn-wan',function(){
+            confirm_edit();
+		});
+		$(document).on('click','.btn-delete-js',function(){
+			$(this).next('input[type=text]').val('').focus();
+		});
+        $(document).on('click','.user_pic',function(){
+            app.choosePic();
+        });
+    }
+
+    function confirm_edit() {
+		console.log('confirm edit');
+        var inputs=$('.newDataInfo');
+        var hasError=false;
+
+
+        inputs.each(function(k,v){
+            var dataField=$(v).data('field');
+            hasError=Pattern.checkErr(dataField, v.value);
+            if(hasError){
+                return false;
+            }
+            newDataInfo[dataField]= v.value;
+        });
+
+        if(hasError){
+            alert(hasError);
+            return false;
+        }
+        console.log(newDataInfo);
+
+        app.userInfoModify(newDataInfo);
+    }
+
+//
+//    var getIOSImage = function(){
+//        var parameter = {'title':'JS调OC','describe':'这里就是JS传给OC的参数'};
+//        // 在下面这里实现js 调用系统原生api iosDelegate
+//        //JSON.stringify(参数字符串) 这个方法是 把字符串转换成json字符串
+//        window.iosDelegate.getImage(JSON.stringify(parameter));// 实现数据的 json 格式字符串
+//    }
+//    // 这里是 iOS调用js的方法
+//    function setImageWithPath(arguments){
+//        document.getElementById('changeImage').src = arguments['imagePath'];
+//        document.getElementById('iosParame').innerHTML = arguments['iosContent'];
+//    }
+
+</script>
+</body>
+</html>

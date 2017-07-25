@@ -1,0 +1,194 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+	<title>新增收货地址</title>
+	<link href="../css/main.css" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/main.js"></script>
+	<script type="text/javascript" src="../js/template.js"></script>
+	<script type="text/javascript" src="../js/Area.js"></script>
+	<script type="text/javascript" src="../js/Pattern.js"></script>
+	<style>
+		.custom_checkbox {
+			display: none;
+		}
+
+		.custom_checkbox + label {
+			display: flex;
+			display: -webkit-flex;
+			border: 2px solid gray;
+			border-radius: 50%;
+
+			width: 15px;
+			height: 15px;
+
+			font-size: 18px;
+			line-height: 15px;
+		}
+
+		.custom_checkbox:checked + label {
+			border: 2px solid black;
+			/*background: black;*/
+		}
+
+		.custom_checkbox:checked + label:after {
+			/* content: ' '; */
+			content: "\f058";
+			width: 100%;
+			height: 100%;
+			/* background: lawngreen; */
+			/* border: 2px solid white; */
+			border-radius: 50%;
+		}
+	</style>
+</head>
+
+<body class="gray">
+<div id="template_header"></div>
+
+<div id="template_body">
+	<section>
+		<div class="container">
+			<div class="row set-place address">
+				<div class="input bg-white border-bottom safe">
+					<label class="label-con">姓&nbsp;&nbsp;&nbsp;名</label>
+					<input type="text" name="user" placeholder="请填写收货人姓名" class="btn-white right text-left new-input newDataInfo" data-field="name">
+				</div>
+				<div class="input bg-white border-bottom">
+					<label class="label-con">电&nbsp;&nbsp;&nbsp;话</label>
+					<input type="text" name="tel" placeholder="请填写收货人电话" class="btn-white new-input newDataInfo" data-field="phone">
+				</div>
+				<div class="input bg-white border-bottom safe">
+					<label class="label-con">地&nbsp;&nbsp;&nbsp;区</label>
+					<select class="magin-left select select-province newDataInfo" data-field="province">
+						<option>浙江省</option>
+					</select>
+					<select class="select select-city newDataInfo" data-field="city">
+						<option>宁波市</option>
+					</select>
+					<select class="select select-area newDataInfo" data-field="area">
+						<option>慈溪市</option>
+					</select>
+				</div>
+				<div class="input bg-white border-bottom">
+					<label class="label-con">地&nbsp;&nbsp;&nbsp;址</label>
+					<input type="text" name="main-add" placeholder="请输入详细地址" class="btn-white new-input newDataInfo" data-field="address">
+				</div>
+			</div>
+			<div class="row label">
+				<button class="left">
+					<!--<i class="icon icon-check-circle black h2"></i>-->
+					<div style="margin: 4px 0 0 0;">
+						<input type="checkbox" id="setDefaultAddr" class="custom_checkbox" />
+						<label for="setDefaultAddr" class="icon"></label>
+					</div>
+				</button>
+				<h4 class="left"><label for="setDefaultAddr">设置成默认收货地址</label></h4>
+			</div>
+			<div class="row">
+				<button value="register" class="btn bg-black submitNewAddr_btn">确&nbsp;&nbsp;认</button>
+			</div>
+		</div>
+	</section>
+</div>
+
+<div id="template_footer"></div>
+
+</body>
+</html>
+
+<script>
+    var fromPage;
+    setInitParam();
+
+    $(document).ready(function () {
+        Templates.loadTemplates('newAddress','新增收货地址');
+        registerClickEvent();
+        app.getArea();
+    });
+
+    function setInitParam() {
+        fromPage = getUrlParam('fromPage');
+        if(fromPage == null){
+            fromPage = 'index';
+        }
+    }
+
+    function registerClickEvent() {
+        $(document).on('click','.header-back',function () {
+            header(fromPage,{fromPage:''});
+        });
+        $(document).on('click','.submitNewAddr_btn',function () {
+            submitNewAddr();
+        });
+    }
+
+    function callback_jsonCallback(back) {
+        var backValue = handleBack(back);
+        console.log(backValue);
+        if(backValue['success'] == false){
+            console.log('callback ERR: '+backValue['message']);
+            return;
+        }
+
+        switch (backValue['callback']) {
+            case 'area':
+                console.log(backValue['data']);
+                setSelectElement(backValue);
+                break;
+            case 'receivingModify':
+                alert(backValue['message']);
+                header(fromPage,{fromPage:''});
+                break;
+        }
+    }
+
+    function setSelectElement(backValue) {
+        var defaultData = null;
+        Area.getAreaInf(backValue,defaultData);
+    }
+
+    function submitNewAddr() {
+        console.log('start submit');
+        var inputs=$('.newDataInfo');
+        var newDataInfo={};
+        var hasError=false;
+
+        inputs.each(function(k,v){
+            var dataField=$(v).data('field');
+            hasError=Pattern.checkErr(dataField, v.value);
+            if(hasError){
+                return false;
+            }
+            newDataInfo[dataField]= v.value;
+        });
+        if(hasError){
+            alert(hasError);
+            return false;
+        }
+
+        newDataInfo['setDefaultAddr'] = $('#setDefaultAddr').prop('checked');
+        for (var key in newDataInfo){
+            console.log(key+': '+newDataInfo[key]);
+        }
+        console.log(newDataInfo);
+		app.receivingModify(newDataInfo);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>

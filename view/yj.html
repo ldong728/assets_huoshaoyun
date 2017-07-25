@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+	<title>我的佣金</title>
+	<link href="../css/main.css" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/main.js"></script>
+	<script type="text/javascript" src="../js/template.js"></script>
+</head>
+
+<body class="gray">
+
+<div id="template_header"></div>
+
+<div id="template_body">
+	<section>
+		<div class="container">
+			<div class="row magintop10 bg-white bg-magin">
+				<p class="height50 size15">余额（元）</p>
+				<h1 class="h1 red balance">254.82</h1>
+			</div>
+			<div class="row magintop10 bg-white bg-magin color6">
+				<p class="size15 border-bottom balance-mx">余额明细（元）</p>
+				<div class="nav-balance">
+					<ul>
+						<li class="border-bottom size15 clearfix">
+							<div class="ba-l">
+								<p class="ba-l-t">平台奖励</p>
+								<p class="ba-l-b">2017-07-05 09:54:08</p>
+							</div>
+							<div class="ba-r">
+								<p class="ba-r-m">+20.00</p>
+							</div>
+						</li>
+						<li class="border-bottom size15 clearfix">
+							<div class="ba-l">
+								<p class="ba-l-t">进货卖货</p>
+								<p class="ba-l-b">2017-07-05 09:54:08</p>
+							</div>
+							<div class="ba-r">
+								<p class="ba-r-m">+20.00</p>
+							</div>
+						</li>
+						<li class="border-bottom size15 clearfix">
+							<div class="ba-l">
+								<p class="ba-l-t">进货卖货</p>
+								<p class="ba-l-b">2017-07-05 09:54:08</p>
+							</div>
+							<div class="ba-r">
+								<p class="ba-r-m">+20.00</p>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<p class="balance-more text-center">查看更多<i>&gt;</i></p>
+			</div>
+			<div class="row">
+				<button value="register" class="btn bg-red withdraw_btn">佣金提现</button>
+			</div>
+		</div>
+	</section>
+</div>
+<div id="template_footer"></div>
+
+
+</body>
+</html>
+
+<script>
+    var fromPage;
+    setInitParam();
+
+    $(document).ready(function () {
+        Templates.loadTemplates('yj','我的佣金');
+        registerClickEvent();
+    });
+
+    function setInitParam() {
+        fromPage = getUrlParam('fromPage');
+        if(fromPage == ''){
+            fromPage = 'pageCur';
+        }
+    }
+
+    function registerClickEvent() {
+        $(document).on('click','.header-back',function () {
+            header(fromPage);
+        });
+        $(document).on('click','.withdraw_btn',function () {
+            header('tx');
+        });
+    }
+
+</script>

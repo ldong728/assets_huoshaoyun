@@ -1,0 +1,185 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+	<title>修改收货地址</title>
+	<link href="../css/main.css" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/main.js"></script>
+	<script type="text/javascript" src="../js/template.js"></script>
+	<script type="text/javascript" src="../js/Area.js"></script>
+	<script type="text/javascript" src="../js/Pattern.js"></script>
+</head>
+
+<body class="gray">
+
+<div id="template_header"></div>
+
+<div id="template_body">
+	<section>
+		<div class="container">
+			<div class="row set-place address">
+				<div class="input bg-white border-bottom safe">
+					<label class="label-con">收货人</label>
+					<input type="text" name="user" placeholder="收货人姓名" class="btn-white right text-left new-input AddressName newDataInfo" data-field="name">
+					<button class="ab-btn btn-white clearInput_btn"></button>
+				</div>
+				<div class="input bg-white border-bottom safe">
+					<label class="label-con">手机号</label>
+					<input type="text" name="user" placeholder="收货人手机号码" class="btn-white right text-left new-input AddressTel newDataInfo" data-field="tel">
+					<button class="ab-btn btn-white clearInput_btn"></button>
+				</div>
+				<div class="input bg-white border-bottom safe">
+					<label class="label-con">地&nbsp;&nbsp;&nbsp;区</label>
+					<select class="magin-left select select-province newDataInfo" data-field="province">
+						<option>浙江省</option>
+					</select>
+					<select class="select select-city newDataInfo" data-field="city">
+						<option>宁波市</option>
+					</select>
+					<select class="select select-area newDataInfo" data-field="area">
+						<option>慈溪市</option>
+					</select>
+				</div>
+				<div class="input bg-white border-bottom safe">
+					<label class="label-con">详细地址</label>
+					<input type="text" name="user" placeholder="收货人详细地址" class="btn-white right text-left new-input AddressDetailAddress newDataInfo" data-field="address">
+					<button class="ab-btn btn-white clearInput_btn"></button>
+
+				</div>
+			</div>
+			<div class="row">
+				<button value="register" class="btn bg-black deleteAddress_btn">删&nbsp;&nbsp;除</button>
+			</div>
+		</div>
+	</section>
+</div>
+
+<div id="template_footer"></div>
+
+
+</body>
+</html>
+
+<script>
+
+    var fromPage, addressId;
+    var targetAddress = null;
+    setInitParam();
+
+    $(document).ready(function () {
+        Templates.loadTemplates('reviseAddress','修改收货地址');
+        registerClickEvent();
+        app.getArea();
+        app.getReceivingList();
+    });
+
+    function setInitParam() {
+        fromPage = getUrlParam('fromPage');
+        if(fromPage == ''){
+            fromPage = 'allAddress';
+        }
+        addressId = getUrlParam('addressId');
+        if(addressId == '' || addressId == null){
+            alert('地址id无效');
+            header(fromPage,{fromPage:''});
+		}
+    }
+
+    function registerClickEvent() {
+        $(document).on('click','.header-back',function () {
+            header(fromPage,{fromPage:''});
+        });
+        $(document).on('click','.clearInput_btn',function () {
+            $(this).parent().find('input').val('');
+        });
+        //confirmChange_btn 在 templateHeader 中
+        $(document).on('click','.confirmChange_btn',function () {
+            confirmAddressChange();
+        });
+        $(document).on('click','.deleteAddress_btn',function () {
+            if(confirm('确定要删除收货地址吗？')){
+                app.receivingDel({rid:addressId});
+			}
+        });
+    }
+
+    function callback_jsonCallback(back) {
+        var backValue = handleBack(back);
+        console.log(backValue);
+        if(backValue['success'] == false){
+            console.log('callback ERR: '+backValue['message']);
+            return;
+        }
+
+        switch (backValue['callback']) {
+            case 'getReceivingList':
+                console.log(backValue['data']);
+                displayReceivingList(backValue['data']['list']);
+                break;
+            case 'area':
+                console.log(backValue['data']);
+                setSelectElement(backValue);
+                break;
+            case 'receivingModify':
+//                alert(backValue['message']);
+                header(fromPage,{fromPage:''});
+                break;
+            case 'receivingDel':
+//                alert(backValue['message']);
+                header(fromPage,{fromPage:''});
+                break;
+        }
+    }
+
+    function displayReceivingList(list) {
+        console.log(list);
+        $.each(list,function(k,v) {
+            if(v['id'] == addressId){
+                targetAddress = v;
+			}
+        });
+        console.log(targetAddress);
+        $('.AddressName').val(targetAddress['name']);
+        $('.AddressTel').val(targetAddress['tel']);
+        $('.AddressDetailAddress').val(targetAddress['address']);
+    }
+
+    function setSelectElement(backValue) {
+        var defaultData = null;
+        if(targetAddress){
+            defaultData = {};
+            defaultData['province'] = targetAddress['province'];
+            defaultData['city'] = targetAddress['city'];
+            defaultData['area'] = targetAddress['area'];
+		}
+        Area.getAreaInf(backValue,defaultData);
+    }
+
+    function confirmAddressChange() {
+
+        var inputs=$('.newDataInfo');
+        var newDataInfo={};
+        var hasError=false;
+
+
+        inputs.each(function(k,v){
+            var dataField=$(v).data('field');
+            hasError=Pattern.checkErr(dataField, v.value);
+            if(hasError){
+                return false;
+            }
+            newDataInfo[dataField]= v.value;
+        });
+
+        if(hasError){
+            alert(hasError);
+            return false;
+		}
+        newDataInfo['rid'] = addressId;
+
+//        console.log(newDataInfo);
+		app.receivingModify(newDataInfo);
+    }
+</script>

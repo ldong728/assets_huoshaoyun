@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+	<title>系统设置</title>
+	<link href="../css/main.css" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/main.js"></script>
+	<script type="text/javascript" src="../js/template.js"></script>
+</head>
+
+<body class="gray">
+
+<div id="template_header"></div>
+
+<div id="template_body">
+<section>
+	<div class="container">
+		<div class="row set-place address">
+			<ul class="ul-system">
+				<li class="li">
+					<p class="li-tab">帮助中心</p>
+					<button class="ul-li-btn"><i class="icon icon-angle-down"></i></button>
+					<div class="system-main bg-magin" style="display: block;">
+						<p>宁波杭州湾新区蓝绿锦食品贸易有限公司是宁波步锦电源科技有限公司旗下全资子公司，本公司是已分布是光伏发电为主营业务的高科技有限公司。总公司旗下另一子公司青海海锦新能源有限公司在国内西部地区从事太阳能发电</p>
+					</div>
+				</li>
+				<li class="li">
+					<p class="li-tab">客服热线</p>
+					<button class="ul-li-btn"><i class="icon icon-angle-right"></i></button>
+					<div class="system-main">
+						<p>宁波杭州湾新区蓝绿锦食品贸易有限公司是宁波步锦电源科技有限公司旗下全资子公司，本公司是已分布是光伏发电为主营业务的高科技有限公司。总公司旗下另一子公司青海海锦新能源有限公司在国内西部地区从事太阳能发电</p>
+					</div>
+				</li>
+				<li class="li">
+					<p class="li-tab">关于我们</p>
+					<button class="ul-li-btn"><i class="icon icon-angle-right"></i></button>
+					<div class="system-main">
+						<p>宁波杭州湾新区蓝绿锦食品贸易有限公司是宁波步锦电源科技有限公司旗下全资子公司，本公司是已分布是光伏发电为主营业务的高科技有限公司。总公司旗下另一子公司青海海锦新能源有限公司在国内西部地区从事太阳能发电</p>
+					</div>
+				</li>
+				
+			</ul>
+		</div>
+	</div>
+</section>
+</div>
+
+<div id="template_footer"></div>
+
+<script>
+    var fromPage;
+    setInitParam();
+
+    $(document).ready(function () {
+        Templates.loadTemplates('setSystem','系统设置');
+        registerClickEvent();
+    });
+
+    function setInitParam() {
+        fromPage = getUrlParam('fromPage');
+        if(fromPage == ''){
+            fromPage = 'pageCur';
+        }
+    }
+
+    function registerClickEvent() {
+        $(document).on('click','.header-back',function () {
+            header(fromPage);
+        });
+        $(document).on('click','.ul-li-btn',function(){
+            $(this).parents('.li').siblings().children('.ul-li-btn').children().removeClass('icon-angle-down');
+            $('.ul-li-btn').children().addClass('icon-angle-right');
+            $('.ul-li-btn').next().hide();
+            if($(this).children().hasClass('icon-angle-down')){
+                $(this).children().removeClass('icon-angle-down');
+                $(this).children().addClass('icon-angle-right');
+                $(this).next().hide();
+            }else if($(this).children().hasClass('icon-angle-right')){
+                $(this).children().addClass('icon-angle-down');
+                $(this).next().show();
+            }
+        });
+    }
+</script>
+</body>
+</html>
