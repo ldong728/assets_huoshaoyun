@@ -53,7 +53,7 @@
 		}
 
         switch (backValue['callback']) {
-            case 'login':
+            case 'user_login':
                 console.log(backValue['message']);
                 header('index');
                 break;
@@ -64,8 +64,8 @@
         $(document).on('click','.login_btn',function () {
             var username = $('#user_tel').val();
             var password = $('#user_password').val();
-            var loginValue = {username:username,password:password};
-            app.login(loginValue);
+            var loginValue = {username:username,password:btoa(password)};
+            app('user_login',loginValue);
         });
         $(document).on('click','.register_btn',function () {
             header('register');
@@ -77,7 +77,7 @@
             $('#user_password').attr('type','password');
         });
         $(document).on('click','.lost-pwd',function () {
-            header('mobileLogin', 'isLostPwd=true');
+            header('mobileLogin', {isLostPwd:true});
         });
         $(document).on('click','.mobile_login_btn',function () {
             header('mobileLogin');

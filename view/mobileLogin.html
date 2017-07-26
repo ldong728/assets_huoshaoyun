@@ -40,46 +40,54 @@
 </html>
 <script>
 	//判断页面类型
-	var isLostPwd = getUrlParam('isLostPwd');
-	var destPage = null;
-	if(isLostPwd){
-        Templates.loadTemplates('mobileLogin','忘记密码');
-        $('.confirm_btn').text('下一步');
-        $('.login_tip').hide();
-        destPage = 'pwdChange';
-	}else{
-        Templates.loadTemplates('mobileLogin','手机快捷登录');
-        destPage = 'index';
-	}
+	var isLostPwd,destPage;
+    initPage();
+    registerClickEvent();
+
+    function initPage() {
+        isLostPwd = getUrlParam('isLostPwd');
+        if(isLostPwd){
+            Templates.loadTemplates('mobileLogin','忘记密码');
+            $('.confirm_btn').text('下一步');
+            $('.login_tip').hide();
+            destPage = 'pwdChange';
+        }else{
+            Templates.loadTemplates('mobileLogin','手机快捷登录');
+            destPage = 'index';
+        }
+    }
 
 	//注册按键事件
-    $('.get-code-button').click(function(){
-        var tel=$('.code-tel').val();
-        app.getCode({account:tel});
-    });
-	$('.header-back').click(function () {
-		header('login');
-    });
-    $('.confirm_btn').click(function(){
-        var data={};
-        var error_tag=false;
-        $('.values').each(function(k,v){
-            var value=$(v).val();
-            var field=$(v).data('field');
-            var error=Pattern.checkErr(field,value);
-            if(!error){
-                data[field]=value;
-            }else{
-                alert(error);
-                error_tag = true;
+    function registerClickEvent() {
+        $('.get-code-button').click(function(){
+            var tel=$('.code-tel').val();
+            app('user_code',{account:tel});
+        });
+        $('.header-back').click(function () {
+            header('login');
+        });
+        $('.confirm_btn').click(function(){
+            var data={};
+            var error_tag=false;
+            $('.values').each(function(k,v){
+                var value=$(v).val();
+                var field=$(v).data('field');
+                var error=Pattern.checkErr(field,value);
+                if(!error){
+                    data[field]=value;
+                }else{
+                    alert(error);
+                    error_tag = true;
+                }
+            });
+
+            if(!error_tag){
+                console.log(data);
+                app('user_login_quick',data);
             }
         });
+    }
 
-        if(!error_tag){
-            console.log(data);
-            app.loginQuick(data);
-        }
-    });
 
 
     function callback_jsonCallback(data){
@@ -91,11 +99,11 @@
             return;
         }
 
-        if('loginQuick'==backValue.callback){
+        if('user_login_quick'==backValue.callback){
             header(destPage);
         }
 
-        if('getCode'==backValue.callback){
+        if('user_code'==backValue.callback){
             alert(backValue.message);
             $('.get-code-button').get(0).disabled=true;
             var timeCount=60;

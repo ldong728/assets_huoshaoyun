@@ -100,6 +100,12 @@
 				</div>
 				<div class="dt-right"><a href="#">个人资料<i class="icon icon-angle-right"></i></a></div>
 			</div>
+			<div class="dt dealerPurchase_btn">
+				<div class="dt-left">
+					<i class="icon icon-user-o"></i>
+				</div>
+				<div class="dt-right"><a href="#">经销商进货<i class="icon icon-angle-right"></i></a></div>
+			</div>
 			<div class="dt myCommission_btn">
 				<div class="dt-left">
 					<i class="icon icon-user-o"></i>
@@ -147,8 +153,8 @@
     $(document).ready(function () {
         Templates.loadTemplates('pageCur','我的');
         registerClickEvent();
-        app.getUserInfo();
-        app.getUserOrdersData();
+        app('user_info',null);
+        app('order_my_orders_data',null);
     });
 
     function registerClickEvent() {
@@ -170,6 +176,11 @@
         $(document).on('click','.userInfo_btn',function () {
             header('userMessage');
 //			console.log('前往userMessage');
+        });
+        $(document).on('click','.dealerPurchase_btn',function () {
+//            header('userMessage-xiugai','fromPage=pageCur');
+//            console.log('前往我的佣金');
+            header('classify');
         });
         $(document).on('click','.myCommission_btn',function () {
 //            header('userMessage-xiugai','fromPage=pageCur');
@@ -211,16 +222,13 @@
         }
 
         switch (backValue['callback']) {
-            case 'getUserOrdersData':
+            case 'order_my_orders_data':
                 console.log(backValue['data']);
                 showOrdersData(backValue['data']);
                 break;
-            case 'getUserInfo':
+            case 'user_info':
                 console.log(backValue['data']);
                 refreshUserInfo(backValue['data']);
-                break;
-            case 'getCartList':
-                console.log(backValue['data']);
                 break;
         }
     }
@@ -247,6 +255,7 @@
             switch(user_level){
                 case "用户":
 					$('.myCommission_btn').css('display','none');
+                    $('.dealerPurchase_btn').css('display','none');
                     break;
                 case "经销商":
                     $('.applyDealer_btn').css('display','none');

@@ -199,20 +199,24 @@
 
 <div id="template_footer"></div>
 
+
+</body>
+</html>
+
 <script>
-	var typeIDList = {
-	    '全部订单': 1,
+    var typeIDList = {
+        '全部订单': 1,
         '预约中': 2,
         '待配送': 3,
         '待确认': 4
-	};
-	var fromPage,type_name,type,page,hasMore,firstShow,elementList;
-	setInitParam();
+    };
+    var fromPage,type_name,type,page,hasMore,firstShow,elementList;
+    setInitParam();
 
-	$(document).ready(function () {
+    $(document).ready(function () {
         Templates.loadTemplates('allOrder','订单');
         registerClickEvent();
-		scrollWatcher(null,showNextPage);
+        scrollWatcher(null,showNextPage);
 //		console.log(type_name);
         showTypeList(type);
     });
@@ -261,7 +265,7 @@
         }
 
         switch (backValue['callback']) {
-            case 'getOrderList':
+            case 'order_list':
                 refreshOrderList(backValue['data']);
                 break;
         }
@@ -287,25 +291,25 @@
             displayOrderButtonGroup(order_element,v['status']);
             displayOrderItems(order_element,v['order_detail']);
             displayOrderBillInfo(order_element,v);
-            
+
 
             container.append(order_element);
         });
-		checkImgLoad('#OrderContainer',"../images/未标题-2.jpg");
-		if(!hasMore){
-		    $('.noMoreDiv').removeClass('hiddenElement');
-		}
+        checkImgLoad('#OrderContainer',"../images/未标题-2.jpg");
+        if(!hasMore){
+            $('.noMoreDiv').removeClass('hiddenElement');
+        }
     }
     function displayOrderButtonGroup(orderElement, status) {
-		var status_desc;
-		var button_group;
-		switch (status){
-			case 1:
+        var status_desc;
+        var button_group;
+        switch (status){
+            case 1:
                 status_desc = 'ordered';
-			    button_group = orderElement.find('.OrderStatusNotConfirmed');
+                button_group = orderElement.find('.OrderStatusNotConfirmed');
                 orderElement.find('.OrderBillDesc').text('实付金额');
-			    break;
-			case 2:
+                break;
+            case 2:
                 status_desc = 'payed';
                 button_group = orderElement.find('.OrderStatusPayed');
                 orderElement.find('.OrderBillDesc').text('实付金额');
@@ -320,14 +324,14 @@
                 button_group = orderElement.find('.OrderStatusNotPay');
                 orderElement.find('.OrderBillDesc').text('待付金额');
                 break;
-			default:
-			    alert('unknow status number: '+status);
-		}
-		button_group.removeClass('hiddenElement');
+            default:
+                alert('unknow status number: '+status);
+        }
+        button_group.removeClass('hiddenElement');
 //		console.log(status_desc);
     }
     function displayOrderItems(orderElement, itemList) {
-		var container = orderElement.find('.OrderItemContainer');
+        var container = orderElement.find('.OrderItemContainer');
         $.each(itemList,function(k,v) {
 //            console.log(v);
             var item_element = elementList['#OrderItemElement'].clone();
@@ -343,32 +347,30 @@
         });
     }
     function displayOrderBillInfo(orderElement, order) {
-		orderElement.find('.OrderTotalSum').text(disPlayPrice(order['total_price']));
+        orderElement.find('.OrderTotalSum').text(disPlayPrice(order['total_price']));
     }
 
     function showNextPage() {
 //        console.log('showNextPage');
-		if(hasMore){
-		    app.getOrderList({type: type, p: ++page});
-		}
+        if(hasMore){
+            app('order_list',{type: type, p: ++page});
+        }
     }
     function showTypeList(typeID) {
         //处理头部标签
         $('.orderTypeList').find('.li-cur').removeClass('li-cur');
         $('.TypeBtn').each(function (k,v) {
-			var id = $(v).find('.TypeId').text();
-			if(typeID == id){
-			    $(v).find('a').addClass('li-cur');
-			}
+            var id = $(v).find('.TypeId').text();
+            if(typeID == id){
+                $(v).find('a').addClass('li-cur');
+            }
         });
         //初始化全局变量
-		type = typeID;
+        type = typeID;
         hasMore = false;
         firstShow = true;
         page = 0;
         //获取页面
-        app.getOrderList({type: type, p: page});
+        app('order_list',{type: type, p: page});
     }
 </script>
-</body>
-</html>

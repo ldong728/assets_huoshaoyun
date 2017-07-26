@@ -29,7 +29,7 @@ var Templates={
             header: 'classify',
             footer: 'default'
         },
-        mobieLogin: {
+        mobileLogin: {
             header: 'default',
             footer: 'noFooter'
         },

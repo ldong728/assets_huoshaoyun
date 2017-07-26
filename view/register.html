@@ -35,7 +35,7 @@
 			</div>
 			<div class="input bg-white border-bottom safe">
 				<label class="label-con">推荐人</label>
-				<input type="text" name="name" placeholder="6位数字组合" class="btn-white right text-left new-input register-inf" data-field="reference">
+				<input type="text" name="name" placeholder="6位数字组合" class="btn-white right text-left new-input register-inf" data-field="inviter_code">
 			</div>
 			<div class="input bg-white border-bottom safe">
 				<label class="label-con">设置密码</label>
@@ -61,44 +61,49 @@
 <script>
     var values;
 
-    $('.clean_phone_btn').click(function () {
-        $('.code-tel').val('');
-    });
-    $('.header_login').click(function () {
-        header('login');
-    });
-    $('.submit-register').click(function(){
-        var inputs=$('.register-inf');
-        values={};
-        var hasError=false;
-        inputs.each(function(k,v){
-            var dataField=$(v).data('field');
-            console.log(dataField);
-            hasError=Pattern.checkErr(dataField, v.value);
-            if(hasError){
-                return false;
-            }
-            values[dataField]= v.value;
+    registerClickEvent();
+
+    function registerClickEvent() {
+        $('.clean_phone_btn').click(function () {
+            $('.code-tel').val('');
         });
-        if(hasError){
-            alert(hasError);
-        }else{
-            if($('#psw1').val()!=$('#psw2').val()){
-                alert('输入密码不一致');
+        $('.header_login').click(function () {
+            header('login');
+        });
+        $('.submit-register').click(function(){
+            var inputs=$('.register-inf');
+            values={};
+            var hasError=false;
+            inputs.each(function(k,v){
+                var dataField=$(v).data('field');
+                console.log(dataField);
+                hasError=Pattern.checkErr(dataField, v.value);
+                if(hasError){
+                    return false;
+                }
+                values[dataField]= v.value;
+            });
+            if(hasError){
+                alert(hasError);
             }else{
-//                values.user_password=btoa(values.user_password);
-                console.log(values);
-//                app.regist(values);
+                if($('#psw1').val()!=$('#psw2').val()){
+                    alert('输入密码不一致');
+                }else{
+                	values.user_password=btoa(values.user_password);
+                    console.log(values);
+//                	app('user_regist',values);
+                }
             }
-        }
-    });
-    $('.header-back').click(function () {
-        header('login');
-    });
-    $('.get-code-button').click(function(){
-        var tel=$('.code-tel').val();
-        app.getCode({account:tel});
-    });
+        });
+        $('.header-back').click(function () {
+            header('login');
+        });
+        $('.get-code-button').click(function(){
+            var tel=$('.code-tel').val();
+            app('user_code',{account:tel});
+        });
+    }
+
 
 
     function callback_jsonCallback(data){
@@ -106,7 +111,7 @@
         var backValue=handleBack(data);
         console.log(backValue);
 
-        if('getCode'==backValue.callback){
+        if('user_code'==backValue.callback){
             if(backValue.success){
                 alert(backValue.message);
                 $('.get-code-button').get(0).disabled=true;
