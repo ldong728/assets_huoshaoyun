@@ -57,13 +57,13 @@
     $(document).ready(function () {
         Templates.loadTemplates('pwdChange','修改登录密码');
         registerClickEvent();
-        app.getUserInfo();
+        app('user_info');
     });
 
     function setInitParam() {
         fromPage = getUrlParam('fromPage');
-        if(fromPage == null){
-            fromPage = 'index';
+        if(fromPage != 'pageCur'){
+            fromPage = 'login';
         }
     }
 
@@ -85,11 +85,11 @@
         }
 
         switch (backValue['callback']) {
-            case 'getUserInfo':
+            case 'user_info':
                 console.log(backValue['data']);
                 refreshUserInfo(backValue['data']);
                 break;
-            case 'userInfoModify':
+            case 'user_info_modify':
                 alert(backValue['message']);
                 header(fromPage);
         }
@@ -129,6 +129,6 @@
 		}
         console.log(newDataInfo);
 
-        app.userInfoModify(newDataInfo);
+        app('user_info_modify',newDataInfo);
     }
 </script>

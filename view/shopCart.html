@@ -143,7 +143,7 @@
     $(document).ready(function () {
         Templates.loadTemplates('shopCart','购物车');
         registerClickEvent();
-        app.getCartList();
+        app('cart_list');
     });
 
     function setInitParam() {
@@ -225,21 +225,25 @@
         $(document).on('click','.num_btn',function () {
             var btn = $(this);
             var product = btn.parent().parent().parent().parent();
-            var count = product.find('.product_count');
+            var numTag = product.find('.product_count');
+            var count = Number($(numTag[0]).text());
             if(btn.hasClass('num_minus')){
-                var number = Number($(count[0]).text());
-                if(number>1){
-                    count.text(number-1);
+                if(count>1){
+                    count--;
+                    numTag.text(count);
                     $('.product_count').trigger('change');
 				}
 			}
             if(btn.hasClass('num_plus')){
-                var number = Number($(count[0]).text());
-                if(number<99){
-                    count.text(number+1);
+                if(count<99){
+                    count++;
+                    numTag.text(count);
                     $('.product_count').trigger('change');
                 }
             }
+            var id = product.find('.itemID').text();
+//            console.log('id is '+ id + ' count is '+ count);
+            cartModify(id,count);
         });
         $(document).on('change','.product_count',function () {
 			calculateSum();
@@ -259,10 +263,10 @@
         }
 
         switch (backValue['callback']) {
-            case 'getCartList':
+            case 'cart_list':
                 refreshCartList(backValue['data']);
                 break;
-            case 'delCart':
+            case 'cart_del':
                 console.log(backValue['message']);
                 break;
         }
@@ -348,9 +352,17 @@
     }
 
     function cartDelete() {
-        var idString = deletedItemList.join('_');
-        var deleteInfo = {item_ids:idString};
-		app.delCart(deleteInfo);
+        if(deletedItemList.length>0){
+            var idString = deletedItemList.join('_');
+            var deleteInfo = {item_ids:idString};
+            app('cart_del',deleteInfo);
+		}
+    }
+
+    function cartModify(id,num) {
+        var info = {iid: id, num: num};
+        console.log(info);
+        app('cart_modify',info);
     }
 
 

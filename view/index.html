@@ -440,9 +440,9 @@
     $(document).ready(function () {
         Templates.loadTemplates('index','首页');
         scrollWatcher(null,null);
-        app.getAds({names: AdNames});
-        app.getSection();
-        app.getCategory({level:1});
+        app('ads_index',{names: AdNames});
+        app('getSection');
+        app('category_index',{level:1});
         registerClickEvent();
     });
 
@@ -452,7 +452,7 @@
         //克隆元素列表
         elementList=prepareElement('.section-element','.category-element','.ads-element');
         //广告获取请求参数设置（新）
-		var AdList = ['banner','hotItem'];
+		var AdList = ['index'];
         AdNames = AdList.join('_');
     }
 
@@ -490,7 +490,7 @@
 		}
 
         switch (backValue['callback']) {
-            case 'ads':
+            case 'ads_index':
                 var ads = backValue.data.aa;
                 if (ads.imgs.length > 0) {
                     refreshAds(ads.imgs);
@@ -501,7 +501,7 @@
             case 'getSection':
                 refreshSection(backValue.data['sections']);
                 break;
-            case 'getCategory':
+            case 'category_index':
                 refreshCategory(backValue.data['categories']);
                 break;
         }

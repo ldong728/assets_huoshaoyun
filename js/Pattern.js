@@ -4,7 +4,8 @@ var Pattern={
         tel:/^\d{11}$/,
         user_tel:/^\d{11}$/,
         entity_tel:/^\d{11}$/,
-        code:/^\d{4}$/,
+        code:/^\d{6}$/,
+        inviter_code:/^\d{6}$/,
         user_password:/^.{6,20}$/,
         password_new:/^.{6,20}$/,
         company_name: /^[\u4e00-\u9fa5\w\d#\-_.]*$/,
@@ -38,7 +39,8 @@ var Pattern={
         location: '详细地址',
         bank_name: '开户行',
         bank_account: '开户行账号',
-        company_industry: '所属行业'
+        company_industry: '所属行业',
+        inviter_code:'邀请码'
     },
     maxLength : {
         name: 5,

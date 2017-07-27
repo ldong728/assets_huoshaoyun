@@ -71,8 +71,8 @@
     $(document).ready(function () {
         Templates.loadTemplates('reviseAddress','修改收货地址');
         registerClickEvent();
-        app.getArea();
-        app.getReceivingList();
+        app('area_index');
+        app('userreceiving_info');
     });
 
     function setInitParam() {
@@ -100,7 +100,7 @@
         });
         $(document).on('click','.deleteAddress_btn',function () {
             if(confirm('确定要删除收货地址吗？')){
-                app.receivingDel({rid:addressId});
+                app('userreceiving_del',{rid:addressId});
 			}
         });
     }
@@ -114,19 +114,19 @@
         }
 
         switch (backValue['callback']) {
-            case 'getReceivingList':
+            case 'userreceiving_info':
                 console.log(backValue['data']);
                 displayReceivingList(backValue['data']['list']);
                 break;
-            case 'area':
+            case 'area_index':
                 console.log(backValue['data']);
                 setSelectElement(backValue);
                 break;
-            case 'receivingModify':
+            case 'userreceiving_modify':
 //                alert(backValue['message']);
                 header(fromPage,{fromPage:''});
                 break;
-            case 'receivingDel':
+            case 'userreceiving_del':
 //                alert(backValue['message']);
                 header(fromPage,{fromPage:''});
                 break;
@@ -180,6 +180,6 @@
         newDataInfo['rid'] = addressId;
 
 //        console.log(newDataInfo);
-		app.receivingModify(newDataInfo);
+		app('userreceiving_modify',newDataInfo);
     }
 </script>

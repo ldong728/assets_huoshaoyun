@@ -63,7 +63,7 @@
     $(document).ready(function () {
         Templates.loadTemplates('allAddress','收货地址');
         registerClickEvent();
-        app.getReceivingList();
+        app('userreceiving_info');
     });
 
     function setInitParam() {
@@ -103,11 +103,11 @@
         }
 
         switch (backValue['callback']) {
-            case 'getReceivingList':
+            case 'userreceiving_info':
                 console.log(backValue['data']);
                 displayReceivingList(backValue['data']['list']);
                 break;
-            case 'receivingDel':
+            case 'userreceiving_del':
 //                alert(backValue['message']);
                 break;
         }
@@ -136,7 +136,7 @@
     }
     function deleteAddress(rid) {
         if(confirm('确认要删除收货地址吗？')){
-            app.receivingDel({rid:rid});
+            app('userreceiving_del',{rid:rid});
             $('.displayedAddress').each(function (k, v) {
                 var tag = $(v).find('.AddressId')[0];
                 var id = $(tag).text();
