@@ -5122,7 +5122,7 @@ var apiInfoList = {
     cart_list:                  {api:'Cart/list',                   method:'post'},
     order_pre_order:            {api:'Order/pre_order',             method:'post'},
     order_add:                  {api:'Order/add',                   method:'post'},
-    order_list:                 {api:'Order/list',                  method:'post'},
+    order_list:                 {api:'Order/list',                  method:'get'},
     order_step:                 {api:'Order/step',                  method:'post'},
     // test:{api:'User/test',method:'post'},
     // order_step:                 {api:'Order/step',                  method:'post'},
@@ -5141,7 +5141,8 @@ var apiInfoList = {
     itemcomment_list:           {api:'ItemComment/list',            method:'post'},
     // test:{api:'User/test',method:'post'},
     index_index:                {api:'Index/index',                 method:'get'},
-    order_my_orders_data:       {api:'Order/my_orders_data',        method:'get'}
+    order_my_orders_data:       {api:'Order/my_orders_data',        method:'get'},
+    index_sections:              {api:'Index/sections',             method:'get'}
 };
 
 function app(functionName,data) {
@@ -5149,48 +5150,35 @@ function app(functionName,data) {
         Bridge[functionName](data);
         return;
     }
-    switch (functionName){
-        case 'getDefaultUser':
-            WRBridgeLocal('getDefaultUser',data);
+    switch(functionName){
+        case 'user_login':
+            window.bridge[functionName](data||'default');
             break;
         case 'saveUser':
-            WRBridgeLocal('saveUser',data);
+            window.bridge[functionName](data);
             break;
         case 'logout':
-            WRBridgeLocal('logout',data);
+            window.bridge[functionName](data);
             break;
-        default:
-            WRBridge(functionName,data);
+        default :
+            var formatedData=formatRequestData(functionName,data);
+            if(formatedData){
+                window.bridge.webRequest(formatedData);
+            }
+            break;
     }
 }
+function formatRequestData(functionName,data){
+    var formatedData={}
+    if(apiInfoList[functionName]){
+        formatedData={api:apiInfoList[functionName].api,method:apiInfoList[functionName].method,data:data};
+        return JSON.stringify(formatedData);
+    }else{
+        return null;
+    }
 
-var WRBridgeLocal = function (functionName, data) {
-    var messageName = 'WRBridgeLocal';
+}
 
-    var postMSG = {
-        functionName: functionName,
-        data: data
-    };
-
-    window['webkit']['messageHandlers'][messageName].postMessage(postMSG);
-};
-
-var WRBridge = function (functionName, data) {
-    var messageName = 'WRBridge';
-    var apiInfo = apiInfoList[functionName];
-    var API = apiInfo['api'];
-    var method = apiInfo['method'];
-    var callback = API.toLowerCase().replace("/","_");
-    var APIString = "/"+API+"?callback="+callback;
-
-    var postMSG = {
-        api: APIString,
-        method: method,
-        data: data
-    };
-
-    window['webkit']['messageHandlers'][messageName].postMessage(postMSG);
-};
 
 var app2={
     login:function(loginData){
