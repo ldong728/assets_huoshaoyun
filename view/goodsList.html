@@ -1,206 +1,396 @@
 <!doctype html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
-<title>产品列表</title>
-<link href="../css/main.css" rel="stylesheet">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+	<title>产品详情</title>
+	<link href="../css/main.css" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/main.js"></script>
+	<script type="text/javascript" src="../js/template.js"></script>
+	<style>
+		.hiddenElement{
+			display: none;
+		}
+		.flex{
+			display: -webkit-flex; /* Safari */
+			display: flex;
+		}
+		.filter_nav{
+			justify-content: space-around;
+			width: 100%;
+		}
+		.filter_box {
+			text-align: center;
+			width: 40%;
+			height: 50px;
+			line-height: 50px;
+			font-size: 15px;
+			color: #666;
+			border-bottom: 1px solid #ddd;
+			box-sizing: border-box;
+		}
+		.itemList{
+			flex-wrap: wrap;
+			justify-content: flex-start;
+		}
+
+		.itemBox {
+			width: 50%;
+			padding: 20px 15px;
+			border: 1px solid #ddd;
+			box-sizing: border-box;
+			margin: 1px 0;
+			background-color: #fff;
+			box-shadow: 0 2px 2px rgba(0,0,0,.1);
+		}
+		.itemBox .itemIMG {
+			height: 200px;
+			overflow: hidden;
+			align-items: center;
+			margin-bottom: 15px;
+			justify-content: center;
+		}
+		.itemBox .p-title{
+			width: 100%;
+			font-size: 13px;
+			color: #333;
+			line-height: 1.2;
+			margin-bottom: 15px;
+		}
+		.itemBox .p-price em {
+			font-size: 18px;
+			font-weight: bold;
+		}
+		.itemBox .p-price span {
+			display: block;
+			font-size: 10px;
+			float: right;
+			color: #999;
+		}
+		.noMoreDiv{
+			height: 50px;
+			justify-content: center;
+			align-items: center;
+		}
+	</style>
 </head>
 
 <body class="gray">
+<div id="template_header"></div>
 
-<header class="header bg-white border-bottom magin-b5">
-	<div class="container">
-		<div class="row">
-			<button class="btn-white header-back h2"><i class="icon icon-angle-left"></i></button>
-			<div class="text-center h-middle set-place">
-				<button class="btn-white btn1"><i class="icon icon-search"></i></button>
-				<input type="text" name="search" placeholder="输入关键字搜索物品" class="header-search h4">
+<div id="template_body">
+	<section>
+		<div>
+			<div class="row magin-b5 pro-menu bg-magin">
+				<!--分类列表-->
+				<ul class="clearfix category-container hiddenElement">
+					<li class="category-select category-element">
+						<i class="category-id hiddenElement"></i>
+						<p class="p category-img"><img src="../images/1.png"></p>
+						<p class="category-name">女装</p>
+					</li>
+					<li>
+						<p class="p p2"><img src="../images/2.png"></p>
+						<p>男装</p>
+					</li>
+					<li>
+						<p class="p p3"><img src="../images/3.png"></p>
+						<p>内衣</p>
+					</li>
+					<li>
+						<p class="p p4"><img src="../images/4.png"></p>
+						<p>鞋靴</p>
+					</li>
+					<li>
+						<p class="p p5"><img src="../images/5.png"></p>
+						<p>家具</p>
+					</li>
+					<li>
+						<p class="p p6"><img src="../images/6.png"></p>
+						<p>家电</p>
+					</li>
+					<li>
+						<p class="p p7"><img src="../images/7.png"></p>
+						<p>母婴</p>
+					</li>
+					<li>
+						<p class="p p8"><img src="../images/8.png"></p>
+						<p>箱包</p>
+					</li>
+				</ul>
 			</div>
-			<button class="btn-white h3 right btn2"><i class="icon icon-cog color6"></i></button>
-		</div>
-	</div>
-</header>
-<section class="magin-footer">
-	<div class="container">
-		<div class="row magin-b5 pro-menu bg-magin">
-			<ul class="clearfix">
-				<li>
-					<p class="p p1"><img src="../images/1.png"></p>
-					<p>女装</p>
-				</li>
-				<li>
-					<p class="p p2"><img src="../images/2.png"></p>
-					<p>男装</p>
-				</li>
-				<li>
-					<p class="p p3"><img src="../images/3.png"></p>
-					<p>内衣</p>
-				</li>
-				<li>
-					<p class="p p4"><img src="../images/4.png"></p>
-					<p>鞋靴</p>
-				</li>
-				<li>
-					<p class="p p5"><img src="../images/5.png"></p>
-					<p>家具</p>
-				</li>
-				<li>
-					<p class="p p6"><img src="../images/6.png"></p>
-					<p>家电</p>
-				</li>
-				<li>
-					<p class="p p7"><img src="../images/7.png"></p>
-					<p>母婴</p>
-				</li>
-				<li>
-					<p class="p p8"><img src="../images/8.png"></p>
-					<p>箱包</p>
-				</li>
-			</ul>
-		</div>
-		<div class="row bg-magin">
-			<div class="all-of-list">
-				<ol class="clearfix">
-					<li class="red">综合</li>
-					<li>销量</li>
-					<li>价格<button class="btn-white btn1"><i class="icon icon-sort"></i></button></li>
-					<li class="po-li">
+			<div class="row bg-magin">
+				<!--筛选排序导航-->
+				<div class="clearfix flex filter_nav">
+					<div class="filter_box red">综合</div>
+					<div class="filter_box">销量<button class="btn-white btn1" style="color: inherit;"><i class="icon icon-sort"></i></button></div>
+					<div class="filter_box">价格<button class="btn-white btn1" style="color: inherit;"><i class="icon icon-sort"></i></button></div>
+					<div class="filter_box po-li hiddenElement">
 						筛选
 						<button class="btn-white btn2"><i class="icon icon-caret-down"></i></button>
-					</li>
-				</ol>
-				<div class="filter">
-					<div class="li clearfix">
-						<h4 class="size15">分类</h4>
-						<ul>
-							<li>洁面</li>
-							<li>卸妆</li>
-							<li>面部清洁套装</li>
-							<li>去油</li>
-							<li>祛痘</li>
-							<li>防晒</li>
-						</ul>
-					</div>
-					<div class="li">
-						<h4 class="size15">品牌</h4>
-						<ul>
-							<li>倩碧</li>
-							<li>欧莱雅</li>
-							<li>雅诗兰黛</li>
-							<li>妮维雅</li>
-							<li>曼秀雷敦</li>
-							<li>娇韵诗</li>
-						</ul>
 					</div>
 				</div>
-			</div>
-			<div class="all-of-pro clearfix">
-				<div class="mask"></div>
-				<div class="left-pro">
-					<ul class="clearfix">
-						<li>
-							<p class="t-img">
+
+				<!--产品列表-->
+				<div class="all-of-pro clearfix flex itemList">
+					<div class="itemBox hiddenElement" id="itemBoxElement">
+						<i class="itemID hiddenElement"></i>
+						<div class="itemIMG flex">
+							<div>
 								<img src="../images/1.jpg">
-							</p>
-							<p class="p-title">Ryoe 吕 棕吕防脱发洗护套装</p>
-							<p class="p-price"><em class="red">￥88</em><span>销量 4521</span></p>
-						</li>
-						<li>
-							<p class="t-img">
+							</div>
+						</div>
+						<p class="p-title itemTitle">Ryoe 吕 棕吕防脱发洗护套装</p>
+						<p class="p-price"><em class="red">￥<i class="itemPrice">NAN</i> </em><span>销量 <i class="soldNum">NAN</i> </span></p>
+					</div>
+					<div class="itemBox">
+						<div class="itemIMG flex">
+							<div>
 								<img src="../images/1.jpg">
-							</p>
-							<p class="p-title">Ryoe 吕 棕吕防脱发洗护套装</p>
-							<p class="p-price"><em class="red">￥88</em><span>销量 4521</span></p>
-						</li>
-						<li>
-							<p class="t-img">
+							</div>
+						</div>
+						<p class="p-title">Ryoe 吕 棕吕防脱发洗护套装</p>
+						<p class="p-price"><em class="red">￥88</em><span>销量 4521</span></p>
+					</div>
+					<div class="itemBox">
+						<div class="itemIMG flex">
+							<div>
 								<img src="../images/未标题-5.jpg">
-							</p>
-							<p class="p-title">Ryoe 吕 棕吕防脱发洗护套装</p>
-							<p class="p-price"><em class="red">￥88</em><span>销量 4521</span></p>
-						</li>
-					</ul>
-				</div>
-				<div class="right-pro">
-					<ul class="clearfix">
-						<li>
-							<p class="t-img">
+							</div>
+						</div>
+						<p class="p-title">Ryoe 吕 棕吕防脱发洗护套装</p>
+						<p class="p-price"><em class="red">￥88</em><span>销量 4521</span></p>
+					</div>
+					<div class="itemBox">
+						<div class="itemIMG flex">
+							<div>
 								<img src="../images/1.jpg">
-							</p>
-							<p class="p-title">Ryoe 吕 棕吕防脱发洗护套装</p>
-							<p class="p-price"><em class="red">￥88</em><span>销量 4521</span></p>
-						</li>
-						<li>
-							<p class="t-img">
+							</div>
+						</div>
+						<p class="p-title">Ryoe 吕 棕吕防脱发洗护套装</p>
+						<p class="p-price"><em class="red">￥88</em><span>销量 4521</span></p>
+					</div>
+					<div class="itemBox">
+						<div class="itemIMG flex">
+							<div>
 								<img src="../images/1.jpg">
-							</p>
-							<p class="p-title">Ryoe 吕 棕吕防脱发洗护套装</p>
-							<p class="p-price"><em class="red">￥88</em><span>销量 4521</span></p>
-						</li>
-						<li>
-							<p class="t-img">
-								<img src="../images/1.jpg">
-							</p>
-							<p class="p-title">Ryoe 吕 棕吕防脱发洗护套装</p>
-							<p class="p-price"><em class="red">￥88</em><span>销量 4521</span></p>
-						</li>
-					</ul>
+							</div>
+						</div>
+						<p class="p-title">Ryoe 吕 棕吕防脱发洗护套装</p>
+						<p class="p-price"><em class="red">￥88</em><span>销量 4521</span></p>
+					</div>
 				</div>
 			</div>
+			<div class="hiddenElement"><div class="noMoreDiv flex "><div>----没有更多----</div></div></div>
 		</div>
-	</div>
-</section>
-<footer class="footer fixed">
-	<nav>
-		<ul class="clearfix">
-			<li>
-				<a href="#">
-					<p class="home-pic f-pic"><i class="icon icon-home"></i></p>
-					<p class="f-text text-center">首页</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<p class="pro-pic f-pic"><i class="icon icon-list"></i></p>
-					<p class="f-text text-center">产品分类</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<p class="shop-pic f-pic"><i class="icon icon-file-text-o"></i></p>
-					<p class="f-text text-center">订单</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<p class="user-pic f-pic"><i class="icon icon-user"></i></p>
-					<p class="f-text text-center">我的</p>
-				</a>
-			</li>
-		</ul>
-	</nav>
-</footer>
-<script type="text/javascript" src="../js/jquery.min.js"></script>
-<script>
-	$(function(){
-		var bHeight = $('.all-of-pro').height();
-		var mHeight = bHeight + 90;
-		$('.po-li').click(function(){
-			if ($('.filter').css('display') == 'none'){
-				$('.mask').css('height',mHeight);
-				$('.filter').show();
-				$('.mask').show();
-			}else if ($('.filter').css('display') == 'block'){
-				$('.filter').hide();
-				$('.mask').hide();
-			}
-		});
-		$('.mask').click(function(){
-			$('.filter').hide();
-			$('.mask').hide();
-		});
-	});
-</script>
+	</section>
+</div>
+
+<div id="template_footer"></div>
+
+
+
 </body>
 </html>
+
+
+<script>
+	var mall_type, category, hasMore, page, orderState;
+    $(document).ready(function () {
+        Templates.loadTemplates('goodsList','商品列表');
+        setInitParam();
+        registerClickEvent();
+        initPage();
+        scrollWatcher(null,askMoreItem);
+    });
+
+    function setInitParam() {
+        //初始化 type category
+        mall_type = getUrlParam('mall_type');
+        category = getUrlParam('category');
+        if(mall_type == null){
+            mall_type = 'real';
+		}
+        //克隆元素列表
+        elementList=prepareElement('#itemBoxElement','.category-element');
+
+        //是否有更多商品
+        hasMore = false;
+
+        //当前页面
+		page = 0;
+
+        //当前页面
+        orderState = {
+            'order': null,
+			'increase':false
+		};
+    }
+
+    function registerClickEvent() {
+        $('.header-back').click(function () {
+            header('index');
+        });
+        $(document).on('click','.filter_box',function () {
+			var nav = $('.filter_nav');
+			var current_btn = $(this);
+
+            var text = current_btn.text();
+            switch (text){
+                case '综合':
+                    orderState['order'] = null;
+                    break;
+                case '销量':
+                    orderState['order'] = 'sold_num';
+                    break;
+                case '价格':
+                    orderState['order'] = 'price';
+                    break;
+            }
+
+
+            if(current_btn.hasClass('red')){
+                orderState['increase'] = !orderState['increase'];
+            }else{
+                orderState['increase'] = false;
+			}
+
+            nav.find('.red').removeClass('red');
+            current_btn.addClass('red');
+
+
+//            console.log(text, orderState);
+            getItemList();
+        });
+        $(document).on('click','.category-select',function () {
+            var cid = $(this).find('.category-id').text();
+            headerCategory(cid);
+        });
+        $(document).on('click','.displayed-item',function () {
+            var itemBox = $(this);
+            headerGoodsDetail(itemBox);
+        });
+    }
+
+    function initPage() {
+		console.log('mall_type is "%s" category is "%s"', mall_type,category);
+		if(mall_type == 'real'){
+            app('category_index',{level:1});
+		}
+        getItemList();
+    }
+
+    function callback_jsonCallback(back) {
+        var backValue = handleBack(back);
+        console.log(backValue);
+        if(backValue['success'] == false){
+            console.log('callback ERR: '+backValue['message']);
+            return;
+        }
+
+        switch (backValue['callback']) {
+            case 'item_list':
+                displayItems(backValue['data']);
+                checkImgLoad('.itemList','../images/img-load-error.jpeg');
+                break;
+            case 'item_unreal_list':
+                displayItems(backValue['data']);
+                checkImgLoad('.itemList','../images/img-load-error.jpeg');
+                break;
+			case 'category_index':
+                refreshCategory($('.category-container'), backValue.data['categories']);
+                break;
+        }
+    }
+
+    function refreshCategory(container,categories) {
+        container.removeClass('hiddenElement');
+        console.log(categories);
+        container.empty();
+        $.each(categories,function(k,v){
+            var category=elementList['.category-element'].clone();
+            category.find('.category-id').text(v['cid']);
+            category.find('.category-img img').attr('src', v['img']);
+            category.find('.category-img img').attr('alt', v['name']);
+            category.find('.category-img').css('background-color', v['background-color']);
+            category.find('.category-name').text(v['name']);
+            container.append(category);
+        });
+
+        checkImgLoad('.category-container','../images/img-load-error.jpeg');
+
+    }
+
+    function askMoreItem() {
+        if(hasMore){
+            page++;
+            getItemList();
+		}else{
+            $('.noMoreDiv').parent().removeClass('hiddenElement');
+		}
+    }
+
+    function displayItems(data) {
+        var container = $('.itemList');
+        if(page == 0){
+            container.empty();
+		}
+        console.log(data);
+        hasMore = data['has_more'];
+        var items = data['list'];
+        $.each(items,function (key,item) {
+            var itemBox = elementList['#itemBoxElement'].clone();
+            itemBox.addClass('displayed-item');
+            itemBox.removeClass('hiddenElement');
+            itemBox.find('itemID').text(item['item_id']);
+            itemBox.find('img').attr('src',item['img']);
+            itemBox.find('.itemTitle').text(item['title']);
+            itemBox.find('.itemPrice').text(disPlayPrice(item['price']));
+            itemBox.find('.soldNum').text(item['sold_num']);
+
+            container.append(itemBox);
+        });
+    }
+
+    function headerCategory(cid) {
+//        alert('header category ' + cid);
+        var mall_type = 'real';
+        header('goodsList',{'mall_type':mall_type, 'category':cid});
+    }
+
+    function headerGoodsDetail(itemBox) {
+        var id = itemBox.find('.itemID').text();
+        console.log('header goods detail, type = ' + mall_type + ' itemId = '+ id);
+    }
+
+    function getItemList() {
+        var param = {};
+        if(mall_type == 'real'){
+            var functionName = 'item_list';
+            category = category?category:'';
+            param['cid'] = category
+        }
+        if(mall_type == 'unreal'){
+            var functionName = 'item_unreal_list';
+            category = category?category:'';
+            param['cat'] = category
+        }
+
+
+        param['p'] = page;
+
+
+        if(orderState['order']){
+            param['order'] = orderState['order'];
+            if(orderState['increase']){
+                param['sort'] = 'asc';
+            }else{
+                param['sort'] = 'desc';
+            }
+		}
+
+		console.log(param);
+		app(functionName,param);
+    }
+</script>

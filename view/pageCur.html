@@ -153,8 +153,8 @@
     $(document).ready(function () {
         Templates.loadTemplates('pageCur','我的');
         registerClickEvent();
-        app('user_info',null);
-        app('order_my_orders_data',null);
+        app('user_info');
+        app('order_my_orders_data');
     });
 
     function registerClickEvent() {
@@ -209,7 +209,9 @@
         });
         $(document).on('click','.logout_btn',function () {
 //            header('userMessage-xiugai','fromPage=pageCur');
-            console.log('退出账号');
+//            console.log('退出账号');
+            app('logout');
+            header('pageCur');
         });
     }
 
@@ -246,7 +248,8 @@
     function refreshUserInfo(data) {
         if(data){
             $('#login_button').css('display','none');
-            $('#user_name').text(data.entity_name);
+//            $('#user_name').text(data['entity_name']);
+            $('#user_name').text(data['user_tel']);
 //            $('#user_pic').children(0)[0].src = 'aaa';
             $('#user_pic').find('img').attr('src',data['avatar']);
             checkImgLoad('#user_pic',"../images/p-2.png");

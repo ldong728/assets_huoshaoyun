@@ -37,10 +37,10 @@ if(debug){
         },
         user_login_quick:function(){
             var result = {
-                "success":true,
-                "message":"登录成功",
+                "success":false,
+                "message":"用户不存在",
                 "callback":"user_login_quick",
-                "error_code":0
+                "error_code":101
             };
             callback_jsonCallback(result);
         },
@@ -4452,105 +4452,139 @@ if(debug){
         },          //getArea
         ads_index:function(){
             var result = {
-                "success":true,
-                "message":"",
-                "data":
-                    {
-                        "aa":
-                            {
-                                "id":1,
-                                "type":1,
-                                "height":50,
-                                "width":50,
-                                "url":"http:\/\/baidu.com",
-                                "imgs":[
-                                    "..\/images\/66.jpg","..\/images\/66.jpg",
-                                    "http:\/\/php.gooduo.net\/project_ant\/Uploads\/Picture\/2017-05-26\/5927bc6b602de.png"
-                                ]
-                            }
-                    },
-                "callback":"ads_index",
-                "error_code":0
+                "error_code" : 0,
+                "data" : {
+                    "index" : {
+                        "url" : "123",
+                        "id" : 5,
+                        "imgs" : [
+                            "../images/66.jpg",
+                            "../images/66.jpg",
+                            "../images/66.jpg"
+                        ],
+                        "type" : 2,
+                        "height" : 123,
+                        "width" : 123
+                    }
+                },
+                "message" : "",
+                "callback" : "ads_index",
+                "success" : true
             };
             callback_jsonCallback(result);
         },          //getAds
 
         item_list:function(){
             var result = {
-                "success":true,
-                "message":"",
-                "data":
-                    {
-                        "list":
-                            [
-                                {
-                                    "item_id":25,
-                                    "pid":12,
-                                    "title":"\u4e4c\u9e21",
-                                    "img":"http:\/\/php.gooduo.net\/project_ant\/Uploads\/Picture\/2017-05-26\/5927bcb1895e4.png",
-                                    "desc":"\u4e4c\u9e21",
-                                    "unit_desc":"\u65a4",
-                                    "price":3000
-                                },
-                                {
-                                    "item_id":24,
-                                    "pid":11,
-                                    "title":"\u9e2d\u5b50",
-                                    "img":"http:\/\/php.gooduo.net\/project_ant\/Uploads\/Picture\/2017-05-26\/5927bc5ba3fb2.png",
-                                    "desc":"\u9e2d\u5b50",
-                                    "unit_desc":"\u65a4",
-                                    "price":2000
-                                },
-                                {
-                                    "item_id":23,
-                                    "pid":10,
-                                    "title":"\u9e2d\u8116",
-                                    "img":"http:\/\/php.gooduo.net\/project_ant\/Uploads\/Picture\/2017-05-26\/5927bc6b602de.png",
-                                    "desc":"\u9e2d\u8116\u9e2d\u8116\u9e2d\u8116",
-                                    "unit_desc":"\u65a4",
-                                    "price":2500
-                                },
-                                {
-                                    "item_id":22,
-                                    "pid":9,
-                                    "title":"\u672c\u571f\u9e21\u7fc5",
-                                    "img":"http:\/\/php.gooduo.net\/project_ant\/Uploads\/Picture\/2017-05-26\/5927bc7fd255d.png",
-                                    "desc":"\u672c\u571f\u9e21\u7fc5",
-                                    "unit_desc":"\u65a4",
-                                    "price":1500
-                                },
-                                {
-                                    "item_id":21,
-                                    "pid":8,
-                                    "title":"\u571f\u8c46",
-                                    "img":"http:\/\/php.gooduo.net\/project_ant\/Uploads\/Picture\/2017-05-26\/5927bc8a3011a.png",
-                                    "desc":"\u571f\u8c46\u571f\u8c46\u571f\u8c46",
-                                    "unit_desc":"\u65a4",
-                                    "price":1
-                                },
-                                {
-                                    "item_id":20,
-                                    "pid":6,
-                                    "title":"\u82b9\u83dc",
-                                    "img":"http:\/\/php.gooduo.net\/project_ant\/Uploads\/Picture\/2017-05-26\/5927bcbee2e68.png",
-                                    "desc":"\u7eff\u8272,\u852c\u83dc,\u82b9\u83dc",
-                                    "unit_desc":"\u65a4",
-                                    "price":1
-                                },
-                                {
-                                    "item_id":18,
-                                    "pid":7,
-                                    "title":"\u672c\u571f\u9e21\u9e21\u817f",
-                                    "img":"http:\/\/php.gooduo.net\/project_ant\/Uploads\/Picture\/2017-05-26\/5927bc47cae55.png",
-                                    "desc":"\u672c\u571f\u9e21,\u672c\u571f,\u9e21\u817f",
-                                    "unit_desc":"\u4e2a",
-                                    "price":1200
-                                }
-                            ],
-                        "has_more":false
-                    },
-                "callback":"item_list",
-                "error_code":0
+                "error_code" : 0,
+                "data" : {
+                    "has_more" : true,
+                    "list" : [
+                        {
+                            "desc" : "虾",
+                            "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-05-31\/592e21374508e.png",
+                            "sold_num" : 0,
+                            "price" : 0,
+                            "title" : "虾",
+                            "unit_desc" : "斤",
+                            "item_id" : 24,
+                            "pid" : 11
+                        },
+                        {
+                            "desc" : "苹果",
+                            "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-05-31\/592e20d63018e.png",
+                            "sold_num" : 0,
+                            "price" : 0,
+                            "title" : "苹果",
+                            "unit_desc" : "斤",
+                            "item_id" : 25,
+                            "pid" : 12
+                        },
+                        {
+                            "desc" : "333",
+                            "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-04-26\/59004c5815733.png",
+                            "sold_num" : 0,
+                            "price" : 0,
+                            "title" : "123",
+                            "unit_desc" : "4",
+                            "item_id" : 26,
+                            "pid" : 0
+                        },
+                        {
+                            "desc" : "123",
+                            "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-07-20\/59708ac5a9b39.png",
+                            "sold_num" : 20,
+                            "price" : 0,
+                            "title" : "123",
+                            "unit_desc" : "4",
+                            "item_id" : 29,
+                            "pid" : 25
+                        },
+                        {
+                            "desc" : "11",
+                            "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-06-24\/594e2479a6766.jpg",
+                            "sold_num" : 0,
+                            "price" : 0,
+                            "title" : "12",
+                            "unit_desc" : "11",
+                            "item_id" : 28,
+                            "pid" : 0
+                        },
+                        {
+                            "desc" : "123",
+                            "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-06-24\/594e03ccbe330.jpg",
+                            "sold_num" : 0,
+                            "price" : 0,
+                            "title" : "123",
+                            "unit_desc" : "11",
+                            "item_id" : 27,
+                            "pid" : 0
+                        },
+                        {
+                            "desc" : "鸡蛋",
+                            "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-05-31\/592e21888d528.png",
+                            "sold_num" : 0,
+                            "price" : 0,
+                            "title" : "鸡蛋",
+                            "unit_desc" : "斤",
+                            "item_id" : 23,
+                            "pid" : 10
+                        },
+                        {
+                            "desc" : "本土鸡翅",
+                            "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-05-31\/592e1f9a62d4d.png",
+                            "sold_num" : 0,
+                            "price" : 0,
+                            "title" : "本土鸡翅",
+                            "unit_desc" : "斤",
+                            "item_id" : 22,
+                            "pid" : 9
+                        },
+                        {
+                            "desc" : "绿色,蔬菜,芹菜",
+                            "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-05-31\/592e1fdf10753.png",
+                            "sold_num" : 0,
+                            "price" : 0,
+                            "title" : "芹菜",
+                            "unit_desc" : "斤",
+                            "item_id" : 20,
+                            "pid" : 6
+                        },
+                        {
+                            "desc" : "本土鸡,本土,鸡腿，冷冻",
+                            "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-05-31\/592e1fc8e8927.png",
+                            "sold_num" : 0,
+                            "price" : 0,
+                            "title" : "冷冻鸡腿",
+                            "unit_desc" : "个",
+                            "item_id" : 18,
+                            "pid" : 7
+                        }
+                    ]
+                },
+                "message" : "",
+                "callback" : "item_list",
+                "success" : true
             };
             callback_jsonCallback(result);
         },                  //getItemList
@@ -4590,72 +4624,50 @@ if(debug){
         },
         category_index:function(data){
             var level1_result = {
-                "success":true,
-                "message":"",
-                "data":
-                    {
-                        "categories":
-                            [
-                                {
-                                    "cid":1,
-                                    "name":"女装",
-                                    "img":"..\/images\/1.png",
-                                    "background-color": '#ffa634',
-                                    "has_child":true
-                                },
-                                {
-                                    "cid":2,
-                                    "name":"男装",
-                                    "img":"..\/images\/2.png",
-                                    "background-color": '#72cd16',
-                                    "has_child":true
-                                },
-                                {
-                                    "cid":3,
-                                    "name":"内衣",
-                                    "img":"..\/images\/3.png",
-                                    "background-color": '#fc6667',
-                                    "has_child":true
-                                },
-                                {
-                                    "cid":4,
-                                    "name":"鞋靴",
-                                    "img":"..\/images\/4.png",
-                                    "background-color": '#72cd16',
-                                    "has_child":true
-                                },
-                                {
-                                    "cid":5,
-                                    "name":"家具",
-                                    "img":"..\/images\/5.png",
-                                    "background-color": '#fc6667',
-                                    "has_child":true
-                                },
-                                {
-                                    "cid":6,
-                                    "name":"家电",
-                                    "img":"..\/images\/6.png",
-                                    "background-color": '#1ccbd0',
-                                    "has_child":true
-                                },
-                                {
-                                    "cid":7,
-                                    "name":"母婴",
-                                    "img":"..\/images\/7.png",
-                                    "background-color": '#15cb80',
-                                    "has_child":true
-                                },
-                                {
-                                    "cid":8,
-                                    "name":"箱包",
-                                    "img":"..\/images\/8.png",
-                                    "background-color": '#ffa634',
-                                    "has_child":true
-                                }
-                            ]
-                    },
-                "callback":"category_index",
-                "error_code":0
+                "error_code" : 0,
+                "data" : {
+                    "categories" : [
+                        {
+                            "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-05-31\/592e1cdc2221f.png",
+                            "name" : "蔬菜",
+                            "has_child" : true,
+                            "cid" : 2
+                        },
+                        {
+                            "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-05-31\/592e1cf0293c0.png",
+                            "name" : "水产",
+                            "has_child" : false,
+                            "cid" : 18
+                        },
+                        {
+                            "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-05-31\/592e1d2ad6a37.png",
+                            "name" : "禽蛋",
+                            "has_child" : false,
+                            "cid" : 21
+                        },
+                        {
+                            "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-05-31\/592e1d1e0ef64.png",
+                            "name" : "冷冻禽肉",
+                            "has_child" : false,
+                            "cid" : 20
+                        },
+                        {
+                            "img" : "",
+                            "name" : "123",
+                            "has_child" : false,
+                            "cid" : 24
+                        },
+                        {
+                            "img" : "",
+                            "name" : "123",
+                            "has_child" : false,
+                            "cid" : 25
+                        }
+                    ]
+                },
+                "message" : "",
+                "callback" : "category_index",
+                "success" : true
             };
             var level2_result = {
                 "success":true,
@@ -5094,6 +5106,411 @@ if(debug){
                     "error_code":0
                 }
             );
+        },
+
+        index_index:function () {
+            var result = {
+                "error_code" : 0,
+                "data" : {
+                    "list" : [
+                        {
+                            "title" : "商城",
+                            "items" : [
+                                {
+                                    "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-05-31\/592e1cdc2221f.png",
+                                    "name" : "蔬菜",
+                                    "has_child" : true,
+                                    "cid" : 2
+                                },
+                                {
+                                    "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-05-31\/592e1cf0293c0.png",
+                                    "name" : "水产",
+                                    "has_child" : false,
+                                    "cid" : 18
+                                },
+                                {
+                                    "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-05-31\/592e1d2ad6a37.png",
+                                    "name" : "禽蛋",
+                                    "has_child" : false,
+                                    "cid" : 21
+                                },
+                                {
+                                    "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-05-31\/592e1d1e0ef64.png",
+                                    "name" : "冷冻禽肉",
+                                    "has_child" : false,
+                                    "cid" : 20
+                                },
+                                {
+                                    "img" : "",
+                                    "name" : "123",
+                                    "has_child" : false,
+                                    "cid" : 24
+                                },
+                                {
+                                    "img" : "",
+                                    "name" : "123",
+                                    "has_child" : false,
+                                    "cid" : 25
+                                }
+                            ],
+                            "icon" : "http:\/\/118.178.224.208\/Uploads\/Picture\/12.png",
+                            "type" : "cats"
+                        },
+                        {
+                            "title" : "促销商品",
+                            "items" : [
+                                {
+                                    "desc" : "虾",
+                                    "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-05-31\/592e21374508e.png",
+                                    "sold_num" : 0,
+                                    "price" : 2000,
+                                    "title" : "虾",
+                                    "unit_desc" : "斤",
+                                    "item_id" : 24,
+                                    "pid" : 11
+                                },
+                                {
+                                    "desc" : "苹果",
+                                    "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-05-31\/592e20d63018e.png",
+                                    "sold_num" : 0,
+                                    "price" : 3000,
+                                    "title" : "苹果",
+                                    "unit_desc" : "斤",
+                                    "item_id" : 25,
+                                    "pid" : 12
+                                },
+                                {
+                                    "desc" : "333",
+                                    "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-04-26\/59004c5815733.png",
+                                    "sold_num" : 0,
+                                    "price" : 0,
+                                    "title" : "123",
+                                    "unit_desc" : "4",
+                                    "item_id" : 26,
+                                    "pid" : 0
+                                },
+                                {
+                                    "desc" : "123",
+                                    "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-07-20\/59708ac5a9b39.png",
+                                    "sold_num" : 20,
+                                    "price" : 300,
+                                    "title" : "123",
+                                    "unit_desc" : "4",
+                                    "item_id" : 29,
+                                    "pid" : 25
+                                },
+                                {
+                                    "desc" : "11",
+                                    "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-06-24\/594e2479a6766.jpg",
+                                    "sold_num" : 0,
+                                    "price" : 0,
+                                    "title" : "12",
+                                    "unit_desc" : "11",
+                                    "item_id" : 28,
+                                    "pid" : 0
+                                },
+                                {
+                                    "desc" : "123",
+                                    "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-06-24\/594e03ccbe330.jpg",
+                                    "sold_num" : 0,
+                                    "price" : 0,
+                                    "title" : "123",
+                                    "unit_desc" : "11",
+                                    "item_id" : 27,
+                                    "pid" : 0
+                                },
+                                {
+                                    "desc" : "鸡蛋",
+                                    "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-05-31\/592e21888d528.png",
+                                    "sold_num" : 0,
+                                    "price" : 2500,
+                                    "title" : "鸡蛋",
+                                    "unit_desc" : "斤",
+                                    "item_id" : 23,
+                                    "pid" : 10
+                                },
+                                {
+                                    "desc" : "本土鸡翅",
+                                    "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-05-31\/592e1f9a62d4d.png",
+                                    "sold_num" : 0,
+                                    "price" : 1500,
+                                    "title" : "本土鸡翅",
+                                    "unit_desc" : "斤",
+                                    "item_id" : 22,
+                                    "pid" : 9
+                                },
+                                {
+                                    "desc" : "绿色,蔬菜,芹菜",
+                                    "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-05-31\/592e1fdf10753.png",
+                                    "sold_num" : 0,
+                                    "price" : 345,
+                                    "title" : "芹菜",
+                                    "unit_desc" : "斤",
+                                    "item_id" : 20,
+                                    "pid" : 6
+                                },
+                                {
+                                    "desc" : "本土鸡,本土,鸡腿，冷冻",
+                                    "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-05-31\/592e1fc8e8927.png",
+                                    "sold_num" : 0,
+                                    "price" : 1100,
+                                    "title" : "冷冻鸡腿",
+                                    "unit_desc" : "个",
+                                    "item_id" : 18,
+                                    "pid" : 7
+                                }
+                            ],
+                            "icon" : "http:\/\/118.178.224.208\/Uploads\/Picture\/12.png",
+                            "type" : "mall"
+                        },
+                        {
+                            "title" : "推荐商品",
+                            "items" : [
+                                {
+                                    "desc" : "虾",
+                                    "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-05-31\/592e21374508e.png",
+                                    "sold_num" : 0,
+                                    "price" : 2000,
+                                    "title" : "虾",
+                                    "unit_desc" : "斤",
+                                    "item_id" : 24,
+                                    "pid" : 11
+                                },
+                                {
+                                    "desc" : "苹果",
+                                    "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-05-31\/592e20d63018e.png",
+                                    "sold_num" : 0,
+                                    "price" : 3000,
+                                    "title" : "苹果",
+                                    "unit_desc" : "斤",
+                                    "item_id" : 25,
+                                    "pid" : 12
+                                },
+                                {
+                                    "desc" : "333",
+                                    "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-04-26\/59004c5815733.png",
+                                    "sold_num" : 0,
+                                    "price" : 0,
+                                    "title" : "123",
+                                    "unit_desc" : "4",
+                                    "item_id" : 26,
+                                    "pid" : 0
+                                },
+                                {
+                                    "desc" : "123",
+                                    "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-07-20\/59708ac5a9b39.png",
+                                    "sold_num" : 20,
+                                    "price" : 300,
+                                    "title" : "123",
+                                    "unit_desc" : "4",
+                                    "item_id" : 29,
+                                    "pid" : 25
+                                },
+                                {
+                                    "desc" : "11",
+                                    "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-06-24\/594e2479a6766.jpg",
+                                    "sold_num" : 0,
+                                    "price" : 0,
+                                    "title" : "12",
+                                    "unit_desc" : "11",
+                                    "item_id" : 28,
+                                    "pid" : 0
+                                },
+                                {
+                                    "desc" : "123",
+                                    "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-06-24\/594e03ccbe330.jpg",
+                                    "sold_num" : 0,
+                                    "price" : 0,
+                                    "title" : "123",
+                                    "unit_desc" : "11",
+                                    "item_id" : 27,
+                                    "pid" : 0
+                                },
+                                {
+                                    "desc" : "鸡蛋",
+                                    "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-05-31\/592e21888d528.png",
+                                    "sold_num" : 0,
+                                    "price" : 2500,
+                                    "title" : "鸡蛋",
+                                    "unit_desc" : "斤",
+                                    "item_id" : 23,
+                                    "pid" : 10
+                                },
+                                {
+                                    "desc" : "本土鸡翅",
+                                    "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-05-31\/592e1f9a62d4d.png",
+                                    "sold_num" : 0,
+                                    "price" : 1500,
+                                    "title" : "本土鸡翅",
+                                    "unit_desc" : "斤",
+                                    "item_id" : 22,
+                                    "pid" : 9
+                                },
+                                {
+                                    "desc" : "绿色,蔬菜,芹菜",
+                                    "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-05-31\/592e1fdf10753.png",
+                                    "sold_num" : 0,
+                                    "price" : 345,
+                                    "title" : "芹菜",
+                                    "unit_desc" : "斤",
+                                    "item_id" : 20,
+                                    "pid" : 6
+                                },
+                                {
+                                    "desc" : "本土鸡,本土,鸡腿，冷冻",
+                                    "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-05-31\/592e1fc8e8927.png",
+                                    "sold_num" : 0,
+                                    "price" : 1100,
+                                    "title" : "冷冻鸡腿",
+                                    "unit_desc" : "个",
+                                    "item_id" : 18,
+                                    "pid" : 7
+                                }
+                            ],
+                            "icon" : "http:\/\/118.178.224.208\/Uploads\/Picture\/12.png",
+                            "type" : "mall"
+                        },
+                        {
+                            "title" : "农家乐",
+                            "items" : [
+                                {
+                                    "desc" : "虚拟产品2",
+                                    "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-07-20\/59708a6c0e31d.png",
+                                    "sold_num" : 0,
+                                    "price" : 100,
+                                    "title" : "虚拟产品2",
+                                    "unit_desc" : "1",
+                                    "item_id" : 30,
+                                    "pid" : 27
+                                }
+                            ],
+                            "icon" : "http:\/\/118.178.224.208\/Uploads\/Picture\/12.png",
+                            "type" : "farm_happy"
+                        },
+                        {
+                            "title" : "旅游",
+                            "items" : [
+                                {
+                                    "desc" : "虚拟产品1",
+                                    "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-07-20\/59708a6c0e31d.png",
+                                    "sold_num" : 8,
+                                    "price" : 1100,
+                                    "title" : "虚拟产品1",
+                                    "unit_desc" : "123",
+                                    "item_id" : 31,
+                                    "pid" : 26
+                                }
+                            ],
+                            "icon" : "http:\/\/118.178.224.208\/Uploads\/Picture\/12.png",
+                            "type" : "travel"
+                        },
+                        {
+                            "title" : "婚庆",
+                            "items" : [
+
+                            ],
+                            "icon" : "http:\/\/118.178.224.208\/Uploads\/Picture\/12.png",
+                            "type" : "wedding"
+                        },
+                        {
+                            "title" : "农资产品",
+                            "items" : [
+
+                            ],
+                            "icon" : "http:\/\/118.178.224.208\/Uploads\/Picture\/12.png",
+                            "type" : "farm_goods"
+                        },
+                        {
+                            "title" : "生活服务",
+                            "items" : [
+
+                            ],
+                            "icon" : "http:\/\/118.178.224.208\/Uploads\/Picture\/12.png",
+                            "type" : "needs"
+                        }
+                    ]
+                },
+                "message" : "",
+                "callback" : "index_index",
+                "success" : true
+            };
+            callback_jsonCallback(result);
+        },
+        index_sections:function () {
+            var result = {
+                "error_code" : 0,
+                "data" : [
+                    {
+                        "type" : "mall",
+                        "name" : "商城",
+                        "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/12.png"
+                    },
+                    {
+                        "type" : "wedding",
+                        "name" : "婚庆礼仪",
+                        "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/13.png"
+                    },
+                    {
+                        "type" : "farm_happy",
+                        "name" : "农家乐",
+                        "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/14.png"
+                    },
+                    {
+                        "type" : "farm_goods",
+                        "name" : "农资产品",
+                        "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/15.png"
+                    },
+                    {
+                        "type" : "travel",
+                        "name" : "旅游",
+                        "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/16.png"
+                    },
+                    {
+                        "type" : "needs",
+                        "name" : "生活服务",
+                        "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/17.png"
+                    }
+                ],
+                "message" : "",
+                "callback" : "index_sections",
+                "success" : true
+            };
+            callback_jsonCallback(result);
+        },
+
+        item_unreal_list:function(){
+            var result = {
+                "error_code" : 0,
+                "data" : {
+                    "has_more" : true,
+                    "list" : [
+                        {
+                            "desc" : "虚拟产品1",
+                            "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-07-20\/59708a6c0e31d.png",
+                            "sold_num" : 8,
+                            "price" : 200,
+                            "title" : "虚拟产品1",
+                            "unit_desc" : "123",
+                            "item_id" : 31,
+                            "pid" : 26
+                        },
+                        {
+                            "desc" : "虚拟产品2",
+                            "img" : "http:\/\/118.178.224.208\/Uploads\/Picture\/2017-07-20\/59708a6c0e31d.png",
+                            "sold_num" : 0,
+                            "price" : 100,
+                            "title" : "虚拟产品2",
+                            "unit_desc" : "1",
+                            "item_id" : 30,
+                            "pid" : 27
+                        }
+                    ]
+                },
+                "message" : "",
+                "callback" : "item_unreal_list",
+                "success" : true
+            };
+            callback_jsonCallback(result);
         }
 
 
@@ -5111,6 +5528,7 @@ var apiInfoList = {
     userreceiving_info_default: {api:'UserReceiving/info_default',  method:'get'},
     userreceiving_modify:       {api:'UserReceiving/modify',        method:'post'},
     userreceiving_del:          {api:'UserReceiving/del',           method:'post'},
+    userreceiving_set_default:  {api:'UserReceiving/set_default',   method:'post'},
     area_index:                 {api:'Area/index',                  method:'get'},
     ads_index:                  {api:'Ads/index',                   method:'get'},
     item_list:                  {api:'Item/list',                   method:'get'},
@@ -5122,7 +5540,7 @@ var apiInfoList = {
     cart_list:                  {api:'Cart/list',                   method:'post'},
     order_pre_order:            {api:'Order/pre_order',             method:'post'},
     order_add:                  {api:'Order/add',                   method:'post'},
-    order_list:                 {api:'Order/list',                  method:'post'},
+    order_list:                 {api:'Order/list',                  method:'get'},
     order_step:                 {api:'Order/step',                  method:'post'},
     // test:{api:'User/test',method:'post'},
     // order_step:                 {api:'Order/step',                  method:'post'},
@@ -5141,7 +5559,8 @@ var apiInfoList = {
     itemcomment_list:           {api:'ItemComment/list',            method:'post'},
     // test:{api:'User/test',method:'post'},
     index_index:                {api:'Index/index',                 method:'get'},
-    order_my_orders_data:       {api:'Order/my_orders_data',        method:'get'}
+    order_my_orders_data:       {api:'Order/my_orders_data',        method:'get'},
+    index_sections:             {api:'Index/sections',              method:'get'}
 };
 
 function app(functionName,data) {
@@ -5176,12 +5595,17 @@ var WRBridgeLocal = function (functionName, data) {
 };
 
 var WRBridge = function (functionName, data) {
+    var serverDebug = false; //服务器联调 debug开关
     var messageName = 'WRBridge';
     var apiInfo = apiInfoList[functionName];
     var API = apiInfo['api'];
     var method = apiInfo['method'];
     var callback = API.toLowerCase().replace("/","_");
     var APIString = "/"+API+"?callback="+callback;
+
+    if(serverDebug){
+        APIString += '&debug=true'
+    }
 
     var postMSG = {
         api: APIString,

@@ -40,7 +40,7 @@ var Pattern={
         bank_name: '开户行',
         bank_account: '开户行账号',
         company_industry: '所属行业',
-        inviter_code:'邀请码'
+        inviter_code: '邀请码'
     },
     maxLength : {
         name: 5,

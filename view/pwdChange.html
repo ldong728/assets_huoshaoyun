@@ -52,6 +52,7 @@
 
 <script>
     var fromPage;
+    var newLoginValue={};
     setInitParam();
 
     $(document).ready(function () {
@@ -81,6 +82,7 @@
         console.log(backValue);
         if(backValue['success'] == false){
             console.log('callback ERR: '+backValue['message']);
+            alert(backValue['message']);
             return;
         }
 
@@ -91,12 +93,14 @@
                 break;
             case 'user_info_modify':
                 alert(backValue['message']);
+                app('saveUser',newLoginValue);
                 header(fromPage);
         }
     }
 
     function refreshUserInfo(data) {
         $('.user_tel').val(data.user_tel);
+        newLoginValue['user_tel'] = data.user_tel;
     }
 
     function submit_pwd_change() {
@@ -129,6 +133,9 @@
 		}
         console.log(newDataInfo);
 
+        newDataInfo['password_old'] = btoa(newDataInfo['password_old']);
+		newDataInfo['password_new'] = btoa(newDataInfo['password_new']);
+        newLoginValue['user_password'] = newDataInfo['password_new'];
         app('user_info_modify',newDataInfo);
     }
 </script>
