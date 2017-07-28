@@ -11,12 +11,15 @@
 	<style>
 		#slidebox{
 			width: 100%;
-			height: 20vh;
 			overflow: hidden;
 		}
 		.flex{
 			display: -webkit-flex; /* Safari */
 			display: flex;
+		}
+		.flex-center{
+			justify-content: center;
+			align-items: center;
 		}
 		.flexHeader{
 			justify-content: space-evenly;
@@ -105,18 +108,21 @@
 	<section>
 		<div class="focus magin-b5 ads-container" id="slidebox">
 			<a class="ads-element">
-				<img class="ads-img" src="" alt="轮播图">
+				<div class="flex flex-center" style="width: 100vw;height: 22vh;">
+					<div><img class="ads-img" src="" alt="轮播图"></div>
+				</div>
 			</a>
 			<!--<img src="../images/66.jpg" alt="轮播图">-->
 			<!--<img src="../images/66.jpg" alt="轮播图">-->
 		</div>
 		<div class="container">
 			<!--总分类-->
-			<div class="row bg-magin padding-none magin-b5">
+			<div class="row bg-magin padding-none magin-b5 hiddenElement">
 				<div class=" h-nav clearfix section-container">
-					<div class="li text-center section-element">
+					<div class="li text-center section-element section-select">
+						<i class="section-type" style="display: none;"></i>
 						<p class="list-goods h4 section-name">商城</p>
-						<p class="list-pic section-select"><img src="../images/12.png" alt="商城" class="section-img"></p>
+						<p class="list-pic"><img src="../images/12.png" alt="商城" class="section-img"></p>
 					</div>
 					<div class="li text-center">
 						<p class="list-goods h4">婚庆礼仪</p>
@@ -142,11 +148,11 @@
 				</div>
 			</div>
 			<!--商城分类-->
-			<div class="row bg-magin bg-white  magin-b5">
+			<div class="row bg-magin bg-white  magin-b5 hiddenElement" id="mall_category_box">
 				<div class="clearfix row-tab-bg">
-					<p class="left vo-up"><img src="../images/a1.png"></p>
-					<p class="size16 p-notice left height50">商城</p>
-					<button class="btn-more btn-white more_category_btn">更多</button>
+					<p class="left vo-up mall_category_icon"><img src="../images/a1.png"></p>
+					<p class="size16 p-notice left height50 mall_category_title">商城</p>
+					<button class="btn-more btn-white findMore_btn">更多<i class="findMoreType hiddenElement">mall</i></button>
 				</div>
 				<!--商城分类栏-->
 				<div class="pro-menu">
@@ -187,7 +193,7 @@
 					</ul>
 				</div>
 				<!--推荐商品栏-->
-				<div class="magin-b5">
+				<div class="magin-b5 hiddenElement">
 					<div class="clearfix row-tab-bg">
 						<p class="left vo-up"><img src="../images/a7.png"></p>
 						<p class="size16 p-notice left height50">推荐商品</p>
@@ -219,7 +225,7 @@
 					</div>
 				</div>
 				<!--促销商品栏-->
-				<div class="magin-b5">
+				<div class="magin-b5 hiddenElement">
 					<div class="clearfix row-tab-bg">
 						<p class="left vo-up"><img src="../images/a8.png"></p>
 						<p class="size16 p-notice left height50">促销商品</p>
@@ -252,7 +258,7 @@
 				</div>
 			</div>
 			<!--婚庆-->
-			<div class="row bg-magin bg-white  magin-b5">
+			<div class="row bg-magin bg-white  magin-b5 hiddenElement">
 				<div class="clearfix row-tab-bg">
 					<p class="left vo-up"><img src="../images/a2.png"></p>
 					<p class="size16 p-notice left height50">婚庆公司</p>
@@ -284,7 +290,7 @@
 				</div>
 			</div>
 			<!--农家乐-->
-			<div class="row bg-magin bg-white  magin-b5">
+			<div class="row bg-magin bg-white  magin-b5 hiddenElement">
 				<div class="clearfix row-tab-bg">
 					<p class="left vo-up"><img src="../images/a3.png"></p>
 					<p class="size16 p-notice left height50">农家乐</p>
@@ -316,7 +322,7 @@
 				</div>
 			</div>
 			<!--农资-->
-			<div class="row bg-magin bg-white  magin-b5">
+			<div class="row bg-magin bg-white  magin-b5 hiddenElement">
 				<div class="clearfix row-tab-bg">
 					<p class="left vo-up"><img src="../images/a4.png"></p>
 					<p class="size16 p-notice left height50">农资产品</p>
@@ -348,7 +354,7 @@
 				</div>
 			</div>
 			<!--旅游-->
-			<div class="row bg-magin bg-white  magin-b5">
+			<div class="row bg-magin bg-white  magin-b5 hiddenElement">
 				<div class="clearfix row-tab-bg">
 					<p class="left vo-up"><img src="../images/a5.png"></p>
 					<p class="size16 p-notice left height50">旅游</p>
@@ -380,7 +386,7 @@
 				</div>
 			</div>
 			<!--生活服务-->
-			<div class="row bg-magin bg-white  magin-b5">
+			<div class="row bg-magin bg-white  magin-b5 hiddenElement">
 				<div class="clearfix row-tab-bg">
 					<p class="left vo-up"><img src="../images/a6.png"></p>
 					<p class="size16 p-notice left height50">生活服务</p>
@@ -422,6 +428,27 @@
 					</ul>
 				</div>
 			</div>
+			<!--程序生成区块-->
+			<div class="index_index-container">
+				<!--分类元素-->
+				<div class="row bg-magin bg-white  magin-b5" id="index_index-element">
+					<div class="clearfix row-tab-bg">
+						<p class="left vo-up index_index_icon"><img src="../images/a5.png"></p>
+						<p class="size16 p-notice left height50 index_index_title">旅游</p>
+						<button class="btn-more btn-white findMore_btn">更多<i class="findMoreType hiddenElement"></i></button>
+					</div>
+					<div class="index-two clearfix">
+						<ul class="clearfix index_index-item-container">
+							<li id="index_index-item-element">
+								<i class="index_index-itemID hiddenElement"></i>
+								<p class="two-img index_index-item-img"><img src="../images/two1.jpg"></p>
+								<p class="two-p index_index-item-title">{{{title}}}</p>
+								<p class="two-m"><em class="red">￥<i class="index_index-item-price">NAN</i></em><span>销量<i class="index_index-item-sold_num">NAN</i></span></p>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
 		</div>
 	</section>
 </div>
@@ -441,8 +468,9 @@
         Templates.loadTemplates('index','首页');
         scrollWatcher(null,null);
         app('ads_index',{names: AdNames});
-        app('getSection');
-        app('category_index',{level:1});
+//        app('index_sections');
+//        app('category_index',{level:1});
+        app('index_index');
         registerClickEvent();
     });
 
@@ -450,34 +478,31 @@
         fromPage = null;
 
         //克隆元素列表
-        elementList=prepareElement('.section-element','.category-element','.ads-element');
+        elementList=prepareElement('.section-element','.category-element','.ads-element','#index_index-element','#index_index-item-element');
         //广告获取请求参数设置（新）
 		var AdList = ['index'];
         AdNames = AdList.join('_');
     }
 
     function registerClickEvent() {
-		$(document).on('click','.section-select',function () {
-            var id = $(this).attr('data-id');
-            var name = $(this).find('.section-img').attr('alt');
-            console.log('跳转到分类：'+name+' 分类id：'+id);
-        });
         $(document).on('click','.cart_btn',function () {
             header('shopCart');
         });
-        $(document).on('click','.more_category_btn',function () {
-            var id = $(this).attr('data-id');
-            var name = $(this).find('.section-img').attr('alt');
-            console.log('跳转到分类：'+name+' 分类id：'+id);
-        });
-        $(document).on('click','.more_category_btn',function () {
-//            var cid = $(this).find('.category-id').text();
-			var cid = 1;
-            header('classify',{cid: cid});
-        });
         $(document).on('click','.category-select',function () {
             var cid = $(this).find('.category-id').text();
-            header('classify',{cid: cid});
+            headerCategory(cid);
+        });
+        $(document).on('click','.findMore_btn',function () {
+			var type = $(this).find('.findMoreType').text();
+            headerSection(type);
+        });
+//        $(document).on('click','.section-select',function () {
+//            var type = $(this).find('.section-type').text();
+//            headerSection(type);
+//        });
+        $(document).on('click','.displayed-item',function () {
+            var itemBox = $(this);
+            headerGoodsDetail(itemBox);
         });
     }
 
@@ -491,18 +516,21 @@
 
         switch (backValue['callback']) {
             case 'ads_index':
-                var ads = backValue.data.aa;
+                var ads = backValue['data']['index'];
                 if (ads.imgs.length > 0) {
                     refreshAds(ads.imgs);
                     checkImgLoad('.span-container','../images/img-load-error.jpeg');
                 }
                 activeBanner();
                 break;
-            case 'getSection':
-                refreshSection(backValue.data['sections']);
+            case 'index_sections':
+                refreshSection(backValue.data);
                 break;
-            case 'category_index':
-                refreshCategory(backValue.data['categories']);
+//            case 'category_index':
+//                refreshCategory($('.category-container'), backValue.data['categories']);
+//                break;
+            case 'index_index':
+                refreshIndex_index(backValue.data['list']);
                 break;
         }
     }
@@ -524,14 +552,16 @@
     }
 
     function refreshSection(sections) {
+        console.log('in section');
         var container = $('.section-container');
         container.empty();
         $.each(sections,function(k,v){
             var section=elementList['.section-element'].clone();
-            section.find('.section-select').attr('data-id', v.cid);
-            section.find('.section-img').attr('src', v.img);
-            section.find('.section-img').attr('alt', v.name);
-            section.find('.section-name').text(v.name);
+            section.find('.section-select').attr('data-id', v['cid']);
+            section.find('.section-type').text(v['type']);
+            section.find('.section-img').attr('src', v['img']);
+            section.find('.section-img').attr('alt', v['name']);
+            section.find('.section-name').text(v['name']);
             container.append(section);
         });
 
@@ -539,9 +569,8 @@
 
     }
 
-    function refreshCategory(categories) {
+    function refreshCategory(container,categories) {
         console.log(categories);
-        var container = $('.category-container');
         container.empty();
         $.each(categories,function(k,v){
             var category=elementList['.category-element'].clone();
@@ -555,6 +584,83 @@
 
         checkImgLoad('.category-container','../images/img-load-error.jpeg');
 
+    }
+
+    function refreshIndex_index(list) {
+        console.log(list);
+        var container = $('.index_index-container');
+        container.empty();
+        $.each(list,function(k,v){
+
+
+            var box=elementList['#index_index-element'].clone();
+            box.find('.index_index_title').text(v['title']);
+            box.find('.index_index_icon img').attr('src',v['icon']);
+            box.find('.index_index_icon img').css({'width': '100%','height': '100%'});
+            box.find('.findMoreType').text(v['type']);
+            var itemContainer = box.find('.index_index-item-container');
+            itemContainer.empty();
+            var items = v['items'];
+
+            if(v['type'] == 'cats'){
+				var parentContainer = itemContainer.parent();
+				parentContainer.removeAttr('class');
+				parentContainer.addClass('pro-menu');
+				refreshCategory(itemContainer, items);
+            }else{
+                displayItems(itemContainer,items);
+			}
+
+            container.append(box);
+        });
+
+        checkImgLoad('.index_index-container','../images/img-load-error.jpeg');
+
+    }
+
+    function displayItems(container, items) {
+        $.each(items,function (key,item) {
+            if(key<4){
+                var itemBox = elementList['#index_index-item-element'].clone();
+                itemBox.addClass('displayed-item');
+                itemBox.find('.index_index-itemID').text(item['item_id']);
+                itemBox.find('.index_index-item-img img').attr('src',item['img']);
+                itemBox.find('.index_index-item-title').text(item['title']);
+                itemBox.find('.index_index-item-price').text(disPlayPrice(item['price']));
+                itemBox.find('.index_index-item-sold_num').text(item['sold_num']);
+
+                container.append(itemBox);
+            }
+        });
+    }
+
+    function headerSection(typeName) {
+//		alert('header section ' + type);
+		var mall_type = 'unreal';
+		var category = typeName;
+		if (typeName == 'mall' || typeName == 'cats'){
+            mall_type = 'real';
+            category = '';
+		}
+		header('goodsList',{'mall_type':mall_type, 'category':category});
+    }
+
+    function headerCategory(cid) {
+//        alert('header category ' + cid);
+        var mall_type = 'real';
+        header('goodsList',{'mall_type':mall_type, 'category':cid});
+    }
+
+    var box;
+    function headerGoodsDetail(itemBox) {
+        box= itemBox;
+        var item_type = 'unreal';
+        var findMoreType = itemBox.parent().parent().parent().find('.findMoreType').text();
+        if(findMoreType == 'mall'){
+            item_type = 'real';
+		}
+        var itemID = itemBox.find('.index_index-itemID').text();
+        console.log('header goods detail, type = ' + item_type + ' itemId = '+ itemID);
     }
 
 </script>

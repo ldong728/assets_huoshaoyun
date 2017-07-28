@@ -88,7 +88,7 @@
     $(document).ready(function () {
         Templates.loadTemplates('userMessage','个人资料');
 		registerClickEvent();
-		app.getUserInfo();
+        app('user_info');
     });
 	
 	 function callback_jsonCallback(back) {
@@ -100,11 +100,11 @@
         }
 
         switch (backValue['callback']) {
-            case 'getUserInfo':
+            case 'user_info':
                 console.log(backValue['data']);
                 refreshUserInfo(backValue['data']);
                 break;
-            case 'userInfoModify':
+            case 'user_info_modify':
                 console.log(backValue['data']);
                 refreshUserInfo(newDataInfo);
                 var btn = $('.btn-wan');
@@ -179,8 +179,9 @@
             return false;
         }
         console.log(newDataInfo);
+        newDataInfo['user_tel'] = '';
 
-        app.userInfoModify(newDataInfo);
+        app('user_info_modify',newDataInfo);
     }
 
 //

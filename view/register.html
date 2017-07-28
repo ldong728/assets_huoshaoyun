@@ -26,16 +26,16 @@
 			<div class="input bg-white border-bottom safe">
 				<label class="label-con">手机号</label>
 				<button class="ab-btn btn-white clean_phone_btn"></button>
-				<input type="text" name="user" placeholder="123465798" class="btn-white right text-left new-input register-inf code-tel" data-field="phone">
+				<input type="tel" name="user" placeholder="123465798" class="btn-white right text-left new-input register-inf code-tel" data-field="user_tel" id="user_tel">
 			</div>
 			<div class="bg-white input border-bottom safe">
 				<label class="label-con">验证码</label>
-				<input type="text" name="card" class="btn-white register-inf" data-field="code">
-				<button class="right btn-white get-card get-code-button">获取验证码</button>
+				<input type="tel" name="card" class="btn-white register-inf" data-field="code" id="code" style="padding: 10px;width: 100px;">
+				<button class="right btn-white get-card get-code-button" style="width: 105px;">获取验证码</button>
 			</div>
 			<div class="input bg-white border-bottom safe">
 				<label class="label-con">推荐人</label>
-				<input type="text" name="name" placeholder="6位数字组合" class="btn-white right text-left new-input register-inf" data-field="inviter_code">
+				<input type="tel" name="name" placeholder="6位数字组合" class="btn-white right text-left new-input register-inf" data-field="inviter_code">
 			</div>
 			<div class="input bg-white border-bottom safe">
 				<label class="label-con">设置密码</label>
@@ -60,8 +60,19 @@
 
 <script>
     var values;
-
+    initPage();
     registerClickEvent();
+
+    function initPage() {
+        var user_tel = getUrlParam('user_tel');
+        var code = getUrlParam('code');
+        if(user_tel){
+            $('#user_tel').val(user_tel);
+        }
+        if(code){
+            $('#code').val(code);
+        }
+    }
 
     function registerClickEvent() {
         $('.clean_phone_btn').click(function () {
@@ -76,6 +87,10 @@
             var hasError=false;
             inputs.each(function(k,v){
                 var dataField=$(v).data('field');
+                if(dataField == 'inviter_code'){
+                    values[dataField]= v.value;
+                    return;
+				}
                 console.log(dataField);
                 hasError=Pattern.checkErr(dataField, v.value);
                 if(hasError){
@@ -85,15 +100,23 @@
             });
             if(hasError){
                 alert(hasError);
-            }else{
-                if($('#psw1').val()!=$('#psw2').val()){
-                    alert('输入密码不一致');
-                }else{
-                	values.user_password=btoa(values.user_password);
-                    console.log(values);
-//                	app('user_regist',values);
-                }
+                return;
             }
+
+            if($('#psw1').val()!=$('#psw2').val()){
+                alert('输入密码不一致');
+                return;
+            }
+            if(values['inviter_code']){
+                hasError=Pattern.checkErr('inviter_code', values['inviter_code']);
+                if(hasError){
+                    alert(hasError);
+                    return;
+				}
+            }
+            values.user_password=btoa(values.user_password);
+            console.log(values);
+            app('user_regist',values);
         });
         $('.header-back').click(function () {
             header('login');

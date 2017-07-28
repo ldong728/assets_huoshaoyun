@@ -22,15 +22,17 @@ function header(page,parameter){
     // var par=parameter? "?"+parameter:"?";
     var par = '?';
     var fromPageString = currentPage;
-    if(parameter instanceof String){
-        par += parameter;
-    }else if(parameter instanceof Object){
-        for(var item in parameter){
-            if(item == 'fromPage'){
-                fromPageString = parameter[item];
-            }
-            else{
-                par += '&'+item+'='+parameter[item];
+    if(parameter){
+        if(parameter.constructor == String){
+            par += parameter;
+        }else if(parameter instanceof Object){
+            for(var item in parameter){
+                if(item == 'fromPage'){
+                    fromPageString = parameter[item];
+                }
+                else{
+                    par += '&'+item+'='+parameter[item];
+                }
             }
         }
     }
@@ -243,20 +245,20 @@ function goBack(){
 
 
 $(document).on('click','.footer_index',function(){
-    // alert('了解云');
-    header('index');
+    // alert('首页');
+    header('index',{'fromPage': 'index'});
 });
 $(document).on('click','.footer_category',function(){
     // console.log('产品分类');
-    header('classify');
+    header('goodsList',{'fromPage': 'index'});
 });
 $(document).on('click','.footer_orders',function(){
     // console.log('订单');
-    header('allOrder');
+    header('allOrder',{'fromPage': 'index'});
 });
 $(document).on('click','.footer_mine',function(){
     // console.log('我的');
-    header('pageCur');
+    header('pageCur',{'fromPage': 'index'});
 });
 
 
@@ -270,7 +272,7 @@ $(document).on('keypress','.input-in-layer',function(event){
 });
 var bodyHeight=0;
 $(window).resize(function(){
-    //return;//临时禁用
+    return;//临时禁用
     var newHeight=document.body.clientHeight;
     if(0==bodyHeight||newHeight<bodyHeight){
         var element=$(document.activeElement);

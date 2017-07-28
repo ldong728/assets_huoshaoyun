@@ -19,12 +19,12 @@
 			<div class="row phone-card address set-place">
 				<div class="set-pwd bg-white input">
 					<label>手机号</label>
-					<input type="text" name="setpwd" class="set btn-white code-tel values" data-field="user_tel">
+					<input type="text" name="setpwd" class="set btn-white code-tel values" data-field="user_tel" id="user_tel">
 				</div>
 				<div class="card bg-white input">
 					<label>验证码</label>
-					<input type="text" name="card" class="btn-white values" data-field="code">
-					<button class="right btn-white btn-center get-code-button">获取验证码</button>
+					<input type="text" name="card" class="btn-white values" data-field="code" id="code">
+					<button class="right btn-white btn-center get-code-button" style="width: 105px;">获取验证码</button>
 				</div>
 			</div>
 			<div class="row">
@@ -95,7 +95,15 @@
         var backValue=handleBack(data);
         console.log(backValue);
         if(backValue.success != true) {
-            alert(backValue.message);
+            if(backValue['error_code'] == '101'){
+                alert('请先注册账号');
+                var user_tel = $('#user_tel').val();
+                var code = $('#code').val();
+//                console.log(user_tel,code);
+                header('register',{'user_tel':user_tel,'code':code});
+            }else{
+                alert(backValue.message);
+			}
             return;
         }
 
