@@ -7,6 +7,11 @@
 	<script type="text/javascript" src="../js/jquery.min.js"></script>
 	<script type="text/javascript" src="../js/main.js"></script>
 	<link href="../css/main.css" rel="stylesheet">
+	<style>
+		.flex{display: flex;}
+		.flexLogin{flex-direction: column;}
+		.flexLoginRow{width: 100%; border-bottom: 1px solid #ddd;}
+	</style>
 </head>
 
 <body>
@@ -23,38 +28,50 @@
 <section>
 	<div class="container hidden">
 		<div class="row login-input set-place">
-			<input type="text" name="user" placeholder="用户名/绑定手机" class="set-place" id="user_tel">
-			<input type="password" name="pwd" placeholder="登录密码" class="set-place" id="user_password">
-			<button class="icon-eyes c1 show_pwd"><i class="icon icon-eye"></i></button>
+			<div class="flex flexLogin">
+				<div class="flex flexLoginRow">
+					<input type="tel" name="user" placeholder="手机号" class="set-place" id="user_tel">
+				</div>
+				<div class="flex flexLoginRow">
+					<input type="password" name="pwd" placeholder="登录密码" class="set-place flex" id="user_password">
+					<button class="icon-eyes c1 show_pwd"><i class="icon icon-eye flex"></i></button>
+				</div>
+			</div>
 			<p class="lost-pwd"><a href="#">忘记密码？</a></p>
 			<button value="login" class="btn bg-black login_btn">登&nbsp;&nbsp;录</button>
 			<div class="h4 l-register"><a href="#" class="color6 register_btn">免费注册</a><span class="text-black mobile_login_btn"><a href="#">手机号快捷登录</a></span></div>
 		</div>
-		<div class="row login-wei">
-			<p class="color3 size15">或以以下方式登录</p>
-			<div class="weixin">
-				<img src="../images/weixin.png" alt="weixin">
-			</div>
-		</div>
+		<!--<div class="row login-wei">-->
+			<!--<p class="color3 size15">或以以下方式登录</p>-->
+			<!--<div class="weixin">-->
+				<!--<img src="../images/weixin.png" alt="weixin">-->
+			<!--</div>-->
+		<!--</div>-->
 	</div>
+
 </section>
 </body>
 </html>
 
 <script>
+	var loginValue;
 	registerEvent();
+    showLoadingLayer('up','login');
+	app('getDefaultUser');
 
     function callback_jsonCallback(back) {
         var backValue = handleBack(back);
         console.log(backValue);
         if(backValue['success'] != true){
-            console.log(backValue['message']);
+            alert(backValue['message']);
+            hideLoadingLayer();
             return;
 		}
 
         switch (backValue['callback']) {
             case 'user_login':
                 console.log(backValue['message']);
+                app('saveUser',loginValue);
                 header('index');
                 break;
         }
@@ -62,9 +79,9 @@
 
     function registerEvent() {
         $(document).on('click','.login_btn',function () {
-            var username = $('#user_tel').val();
-            var password = $('#user_password').val();
-            var loginValue = {username:username,password:btoa(password)};
+            var user_tel = $('#user_tel').val();
+            var user_password = $('#user_password').val();
+            loginValue = {user_tel:user_tel,user_password:btoa(user_password)};
             app('user_login',loginValue);
         });
         $(document).on('click','.register_btn',function () {
@@ -85,5 +102,20 @@
         $(document).on('click','.login-close',function () {
             header('index');
         });
+    }
+
+    var mUserInf;
+    function callback_getDefaultUser(userInf){
+        mUserInf=userInf;
+        console.log(mUserInf);
+        var userValue=handleBack(userInf);
+//        console.log();
+        if(Number(userValue.error_code)){
+            hideLoadingLayer(true);
+            console.log('no default user');
+        }else{
+            loginValue = {user_tel:userValue.user_tel,user_password:userValue.user_password};
+            app('user_login',loginValue);
+        }
     }
 </script>

@@ -75,6 +75,7 @@
 					</div>
 					<div class="delivery-btn text-right btn-order-d OrderStatusNotPay hiddenElement">
 						<button type="button" name="edit" class="btn-white btn2">取消订单</button>
+						<button type="button" name="edit" class="btn-white btn-cur">支付</button>
 					</div>
 					<div class="delivery-btn text-right btn-order-d OrderStatusNotConfirmed hiddenElement">
 						<button type="button" name="edit" class="btn-white btn2">提醒发货</button>
@@ -190,11 +191,11 @@
 				</div>
 			</div>
 		</div>
-		<!--底部没有更多标签-->
-		<div class="hiddenElement noMoreDiv">
-			----没有更多----
-		</div>
 	</section>
+	<!--底部没有更多标签-->
+	<div class="hiddenElement noMoreDiv">
+		----没有更多----
+	</div>
 </div>
 
 <div id="template_footer"></div>
@@ -210,7 +211,7 @@
         '待配送': 3,
         '待确认': 4
     };
-    var fromPage,type_name,type,page,hasMore,firstShow,elementList;
+    var fromPage,type_name,type,page,hasMore,elementList;
     setInitParam();
 
     $(document).ready(function () {
@@ -250,9 +251,6 @@
         page = 0;
         //是否有更多订单
         hasMore = false;
-        //是否第一次加载
-        firstShow = true;
-
         elementList=prepareElement('#OrderElement','#OrderItemElement');
     }
 
@@ -277,8 +275,7 @@
         hasMore = data['has_more'];
 
         var container = $('#OrderContainer');
-        if(firstShow){container.empty();}
-        firstShow = false;
+        if(page == 0){container.empty();}
 
         $.each(list,function(k,v) {
 //            console.log(v);
@@ -305,22 +302,37 @@
         var button_group;
         switch (status){
             case 1:
-                status_desc = 'ordered';
-                button_group = orderElement.find('.OrderStatusNotConfirmed');
-                orderElement.find('.OrderBillDesc').text('实付金额');
+                status_desc = 'submit';
+                button_group = orderElement.find('.OrderStatusNotPay');
+                orderElement.find('.OrderBillDesc').text('待付金额');
                 break;
             case 2:
                 status_desc = 'payed';
                 button_group = orderElement.find('.OrderStatusPayed');
                 orderElement.find('.OrderBillDesc').text('实付金额');
                 break;
+            case 4:
+                status_desc = 'sending';
+                button_group = orderElement.find('.OrderStatusPayed');
+                orderElement.find('.OrderBillDesc').text('实付金额');
+                break;
             case 5:
-                status_desc = 'finished';
+                status_desc = 'done';
                 button_group = orderElement.find('.OrderStatusConfirmed');
                 orderElement.find('.OrderBillDesc').text('实付金额');
                 break;
+            case 6:
+                status_desc = 'cancel';
+                button_group = orderElement.find('.OrderStatusConfirmed');
+                orderElement.find('.OrderBillDesc').text('订单金额');
+                break;
             case 7:
                 status_desc = 'paying';
+                button_group = orderElement.find('.OrderStatusPayed');
+                orderElement.find('.OrderBillDesc').text('实付金额');
+                break;
+            case 8:
+                status_desc = 'receivedOrder';
                 button_group = orderElement.find('.OrderStatusNotPay');
                 orderElement.find('.OrderBillDesc').text('待付金额');
                 break;
@@ -332,6 +344,7 @@
     }
     function displayOrderItems(orderElement, itemList) {
         var container = orderElement.find('.OrderItemContainer');
+
         $.each(itemList,function(k,v) {
 //            console.log(v);
             var item_element = elementList['#OrderItemElement'].clone();
@@ -353,6 +366,7 @@
     function showNextPage() {
 //        console.log('showNextPage');
         if(hasMore){
+            hasMore == false; //临时取消hasMore 防止多次触发 会在收到回调后重新刷新真实的值
             app('order_list',{type: type, p: ++page});
         }
     }
@@ -368,7 +382,7 @@
         //初始化全局变量
         type = typeID;
         hasMore = false;
-        firstShow = true;
+
         page = 0;
         //获取页面
         app('order_list',{type: type, p: page});

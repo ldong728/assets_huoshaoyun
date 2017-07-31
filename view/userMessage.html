@@ -16,6 +16,16 @@
 		.user_pic img{
 			border-radius: 50%;
 		}
+		.flex{
+			display: -webkit-flex; /* Safari */
+			display: flex;
+		}
+		.flex_row_option{
+			justify-content: space-between;
+			align-items: center;
+			height: 50px;
+			font-size: 15px;
+		}
 	</style>
 </head>
 
@@ -75,6 +85,14 @@
 					<input type="text" name="user" placeholder="男" class="btn-white right text-right new-input" readonly>
 				</div>
 -->
+				<div class="magin-top">
+					<div class="row bg-white bg-magin verify_btn">
+						<div class="flex flex_row_option">
+							<div>实名认证</div>
+							<div class="icon icon-angle-right"></div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -88,10 +106,10 @@
     $(document).ready(function () {
         Templates.loadTemplates('userMessage','个人资料');
 		registerClickEvent();
-		app.getUserInfo();
+        app('user_info');
     });
 	
-	 function callback_jsonCallback(back) {
+	function callback_jsonCallback(back) {
         var backValue = handleBack(back);
         console.log(backValue);
         if(backValue['success'] == false){
@@ -100,11 +118,11 @@
         }
 
         switch (backValue['callback']) {
-            case 'getUserInfo':
+            case 'user_info':
                 console.log(backValue['data']);
                 refreshUserInfo(backValue['data']);
                 break;
-            case 'userInfoModify':
+            case 'user_info_modify':
                 console.log(backValue['data']);
                 refreshUserInfo(newDataInfo);
                 var btn = $('.btn-wan');
@@ -114,7 +132,7 @@
         }
     }
 	
-	 function refreshUserInfo(data) {
+	function refreshUserInfo(data) {
             $('.entity_name').val(data.entity_name);
             $('.user_tel').val(data.user_tel);
 //            $('#user_pic').children(0)[0].src = 'aaa';
@@ -132,6 +150,7 @@
 
         //在 refreshUserInfo() 中真正赋值
         newDataInfo={};
+
     }
 
     function registerClickEvent() {
@@ -154,8 +173,8 @@
 		$(document).on('click','.btn-delete-js',function(){
 			$(this).next('input[type=text]').val('').focus();
 		});
-        $(document).on('click','.user_pic',function(){
-            app.choosePic();
+        $(document).on('click','.verify_btn',function(){
+            header('smrz');
         });
     }
 
@@ -179,8 +198,9 @@
             return false;
         }
         console.log(newDataInfo);
+        newDataInfo['user_tel'] = '';
 
-        app.userInfoModify(newDataInfo);
+        app('user_info_modify',newDataInfo);
     }
 
 //

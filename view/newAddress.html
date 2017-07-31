@@ -58,7 +58,7 @@
 				</div>
 				<div class="input bg-white border-bottom">
 					<label class="label-con">电&nbsp;&nbsp;&nbsp;话</label>
-					<input type="text" name="tel" placeholder="请填写收货人电话" class="btn-white new-input newDataInfo" data-field="phone">
+					<input type="text" name="tel" placeholder="请填写收货人电话" class="btn-white new-input newDataInfo" data-field="tel">
 				</div>
 				<div class="input bg-white border-bottom safe">
 					<label class="label-con">地&nbsp;&nbsp;&nbsp;区</label>
@@ -101,12 +101,13 @@
 
 <script>
     var fromPage;
+    var shouldSetDefault;
     setInitParam();
 
     $(document).ready(function () {
         Templates.loadTemplates('newAddress','新增收货地址');
         registerClickEvent();
-        app.getArea();
+        app('area_index');
     });
 
     function setInitParam() {
@@ -130,15 +131,16 @@
         console.log(backValue);
         if(backValue['success'] == false){
             console.log('callback ERR: '+backValue['message']);
+            alert(backValue['message']);
             return;
         }
 
         switch (backValue['callback']) {
-            case 'area':
+            case 'area_index':
                 console.log(backValue['data']);
                 setSelectElement(backValue);
                 break;
-            case 'receivingModify':
+            case 'userreceiving_modify':
                 alert(backValue['message']);
                 header(fromPage,{fromPage:''});
                 break;
@@ -169,12 +171,15 @@
             return false;
         }
 
-        newDataInfo['setDefaultAddr'] = $('#setDefaultAddr').prop('checked');
+        shouldSetDefault = $('#setDefaultAddr').prop('checked');
         for (var key in newDataInfo){
             console.log(key+': '+newDataInfo[key]);
         }
         console.log(newDataInfo);
-		app.receivingModify(newDataInfo);
+		app('userreceiving_modify',newDataInfo);
+		if(shouldSetDefault){
+		    app('')
+		}
     }
 
 

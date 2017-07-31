@@ -153,8 +153,8 @@
     $(document).ready(function () {
         Templates.loadTemplates('pageCur','我的');
         registerClickEvent();
-        app('user_info',null);
-        app('order_my_orders_data',null);
+        app('user_info');
+        app('order_my_orders_data');
     });
 
     function registerClickEvent() {
@@ -174,42 +174,37 @@
             header('allOrder');
         });
         $(document).on('click','.userInfo_btn',function () {
-            header('userMessage');
 //			console.log('前往userMessage');
+            header('userMessage');
         });
         $(document).on('click','.dealerPurchase_btn',function () {
-//            header('userMessage-xiugai','fromPage=pageCur');
 //            console.log('前往我的佣金');
             header('classify');
         });
         $(document).on('click','.myCommission_btn',function () {
-//            header('userMessage-xiugai','fromPage=pageCur');
 //            console.log('前往我的佣金');
             header('yj');
         });
         $(document).on('click','.allAddress_btn',function () {
-//            header('userMessage-xiugai','fromPage=pageCur');
 //            console.log('前往收货地址');
             header('allAddress');
         });
         $(document).on('click','.accountSafe_btn',function () {
-//            header('userMessage-xiugai','fromPage=pageCur');
 //            console.log('前往账户与安全');
             header('pwdChange');
         });
         $(document).on('click','.systemSet_btn',function () {
-//            header('userMessage-xiugai','fromPage=pageCur');
 //            console.log('前往系统设置');
             header('setSystem');
         });
         $(document).on('click','.applyDealer_btn',function () {
-//            header('userMessage-xiugai','fromPage=pageCur');
 //            console.log('前往申请经销商');
             header('dealer');
         });
         $(document).on('click','.logout_btn',function () {
-//            header('userMessage-xiugai','fromPage=pageCur');
-            console.log('退出账号');
+//            console.log('退出账号');
+            app('logout');
+            header('pageCur');
         });
     }
 
@@ -233,8 +228,7 @@
         }
     }
 
-    function showOrdersData(data) {
-        var orderData = data['orders_data'];
+    function showOrdersData(orderData) {
         $.each(orderData,function(k,v){
             if(v){
                 $('.'+k).show();
@@ -246,18 +240,19 @@
     function refreshUserInfo(data) {
         if(data){
             $('#login_button').css('display','none');
-            $('#user_name').text(data.entity_name);
+//            $('#user_name').text(data['entity_name']);
+            $('#user_name').text(data['user_tel']);
 //            $('#user_pic').children(0)[0].src = 'aaa';
             $('#user_pic').find('img').attr('src',data['avatar']);
             checkImgLoad('#user_pic',"../images/p-2.png");
             $('.info_section').css('display','block');
-            var user_level = data['user_level'];
-            switch(user_level){
-                case "用户":
+            var user_type = data['type'];
+            switch(user_type){
+                case 1:
 					$('.myCommission_btn').css('display','none');
                     $('.dealerPurchase_btn').css('display','none');
                     break;
-                case "经销商":
+                case 2:
                     $('.applyDealer_btn').css('display','none');
                     break;
             }

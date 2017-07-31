@@ -8,78 +8,227 @@
 	<script type="text/javascript" src="../js/jquery.min.js"></script>
 	<script type="text/javascript" src="../js/main.js"></script>
 	<script type="text/javascript" src="../js/template.js"></script>
+	<style>
+		.hiddenElement{
+			display: none;
+		}
+		.flex{
+			display: -webkit-flex; /* Safari */
+			display: flex;
+		}
+		.leftNav{
+			width: 25%;
+			height: 100%;
+			font-size: 13px;
+			flex-wrap: wrap;
+			justify-content: center;
+			align-items: center;
+			border-right: 1px solid #ddd;
+		}
+		.leftNavElement{
+			width: 80%;
+			height: 18px;
+			font-size: 13px;
+			line-height: 18px;
+			text-align: center;
+			padding: 5px;
+			border-radius: 18px;
+		}
+		.selectedNav{
+			color: #ffffff;
+			background: #333333;
+		}
+		.fullHeight{
+			height: 100%;
+		}
+		.rightContainer{
+			width: 75%;
+			height: 100%;
+			font-size: 13px;
+			justify-content: center;
+		}
+		.itemContainer{
+			height: 100%;
+			width: 96%;
+			flex-wrap: wrap;
+			justify-content: space-around;
+			align-items: flex-start;
+			overflow: auto;
+		}
+		.itemElement{
+			width: 30%;
+			height: 20%;
+			margin-top: 15px;
+			flex-wrap: wrap;
+			justify-content: center;
+			align-items: center;
+			border: 1px solid #ddd;
+		}
+		.itemIMG{
+			width: 100%;
+			height: 75%;
+			justify-content: center;
+			align-items: center;
+		}
+		.itemBox {
+			width: 30%;
+			padding: 20px 15px;
+			border: 1px solid #ddd;
+			box-sizing: border-box;
+			margin: 1px 0;
+			background-color: #fff;
+			box-shadow: 0 2px 2px rgba(0,0,0,.1);
+		}
+		.itemBox .itemIMG {
+			height: 200px;
+			overflow: hidden;
+			align-items: center;
+			margin-bottom: 15px;
+			justify-content: center;
+		}
+		.itemBox .p-title{
+			width: 100%;
+			font-size: 13px;
+			color: #333;
+			line-height: 1.2;
+			margin-bottom: 15px;
+		}
+		.itemBox .p-price em {
+			font-size: 18px;
+			font-weight: bold;
+		}
+		.itemBox .p-price span {
+			display: block;
+			font-size: 10px;
+			float: right;
+			color: #999;
+		}
+	</style>
 </head>
 
 <body>
 <div id="template_header"></div>
 
 <div id="template_body">
-	<section class="clearfix">
-		<aside class="aside-left">
-			<ul>
-				<li class="aside-cur">美容美妆</li>
-				<li>奶粉纸尿裤</li>
-				<li>母婴专区</li>
-				<li>箱包服饰</li>
-				<li>家居个护</li>
-				<li>营养保健</li>
-				<li>服饰鞋靴</li>
-				<li>数码家电</li>
-				<li>家装材料</li>
-				<li>运动户外</li>
-				<li>环球美食</li>
-				<li>生鲜</li>
-			</ul>
-		</aside>
-		<div class="main-right">
-			<h3>分类</h3>
-			<div class="li">
-				<p class="li-img"><img src="../images/11.png"></p>
-				<p class="li-name">洗发护发</p>
-			</div>
-			<div class="li">
-				<p class="li-img"><img src="../images/22.png"></p>
-				<p class="li-name">糖果/巧克力</p>
-			</div>
-			<div class="li">
-				<p class="li-img"><img src="../images/33.png"></p>
-				<p class="li-name">饼干</p>
-			</div>
-			<div class="li">
-				<p class="li-img"><img src="../images/11.png"></p>
-				<p class="li-name">洗发护发</p>
-			</div>
-			<div class="li">
-				<p class="li-img"><img src="../images/22.png"></p>
-				<p class="li-name">糖果/巧克力</p>
-			</div>
-			<div class="li">
-				<p class="li-img"><img src="../images/33.png"></p>
-				<p class="li-name">饼干</p>
-			</div>
-			<div class="li">
-				<p class="li-img"><img src="../images/11.png"></p>
-				<p class="li-name">洗发护发</p>
-			</div>
-			<div class="li">
-				<p class="li-img"><img src="../images/22.png"></p>
-				<p class="li-name">糖果/巧克力</p>
-			</div>
-			<div class="li">
-				<p class="li-img"><img src="../images/33.png"></p>
-				<p class="li-name">饼干</p>
-			</div>
-			<div class="li">
-				<p class="li-img"><img src="../images/11.png"></p>
-				<p class="li-name">洗发护发</p>
-			</div>
-			<div class="li">
-				<p class="li-img"><img src="../images/22.png"></p>
-				<p class="li-name">糖果/巧克力</p>
-			</div>
-			<div class="li">
-				<p class="li-img"><img src="../images/33.png"></p>
-				<p class="li-name">饼干</p>
+	<section class="clearfix flex fullHeight">
+		<div class="leftNav flex">
+			<div class="leftNavElement selectedNav">美容美妆</div>
+			<div class="leftNavElement">奶粉纸尿裤</div>
+			<div class="leftNavElement">母婴专区</div>
+			<div class="leftNavElement">箱包服饰</div>
+			<div class="leftNavElement">家居个护</div>
+			<div class="leftNavElement">营养保健</div>
+			<div class="leftNavElement">服饰鞋靴</div>
+			<div class="leftNavElement">数码家电</div>
+			<div class="leftNavElement">家装材料</div>
+			<div class="leftNavElement">运动户外</div>
+			<div class="leftNavElement">环球美食</div>
+			<div class="leftNavElement">生鲜</div>
+		</div>
+		<div class="rightContainer flex fullHeight">
+			<div class="itemContainer flex">
+				<div class="itemBox">
+					<i class="itemID hiddenElement"></i>
+					<div class="itemIMG flex">
+						<div>
+							<img src="../images/1.jpg">
+						</div>
+					</div>
+					<p class="p-title itemTitle">Ryoe 吕 棕吕防脱发洗护套装</p>
+					<p class="p-price"><em class="red">￥<i class="itemPrice">NAN</i> </em><span>销量 <i class="soldNum">NAN</i> </span></p>
+				</div>
+				<div class="itemBox">
+					<i class="itemID hiddenElement"></i>
+					<div class="itemIMG flex">
+						<div>
+							<img src="../images/1.jpg">
+						</div>
+					</div>
+					<p class="p-title itemTitle">Ryoe 吕 棕吕防脱发洗护套装</p>
+					<p class="p-price"><em class="red">￥<i class="itemPrice">NAN</i> </em><span>销量 <i class="soldNum">NAN</i> </span></p>
+				</div>
+				<div class="itemBox">
+					<i class="itemID hiddenElement"></i>
+					<div class="itemIMG flex">
+						<div>
+							<img src="../images/1.jpg">
+						</div>
+					</div>
+					<p class="p-title itemTitle">Ryoe 吕 棕吕防脱发洗护套装</p>
+					<p class="p-price"><em class="red">￥<i class="itemPrice">NAN</i> </em><span>销量 <i class="soldNum">NAN</i> </span></p>
+				</div>
+				<div class="itemElement flex">
+					<div class="itemIMG"><img src="../images/11.png"></div>
+					<div class="li-name">洗发护发</div>
+				</div>
+				<div class="itemElement flex">
+					<div class="itemIMG"><img src="../images/22.png"></div>
+					<div class="li-name">糖果/巧克力</div>
+				</div>
+				<div class="itemElement flex">
+					<div class="itemIMG"><img src="../images/33.png"></div>
+					<div class="li-name">饼干</div>
+				</div>
+				<div class="itemElement flex">
+					<div class="itemIMG"><img src="../images/11.png"></div>
+					<div class="li-name">洗发护发</div>
+				</div>
+				<div class="itemElement flex">
+					<div class="itemIMG"><img src="../images/22.png"></div>
+					<div class="li-name">糖果/巧克力</div>
+				</div>
+				<div class="itemElement flex">
+					<div class="itemIMG"><img src="../images/33.png"></div>
+					<div class="li-name">饼干</div>
+				</div>
+				<div class="itemElement flex">
+					<div class="itemIMG"><img src="../images/11.png"></div>
+					<div class="li-name">洗发护发</div>
+				</div>
+				<div class="itemElement flex">
+					<div class="itemIMG"><img src="../images/22.png"></div>
+					<div class="li-name">糖果/巧克力</div>
+				</div>
+				<div class="itemElement flex">
+					<div class="itemIMG"><img src="../images/33.png"></div>
+					<div class="li-name">饼干</div>
+				</div>
+				<div class="itemElement flex">
+					<div class="itemIMG"><img src="../images/11.png"></div>
+					<div class="li-name">洗发护发</div>
+				</div>
+				<div class="itemElement flex">
+					<div class="itemIMG"><img src="../images/22.png"></div>
+					<div class="li-name">糖果/巧克力</div>
+				</div>
+				<div class="itemElement flex">
+					<div class="itemIMG"><img src="../images/33.png"></div>
+					<div class="li-name">饼干</div>
+				</div>
+				<div class="itemElement flex">
+					<div class="itemIMG"><img src="../images/11.png"></div>
+					<div class="li-name">洗发护发</div>
+				</div>
+				<div class="itemElement flex">
+					<div class="itemIMG"><img src="../images/22.png"></div>
+					<div class="li-name">糖果/巧克力</div>
+				</div>
+				<div class="itemElement flex">
+					<div class="itemIMG"><img src="../images/33.png"></div>
+					<div class="li-name">饼干</div>
+				</div>
+				<div class="itemElement flex">
+					<div class="itemIMG"><img src="../images/11.png"></div>
+					<div class="li-name">洗发护发</div>
+				</div>
+				<div class="itemElement flex">
+					<div class="itemIMG"><img src="../images/22.png"></div>
+					<div class="li-name">糖果/巧克力</div>
+				</div>
+				<div class="itemElement flex">
+					<div class="itemIMG"><img src="../images/33.png"></div>
+					<div class="li-name">饼干</div>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -93,19 +242,48 @@
 </html>
 
 <script>
-    var fromPage;
-    setInitParam();
+    var fromPage, mall_type, category, hasMore, page, orderState;
 
     $(document).ready(function () {
         Templates.loadTemplates('classify','产品分类');
+        resizeBody();
+        setInitParam();
         registerClickEvent();
+        initPage();
     });
 
+    function resizeBody() {
+        var body = $('#template_body');
+        body.children()[0].remove();
+        var totalHeight = window.screen.height;
+        console.log(totalHeight);
+        var footerHeight = $('#template_footer').height();
+        var headerHeight = $('#template_header').height();
+        body.height(totalHeight-headerHeight-footerHeight);
+        body.css('top',headerHeight);
+    }
     function setInitParam() {
         fromPage = getUrlParam('fromPage');
         if(fromPage == null){
-            fromPage = 'index';
+            fromPage = 'pageCur';
         }
+        mall_type = 'real';
+        category = '';
+
+        //克隆元素列表
+        elementList=prepareElement('#itemBoxElement','.category-element');
+
+        //是否有更多商品
+        hasMore = false;
+
+        //当前页面
+        page = 0;
+
+        //当前排序
+        orderState = {
+            'order': null,
+            'increase':false
+        };
     }
 
     function registerClickEvent() {
@@ -116,5 +294,50 @@
             $('.aside-cur').removeClass('aside-cur');
             $(this).addClass('aside-cur');
         });
+    }
+
+    function initPage() {
+       	app('category_index',{level:1});
+        getItemList();
+    }
+
+    function getItemList() {
+        var param = {};
+		var functionName = 'item_list';
+		category = category?category:'';
+		param['cid'] = category;
+
+        param['p'] = page;
+
+        if(orderState['order']){
+            param['order'] = orderState['order'];
+            if(orderState['increase']){
+                param['sort'] = 'asc';
+            }else{
+                param['sort'] = 'desc';
+            }
+        }
+
+        console.log(param);
+        app(functionName,param);
+    }
+
+    function callback_jsonCallback(back) {
+        var backValue = handleBack(back);
+        console.log(backValue);
+        if(backValue['success'] == false){
+            console.log('callback ERR: '+backValue['message']);
+            return;
+        }
+
+        switch (backValue['callback']) {
+            case 'item_list':
+//                displayItems(backValue['data']);
+//                checkImgLoad('.itemList','../images/img-load-error.jpeg');
+                break;
+            case 'category_index':
+//                refreshCategory($('.category-container'), backValue.data['categories']);
+                break;
+        }
     }
 </script>

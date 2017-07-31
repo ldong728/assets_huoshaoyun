@@ -5121,6 +5121,7 @@ var apiInfoList = {
     cart_del:                   {api:'Cart/del',                    method:'post'},
     cart_list:                  {api:'Cart/list',                   method:'post'},
     order_pre_order:            {api:'Order/pre_order',             method:'post'},
+    order_pre_order_info:       {api:'Order/pre_order_info',        method:'get'},
     order_add:                  {api:'Order/add',                   method:'post'},
     order_list:                 {api:'Order/list',                  method:'get'},
     order_step:                 {api:'Order/step',                  method:'post'},
@@ -5138,27 +5139,35 @@ var apiInfoList = {
     needs_index:                {api:'needs/index',                 method:'post'},
     order_detail:               {api:'Order/detail',                method:'get'},
     itemcomment_add:            {api:'ItemComment/add',             method:'post'},
-    itemcomment_list:           {api:'ItemComment/list',            method:'post'},
+    itemcomment_list:           {api:'ItemComment/list',            method:'get'},
     // test:{api:'User/test',method:'post'},
     index_index:                {api:'Index/index',                 method:'get'},
     order_my_orders_data:       {api:'Order/my_orders_data',        method:'get'},
     index_sections:              {api:'Index/sections',             method:'get'}
 };
 
-function app(functionName,data) {
+function app(functionName,sData) {
     if(debug){
-        Bridge[functionName](data);
+        Bridge[functionName](sData);
         return;
     }
+    var data=sData||'';
+    var dataString=JSON.stringify(data);
     switch(functionName){
-        case 'user_login':
-            window.bridge[functionName](data||'default');
-            break;
+        //case 'user_login':
+        //    window.bridge[functionName](data||'default');
+        //    break;
         case 'saveUser':
-            window.bridge[functionName](data);
+            window.bridge[functionName](dataString);
             break;
         case 'logout':
-            window.bridge[functionName](data);
+            window.bridge[functionName](dataString);
+            break;
+        case 'getDefaultUser':
+            window.bridge[functionName]();
+            break;
+        case 'exitApp':
+            window.bridge.exitApp();
             break;
         default :
             var formatedData=formatRequestData(functionName,data);
@@ -5176,6 +5185,23 @@ function formatRequestData(functionName,data){
     }else{
         return null;
     }
+
+}
+function goBack(){
+
+    console.log('goBack');
+    var currentLocation=location.href;
+    var locationArray=currentLocation.split('?');
+    var indexMark=/index/;
+    if(locationArray[0].match(indexMark)||locationArray[0].match(/login/)){
+        app("exitApp");
+        return;
+    }
+    if(currentLocation.match(/registration/)){
+        header('login');
+        return;
+    }
+    header('index');
 
 }
 

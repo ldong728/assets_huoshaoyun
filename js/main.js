@@ -39,7 +39,7 @@ function header(page,parameter){
 }
 
 function disPlayPrice(price){
-    return new Number(price/100).toFixed(2)
+    return new Number(price/100).toFixed(2);
 }
 
 
@@ -224,22 +224,7 @@ function getElementOffset(element){
     }
     return top;
 }
-function goBack(){
-    console.log('goBack');
-    var currentLocation=location.href;
-    console.log(currentLocation);
-    var indexMark=/index/;
-    if(currentLocation.match(indexMark)||currentLocation.match(/login/)){
-        app.exitApp();
-        return;
-    }
-    if(currentLocation.match(/registration/)){
-        header('login');
-        return;
-    }
-        header('index');
 
-}
 
 
 $(document).on('click','.footer_index',function(){
