@@ -1,199 +1,260 @@
 <!doctype html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
-<title>公告</title>
-<link href="../css/main.css" rel="stylesheet">
-<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+	<title>商城商品列表</title>
+	<link href="../css/main.css" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/main.js"></script>
+	<script type="text/javascript" src="../js/template.js"></script>
+	<style>
+		.itemList{
+			flex-wrap: wrap;
+			justify-content: center;
+		}
+		.itemBox{
+			width: 90%;
+			height: 100px;
+			margin: 5px;
+			padding-bottom:;: 3px;
+			border-bottom: 1px solid #ddd;
+			justify-content: center;
+			align-items: center;
+		}
+		.itemLeft{
+			width: 25%;
+			height: 90%;
+		}
+		.itemLeft .itemIMG{
+			width: 100%;
+			height: 100%;
+			align-items: center;
+			justify-content: center;
+			overflow: hidden;
+		}
+		.itemCenter{
+			width:55%;
+			height: 100%;
+			flex-wrap: wrap;
+			justify-content: center;
+			align-items: center;
+			font-size: 1.2em;
+		}
+		.itemCenter .itemTitleTag{
+			width:80%;
+			height: 50%;
+			flex-wrap: wrap;
+			align-items: flex-start;
+			justify-content: flex-start;
+		}
+		.itemRight{
+			width:20%;
+			height: 80%;
+			flex-wrap: wrap;
+			align-items: center;
+			justify-content: center;
+		}
+		.itemRight .upperBox{
+			width:100%;
+			height: 50%;
+			justify-content: flex-end;
+			align-items: center;
+		}
+		.itemRight .upperBox .itemPriceTag{
+			font-size: 1.5em;
+		}
+		.itemRight .underBox{
+			width:100%;
+			height:25%;
+			justify-content: flex-end;
+			align-items: center;
+		}
+		.itemRight .underBox .itemSoldNumTag{
+			font-size: 1em;
+			color: #666;
+		}
+		.noMoreDiv{
+			height: 50px;
+			justify-content: center;
+			align-items: center;
+		}
+	</style>
 </head>
 
 <body>
-<header class="header bg-white border-bottom">
-	<div class="container">
-		<div class="row">
-			<button class="btn-white header-back h2"><i class="icon icon-angle-left"></i></button>
-			<div class="text-center h-middle set-place">
-				<label class="he-search"><i class="icon icon-search"></i></label>
-				<input type="text" name="search" placeholder="输入关键字搜索物品" class="header-search h4"></div>
-			<button class="btn-white h2 header-right"><i class="icon icon-shopping-cart"></i></button>
+
+<div id="template_header"></div>
+
+<div id="template_body">
+	<section>
+		<!--筛选排序导航-->
+		<div class="clearfix flex filter_nav">
+			<div class="filter_box red">综合</div>
+			<div class="filter_box">销量<button class="btn-white btn1" style="color: inherit;"><i class="icon icon-sort"></i></button></div>
+			<div class="filter_box">价格<button class="btn-white btn1" style="color: inherit;"><i class="icon icon-sort"></i></button></div>
+			<div class="filter_box po-li hiddenElement">
+				筛选
+				<button class="btn-white btn2"><i class="icon icon-caret-down"></i></button>
+			</div>
 		</div>
-	</div>
-</header>
-<section  class="magin-footer">
-	<div class="container padding-bottom30">
-		<div class="row bg-magin">
-			<ul class="nav-shop-list bg-magin clearfix">
-				<li><a href="#">全部<button class="btn-white"><i class="icon icon-sort-down"></i></button></a></li>
-				<li><a href="#">排序<button class="btn-white"><i class="icon icon-sort-down"></i></button></a></li>
-				<li><a href="#">筛选<button class="btn-white"><i class="icon icon-sort-down"></i></button></a></li>
-			</ul>
+		<!--产品列表-->
+		<div class="flex itemList">
+			<div class="itemBox flex hiddenElement" id="itemBoxElement">
+				<i class="itemID hiddenElement"></i>
+				<div class="itemLeft flex">
+					<div class="itemIMG flex"><img src="../images/未标题-3.jpg"></div>
+				</div>
+				<div class="itemCenter flex">
+					<div class="itemTitleTag flex">
+						<div class="itemTitle">太平鸟男装商务休闲七分裤</div>
+					</div>
+				</div>
+				<div class="itemRight flex">
+					<div class="upperBox flex">
+						<p class="itemPriceTag red">￥<i class="itemPrice">NAN</i></p>
+					</div>
+					<div class="underBox flex">
+						<p class="itemSoldNumTag">销量 <i class="soldNum">NAN</i></p>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="row bg-magin border-top">
-			<dl class="list-dl clearfix">
-				<dt><img src="../images/未标题-3.jpg"></dt>
-				<dd>
-					<div class="dd-top clearfix">
-						<div class="dd-t-l">
-							<p>太平鸟男装商务休闲七分裤</p>
-							<p>B2GB51730</p>
-						</div>
-						<div class="dd-t-r">
-							<p class="red">￥88</p>
-						</div>
-					</div>
-					<div class="dd-b clearfix">
-						<p class="clearfix">
-							<span><i class="icon icon-minus"></i></span>
-							<span>2</span>
-							<span><i class="icon icon-plus"></i></span>
-						</p>
-						<a class="bg-red">加入购物车</a>
-					</div>
-				</dd>
-			</dl>
-			<dl class="list-dl clearfix">
-				<dt><img src="../images/未标题-3.jpg"></dt>
-				<dd>
-					<div class="dd-top clearfix">
-						<div class="dd-t-l">
-							<p>太平鸟男装商务休闲七分裤</p>
-							<p>B2GB51730</p>
-						</div>
-						<div class="dd-t-r">
-							<p class="red">￥88</p>
-						</div>
-					</div>
-					<div class="dd-b clearfix">
-						<p class="clearfix">
-							<span><i class="icon icon-minus"></i></span>
-							<span>2</span>
-							<span><i class="icon icon-plus"></i></span>
-						</p>
-						<a class="bg-red">加入购物车</a>
-					</div>
-				</dd>
-			</dl>
-			<dl class="list-dl clearfix">
-				<dt><img src="../images/未标题-3.jpg"></dt>
-				<dd>
-					<div class="dd-top clearfix">
-						<div class="dd-t-l">
-							<p>太平鸟男装商务休闲七分裤</p>
-							<p>B2GB51730</p>
-						</div>
-						<div class="dd-t-r">
-							<p class="red">￥88</p>
-						</div>
-					</div>
-					<div class="dd-b clearfix">
-						<p class="clearfix">
-							<span><i class="icon icon-minus"></i></span>
-							<span>2</span>
-							<span><i class="icon icon-plus"></i></span>
-						</p>
-						<a class="bg-red">加入购物车</a>
-					</div>
-				</dd>
-			</dl>
-			<dl class="list-dl clearfix">
-				<dt><img src="../images/未标题-3.jpg"></dt>
-				<dd>
-					<div class="dd-top clearfix">
-						<div class="dd-t-l">
-							<p>太平鸟男装商务休闲七分裤</p>
-							<p>B2GB51730</p>
-						</div>
-						<div class="dd-t-r">
-							<p class="red">￥88</p>
-						</div>
-					</div>
-					<div class="dd-b clearfix">
-						<p class="clearfix">
-							<span><i class="icon icon-minus"></i></span>
-							<span>2</span>
-							<span><i class="icon icon-plus"></i></span>
-						</p>
-						<a class="bg-red">加入购物车</a>
-					</div>
-				</dd>
-			</dl>
-			<dl class="list-dl clearfix">
-				<dt><img src="../images/未标题-3.jpg"></dt>
-				<dd>
-					<div class="dd-top clearfix">
-						<div class="dd-t-l">
-							<p>太平鸟男装商务休闲七分裤</p>
-							<p>B2GB51730</p>
-						</div>
-						<div class="dd-t-r">
-							<p class="red">￥88</p>
-						</div>
-					</div>
-					<div class="dd-b clearfix">
-						<p class="clearfix">
-							<span><i class="icon icon-minus"></i></span>
-							<span>2</span>
-							<span><i class="icon icon-plus"></i></span>
-						</p>
-						<a class="bg-red">加入购物车</a>
-					</div>
-				</dd>
-			</dl>
-			<dl class="list-dl clearfix">
-				<dt><img src="../images/未标题-3.jpg"></dt>
-				<dd>
-					<div class="dd-top clearfix">
-						<div class="dd-t-l">
-							<p>太平鸟男装商务休闲七分裤</p>
-							<p>B2GB51730</p>
-						</div>
-						<div class="dd-t-r">
-							<p class="red">￥88</p>
-						</div>
-					</div>
-					<div class="dd-b clearfix">
-						<p class="clearfix">
-							<span><i class="icon icon-minus"></i></span>
-							<span>2</span>
-							<span><i class="icon icon-plus"></i></span>
-						</p>
-						<a class="bg-red">加入购物车</a>
-					</div>
-				</dd>
-			</dl>
-		</div>
-	</div>
-</section>
-<footer class="footer fixed">
-	<nav>
-		<ul class="clearfix">
-			<li>
-				<a href="#">
-					<p class="home-pic f-pic"><i class="icon icon-home"></i></p>
-					<p class="f-text text-center">首页</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<p class="pro-pic f-pic"><i class="icon icon-list"></i></p>
-					<p class="f-text text-center">产品分类</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<p class="shop-pic f-pic"><i class="icon icon-file-text-o"></i></p>
-					<p class="f-text text-center">订单</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<p class="user-pic f-pic"><i class="icon icon-user"></i></p>
-					<p class="f-text text-center">我的</p>
-				</a>
-			</li>
-		</ul>
-	</nav>
-</footer>
+		<div class="hiddenElement"><div class="noMoreDiv flex "><div>----没有更多----</div></div></div>
+	</section>
+</div>
+<div id="template_footer"></div>
+
+
 </body>
 </html>
+
+<script>
+
+    var fromPage, mall_type, category, hasMore, page, orderState;;
+
+    $(document).ready(function () {
+        Templates.loadTemplates('shopList','购物列表');
+        setInitParam();
+        registerClickEvent();
+        initPage();
+        scrollWatcher(null,askMoreItem);
+    });
+
+
+    function setInitParam() {
+        fromPage = getUrlParam('fromPage');
+        if(fromPage == null){
+            fromPage = 'classify';
+        }
+        mall_type = 'real';
+        category = getUrlParam('cid');
+
+        //克隆元素列表
+        elementList=prepareElement('#itemBoxElement');
+
+        //是否有更多商品
+        hasMore = false;
+
+        //当前页面
+        page = 0;
+
+        //当前排序
+        orderState = {
+            'order': null,
+            'increase':false
+        };
+    }
+
+    function registerClickEvent() {
+        $(document).on('click','.header-back',function () {
+            header(fromPage);
+        });
+        $(document).on('click','.displayed-item',function () {
+            var itemBox = $(this);
+            headerGoodsDetail(itemBox);
+        });
+    }
+
+    function initPage() {
+        getItemList();
+    }
+
+    function callback_jsonCallback(back) {
+        var backValue = handleBack(back);
+        console.log(backValue);
+        if(backValue['success'] == false){
+            console.log('callback ERR: '+backValue['message']);
+            return;
+        }
+
+        switch (backValue['callback']) {
+            case 'item_list':
+                displayItems(backValue['data']);
+                checkImgLoad('.itemList','../images/img-load-error.jpeg');
+                break;
+        }
+    }
+
+    function displayItems(data) {
+        var container = $('.itemList');
+        if(page == 0){
+            container.empty();
+        }
+        page++;
+        console.log(data);
+        hasMore = data['has_more'];
+        var items = data['list'];
+        $.each(items,function (key,item) {
+            var itemBox = elementList['#itemBoxElement'].clone();
+            itemBox.addClass('displayed-item');
+            itemBox.removeClass('hiddenElement');
+            itemBox.find('.itemID').text(item['item_id']);
+            itemBox.find('img').attr('src',item['img']);
+            itemBox.find('.itemTitle').text(item['title']);
+            itemBox.find('.itemPrice').text(disPlayPrice(item['pay_price']));
+            itemBox.find('.soldNum').text(item['sold_num']);
+
+            container.append(itemBox);
+        });
+    }
+
+    function askMoreItem() {
+        if(hasMore){
+            hasMore = false;
+            getItemList();
+        }else{
+            $('.noMoreDiv').parent().removeClass('hiddenElement');
+        }
+    }
+
+    function getItemList() {
+        var param = {};
+
+        var functionName = 'item_list';
+        category = category?category:'';
+        param['cid'] = category;
+
+
+        param['p'] = page;
+
+
+        if(orderState['order']){
+            param['order'] = orderState['order'];
+            if(orderState['increase']){
+                param['sort'] = 'asc';
+            }else{
+                param['sort'] = 'desc';
+            }
+        }
+
+        console.log(param);
+        app(functionName,param);
+    }
+
+    function headerGoodsDetail(itemBox) {
+        var itemID = itemBox.find('.itemID').text();
+        console.log('header goods detail, type = ' + mall_type + ' itemId = '+ itemID);
+        header('goodsDetail',{'type':mall_type, 'itemId': itemID});
+    }
+</script>

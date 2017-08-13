@@ -13,68 +13,7 @@
 			width: 100%;
 			overflow: hidden;
 		}
-		.flex{
-			display: -webkit-flex; /* Safari */
-			display: flex;
-		}
-		.flex-center{
-			justify-content: center;
-			align-items: center;
-		}
-		.flexHeader{
-			justify-content: space-evenly;
-			align-items: center;
-			background: white;
-		}
-		.search-form{
-			justify-content: center;
-			align-items: center;
-			border: 1px solid #ddd;
-			border-radius: 15px;
-			width: 90%;
-			height: 60%;
-		}
-		.search-form form{
-			align-items: center;
-			background: none;
-			height: 80%;
-		}
-		.search-form button{
-			width: 15%;
-		}
-		.search-form input{
-			width: 85%;
-			-webkit-appearance: none;
-			border: none;
-			background: none;
-		}
-		.clearBtn{
-			background: none;
-			border: none;
-		}
-		.flexHeaderSearch_index{
-			height: 50px;
-			font-size: 12px;
-			width: 50%;
-			justify-content: center;
-			align-items: center;
-		}
-		.flexHeaderLogo_index{
-			width: 25%;
-			justify-content: center;
-		}
-		.flexHeaderButtons_index{
-			width: 25%;
-			font-size: 1.7em;
-			justify-content: center;
-		}
-		.flexHeaderButtons_index div{
-			width: 80%;
-			justify-content: space-around;
-		}
-		.hiddenElement{
-			display: none;
-		}
+
 	</style>
 </head>
 
@@ -504,6 +443,10 @@
             var itemBox = $(this);
             headerGoodsDetail(itemBox);
         });
+        $(document).on('submit','form',function (event) {
+            event.preventDefault();
+            console.log($(this).find('input').val());
+        });
     }
 
     function callback_jsonCallback(back) {
@@ -651,9 +594,7 @@
         header('goodsList',{'mall_type':mall_type, 'category':cid});
     }
 
-    var box;
     function headerGoodsDetail(itemBox) {
-        box= itemBox;
         var item_type = 'unreal';
         var findMoreType = itemBox.parent().parent().parent().find('.findMoreType').text();
         if(findMoreType == 'mall'){
@@ -661,7 +602,7 @@
 		}
         var itemID = itemBox.find('.index_index-itemID').text();
         console.log('header goods detail, type = ' + item_type + ' itemId = '+ itemID);
-        header('goodsDetail','type = ' + item_type + ' itemId = '+ itemID);
+        header('goodsDetail',{'type':item_type, 'itemId': itemID});
     }
 
 </script>

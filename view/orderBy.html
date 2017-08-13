@@ -1,81 +1,530 @@
 <!doctype html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
-<title>订单提交</title>
-<link href="../css/main.css" rel="stylesheet">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    <meta name="format-detection" content="telephone=no" />
+	<title>订单提交</title>
+	<link href="../css/main.css" rel="stylesheet">
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/main.js"></script>
+	<script type="text/javascript" src="../js/template.js"></script>
+	<style>
+		.flexTopBox{
+			flex-wrap: wrap;
+			margin-bottom: 15px;
+			padding-bottom: 15px;
+		}
+		.flexTopBoxHeader{
+			justify-content: flex-start;
+			align-items: center;
+			width: 100%;
+			height: 30px;
+			line-height: 30px;
+			margin: 5px auto 0 0;
+		}
+		.flexTopBoxHeader .radioCheckBox{
+			margin-right: 10px;
+		}
+		.flexTopBox .DefaultReceivingBox{
+			width: 100%;
+			height: 100px;
+			flex-wrap: nowrap;
+		}
+		.flexTopBox .DefaultReceivingBox .leftPart{
+			width: 90%;
+			flex-wrap: wrap;
+		}
+		.flexTopBox .DefaultReceivingBox .leftPart .topBox{
+			width: 100%;
+			flex-wrap: nowrap;
+			justify-content: flex-start;
+			align-items: center;
+		}
+		.flexTopBox .DefaultReceivingBox .rightPart{
+			width: 10%;
+			flex-wrap: nowrap;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.OrdersContainer{
+			flex-wrap: wrap;
+			justify-content: center;
+			align-items: center;
+		}
+		.OrdersContainer .flexRow{
+			width: 100%;
+		}
+		.OrdersContainer .OrdersList{
+			flex-wrap: wrap;
+			justify-content: center;
+			align-items: center;
+		}
+		.OrdersContainer .OrderBox{
+			flex-wrap: wrap;
+			justify-content: center;
+			align-items: center;
+		}
+		.OrdersContainer .OrderTag{
+			justify-content: flex-start;
+			align-items: center;
+			height:30px;
+			color: #aaa;
+		}
+		.OrdersContainer .itemList{
+			flex-wrap: wrap;
+			justify-content: center;
+			align-items: center;
+		}
+		.OrdersContainer .itemBox{
+			justify-content: center;
+			align-items: center;
+			height: 80px;
+		}
+		.OrdersContainer .itemBox .leftPart{
+			justify-content: center;
+			align-items: center;
+			width: 25%;
+			height: 100%;
+		}
+		.OrdersContainer .itemBox .middlePart{
+			width: 55%;
+			height: 70%;
+			flex-wrap: wrap;
+		}
+		.OrdersContainer .itemBox .middlePart .infoRow{
+			width: 80%;
+			justify-content: flex-start;
+			align-items: center;
+		}
+		.OrdersContainer .itemBox .rightPart{
+			justify-content: flex-end;
+			align-items: center;
+			width: 20%;
+			flex-wrap: wrap;
+		}
+		.OrdersContainer .itemBox .rightPart .showPrice{
+			font-size: 1.2em;
+			padding-right: 5px;
+		}
+		.OrdersContainer .itemBox .rightPart .discount{
+			font-size: .8em;
+			padding-right: 5px;
+			color: #666;
+		}
+		.OrdersContainer .itemBox .itemIMG{
+			width: 70%;
+			justify-content: center;
+			align-items: center;
+			overflow: hidden;
+		}
+		.OrdersContainer .itemBox .itemTitle{
+			font-size: 15px;
+			color: #333;
+		}
+		.OrdersContainer .itemBox .itemProp{
+			font-size: .8em;
+			color: #999;
+		}
+		.OrdersContainer .itemBox .itemNumTag{
+			color: #999;
+		}
+		.OrdersContainer .OrderBillInfo{
+			flex-wrap: wrap;
+			justify-content: center;
+			align-items: center;
+			height: 100px;
+			color: #666;
+			padding-top: 10px;
+		}
+		.OrdersContainer .OrderBillInfo .infoTag{
+			height: 45%;
+			justify-content: flex-end;
+		}
+		.OrdersContainer .OrderBillInfo .tagList{
+			flex-wrap: wrap;
+			width: 22%;
+		}
+		.OrdersContainer .OrderBillInfo .numList{
+			flex-wrap: wrap;
+			width: 20%;
+		}
+		.OrdersContainer .OrderBillInfo .tag{
+			width: 90%;
+			height: 50%;
+			text-align: justify;
+			text-align-last: justify;
+		}
+		.OrdersContainer .OrderBillInfo .bigTag{
+			text-align: center;
+			font-size: 1.5em;
+		}
+		.OrdersContainer .OrderBillInfo .num{
+			height: 50%;
+			text-align: right;
+		}
+		.OrdersContainer .OrderBillInfo .bigNum{
+			text-align: right;
+			font-size: 1.5em;
+		}
+		.serviceListBox{
+			width: 100%;
+			justify-content: flex-start;
+			align-items: flex-end;
+			height: 25px;
+			font-size: 1.2em;
+		}
+		.serviceListBox .titleTag{
+			width: 20%;
+		}
+		.serviceListBox .selectionTag{
+			width: 80%;
+		}
+		.serviceListBox .selectionTag select{
+			width: 100%;
+			font-size: .8em;
+		}
+	</style>
 </head>
 
 <body class="gray">
-<header class="header bg-white border-bottom">
-	<div class="container">
-		<div class="row">
-			<button class="btn-white header-back h2"><i class="icon icon-angle-left"></i></button>
-			<div class="text-center h-middle"><p class="h3">订单提交</p></div>
-		</div>
-	</div>
-</header>
-<section>
-	<div class="container">
-		
-		<div class="row set-place">
-			<div class="li border-bottom2 bg-magin">
-				<div class="or-li-t bg-magin clearfix">
-					<button class="left"><i class="icon icon-check-circle black h2"></i></button>
-					<h4 class="left">收货地址</h4>
-				</div>
-				<div class=" h4 bg-white clearfix border-bottom">
-					<div class="li-right left">
-						<p class="height50">MC大队长<span class="span-left">158 **** 6789</span></p>
-						<p class="lineheight15 magin-bottom">浙江省宁波市慈溪市古塘街道科技路18号智慧谷1号楼1606室</p>
+<div id="template_header"></div>
+
+<div id="template_body">
+	<section>
+		<div class="container">
+			<!--收货资料-->
+			<div class="flex flexTopBox clearfix bg-magin">
+				<div class="flexTopBoxHeader flex">
+					<!--<button class="left"><i class="icon icon-check-circle black h2"></i></button>-->
+					<div class="left h2 radioCheckBox">
+						<input type="radio" name="receiveType" class="custom_checkbox" id="receivingAddress" value="address"/>
+						<label class="icon" for="receivingAddress"></label>
 					</div>
-					<div class="li-left right magin-right-none">
-						<button class="btn-white h2 right btn-deli btn-order-by"><i class="icon icon-angle-right"></i></button>
+					<label class="left h4" for="receivingAddress">收货地址</label>
+				</div>
+				<div class="h4 bg-white clearfix DefaultReceivingBox flex hiddenElement">
+					<div class="leftPart flex">
+						<div class="topBox flex">
+							<div class="DefaultReceivingName">NAN</div><span class="span-left DefaultReceivingTel">158 **** 6789</span>
+						</div>
+						<div class="DefaultReceivingAddress">浙江省宁波市慈溪市古塘街道科技路18号智慧谷1号楼1606室</div>
 					</div>
-					
+					<div class="rightPart flex">
+						<button class="btn-white h2"><i class="icon icon-angle-right"></i></button>
+					</div>
 				</div>
-				<div class="or-li-t bg-magin clearfix color6" style="padding-bottom: 10px">
-					<button class="left"><i class="icon icon-circle-o h2 color6"></i></button>
-					<h4 class="left">站点自取</h4>
+				<div class="flexTopBoxHeader flex border-top">
+					<!--<button class="left"><i class="icon icon-circle-thin h2"></i></button>-->
+					<div class="left h2 radioCheckBox">
+						<input type="radio" name="receiveType" class="custom_checkbox" id="receivingSpot" value="spot"/>
+						<label class="icon" for="receivingSpot"></label>
+					</div>
+					<label class="left h4" for="receivingSpot">网点自取</label>
 				</div>
-			</div>			
-		</div>
-		<div class="row bg-magin">
-			<p class="size15 h-middle height50 border-bottom color6">商品列表</p>
-			<div class="all-goods">
-				<div class="color3 goods-li clearfix">
-					<dl>
-						<dt><img src="../images/未标题-2.jpg" alt="商品图片"></dt>
-						<dd>
-							<p class="goods-name h4 magintop15">全面压缩面膜 严选品质更好呵护</p>
-							<p class="goods-number magintop10">x <span>1</span></p>
-						</dd>
-					</dl>
-					<p class="goods-price">￥ 4.60</p>
-				</div>
-				<div class="color3 goods-li clearfix">
-					<dl>
-						<dt><img src="../images/未标题-1.jpg" alt="商品图片"></dt>
-						<dd>
-							<p class="goods-name h4 magintop15">全面压缩面膜 严选品质更好呵护</p>
-							<p class="goods-number magintop10">x <span>2</span></p>
-						</dd>
-					</dl>
-					<p class="goods-price">￥ 14.60</p>
+				<div class="serviceListBox flex hiddenElement">
+					<div class="titleTag">网点列表</div>
+					<div class="selectionTag">
+						<select class="serviceList">
+							<option id="serviceSpotElement">asdfasdfasdf</option>
+							<option>asdfasdfasdf</option>
+							<option>asdfasdfasdf</option>
+							<option>asdfasdfasdf</option>
+							<option>asdfasdfasdf</option>
+						</select>
+					</div>
 				</div>
 			</div>
-			<div class="color6 text-right size13 order-mon">
-				<p>商品总金额：23.20</p>
-				<p>运&nbsp;费&nbsp;金&nbsp;额： 23.20</p>
-				<p class="size16">实付总额<span class="red">￥ 1233.20</span></p>
+			<!--订单详情-->
+			<div class="row bg-magin OrdersContainer flex">
+				<!--标题-->
+				<p class="size15 h-middle height50 border-bottom color6 flexRow">订单详情</p>
+				<!--订单列表-->
+				<div class="OrdersList flexRow flex">
+					<div class="OrderBox flexRow flex border-bottom hiddenElement" id="OrderElement">
+						<div class="OrderTag flexRow flex">
+							<div>订单号：</div><div class="orderNum">123413241234123</div>
+						</div>
+						<div class="itemList flexRow flex">
+							<div class="itemBox flexRow flex hiddenElement"  id="itemElement">
+								<div class="leftPart flex">
+									<div class="itemIMG flex">
+										<img src="../images/未标题-2.jpg" alt="商品图片">
+									</div>
+								</div>
+								<div class="middlePart flex flex-center">
+									<div class="flexRow flex infoRow">
+										<p class="itemTitle flexRow">商品名称</p>
+									</div>
+									<div class="flexRow flex infoRow">
+										<p class="itemProp flexRow">商品详细参数</p>
+									</div>
+									<div class="flexRow flex infoRow">
+										<p class="itemNumTag">x <i class="itemNum">1</i></p>
+									</div>
+
+								</div>
+								<div class="rightPart flex">
+									<p class="showPrice">￥<i class="itemPrice">NAN</i></p>
+									<p class="discount hiddenElement">-￥<i class="discountAmount">NAN</i></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--价格信息-->
+				<div class="OrderBillInfo flex flexRow">
+					<div class="flex flexRow infoTag">
+						<div class="tagList flex">
+							<div class="tag">商品总金额</div><i>:</i>
+							<div class="tag">折扣金额</div><i>:</i>
+						</div>
+						<div class="numList">
+							<div class="num flexRow">￥ <i class="totalShowPrice">NAN</i></div>
+							<div class="num flexRow">￥ <i class="totalOffPrice">NAN</i></div>
+						</div>
+					</div>
+					<div class="flex flexRow infoTag" style="flex-wrap: wrap;">
+						<div class="flex flexRow" style="justify-content: flex-end">
+							<div class="bigTag">实付总额：</div>
+							<div class="bigNum red">￥ <i class="totalPayPrice">NAN</i></div>
+						</div>
+						<div class="flex flexRow" style="justify-content: flex-end">
+							<div class="num">（含运费）</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row maginbottom30">
+				<button class="btn bg-red">订单提交</button>
 			</div>
 		</div>
-		<div class="row maginbottom30">
-			<button class="btn bg-red">订单提交</button>
-		</div>
-	</div>
-</section>
+	</section>
+</div>
+
+<div id="template_footer"></div>
+
 </body>
 </html>
 
+
+<script>
+    var fromPage,elementList,preOrderIds,addressId;
+
+    $(document).ready(function () {
+        Templates.loadTemplates('orderBy','订单提交');
+        setInitParam();
+        registerClickEvent();
+        if(addressId){
+            app('userreceiving_info');
+		}else{
+            app('userreceiving_info_default');
+		}
+        app('order_pre_order_info',{'pre_order_ids':preOrderIds});
+        app('services_list');
+    });
+
+    function setInitParam() {
+        fromPage = getUrlParam('fromPage');
+        if(!fromPage){
+            fromPage = 'shopCart';
+        }
+
+        //克隆元素列表
+        elementList=prepareElement('#OrderElement','#itemElement','#serviceSpotElement');
+        //初始化预订单ID
+        preOrderIds = getUrlParam('preOrderIds');
+
+        addressId = getUrlParam('addressId');
+    }
+
+    function registerClickEvent() {
+        $(document).on('click','.header-back',function () {
+            header(fromPage,{'fromPage':''});
+        });
+        $(document).on('click','.DefaultReceivingBox',function () {
+            header('shopAddress',{'preOrderIds':preOrderIds});
+        });
+        $(document).on('change','input[name=receiveType]',function () {
+            var type = $(this).val();
+            console.log(type);
+            if(type == 'address'){
+				$('.DefaultReceivingBox').removeClass('hiddenElement');
+				$('.serviceListBox').addClass('hiddenElement');
+			}
+            if(type == 'spot'){
+                $('.serviceListBox').removeClass('hiddenElement');
+                $('.DefaultReceivingBox').addClass('hiddenElement');
+            }
+        });
+    }
+
+    function callback_jsonCallback(back) {
+        var backValue = handleBack(back);
+        console.log(backValue);
+        if(backValue['success'] == false){
+            console.log('callback ERR: '+backValue['message']);
+            return;
+        }
+
+        switch (backValue['callback']) {
+            case 'cart_list':
+                refreshCartList(backValue['data']);
+                break;
+            case 'userreceiving_info_default':
+                refreshDefaultReceiving(backValue['data']);
+                break;
+            case 'userreceiving_info':
+                refreshReceiving(backValue['data']);
+                break;
+            case 'order_pre_order_info':
+                refreshOrderList(backValue['data']);
+                break;
+            case 'services_list':
+                refreshServiceList(backValue['data']);
+                break;
+        }
+    }
+
+    function refreshCartList(data) {
+        var container = $('#cart_container');
+        container.empty();
+        console.log(data);
+        $.each(data,function(k,v){
+            var cart_box=elementList['#cart_box_element'].clone();
+            cart_box.removeClass('box_element');
+            cart_box.removeAttr('id');
+            cart_box.find('.box_name').text(v['cate_name']);
+
+            var outerCheckBox = cart_box.find('.outerCheckBox');
+            outerCheckBox.find('input').attr('id',v['cate_name']);
+            outerCheckBox.find('label').attr('for',v['cate_name']);
+
+            var product_container = cart_box.find('.product_container');
+            $.each(v['item_list'],function (key, value) {
+                var product_box=elementList['#cart_product_element'].clone();
+                product_box.removeClass('product_element');
+                product_box.addClass('displayed_product');
+                product_box.removeAttr('id');
+                product_box.find('.product_name').text(value['title']);
+                product_box.find('.product_img').attr('src',value['img']);
+                product_box.find('.product_img').attr('alt',value['title']);
+                product_box.find('.product_price').text(disPlayPrice(value['price']));
+                product_box.find('.product_count').text(value['num']);
+                product_box.find('.itemID').text(value['item_id']);
+
+                var innerCheckBox = product_box.find('.innerCheckBox');
+                innerCheckBox.find('input').attr('id','itemId_'+value['item_id']);
+                innerCheckBox.find('label').attr('for','itemId_'+value['item_id']);
+                product_container.append(product_box);
+            });
+
+            container.append(cart_box);
+        });
+    }
+
+    function refreshReceiving(data) {
+		console.log(data);
+		var list = data['list'];
+		var targetAddress = {};
+		$.each(list,function (k,v) {
+			console.log(v['id']);
+			if(addressId == v['id']){
+			    targetAddress = v;
+			    return true;
+			}
+        });
+        refreshDefaultReceiving(targetAddress);
+    }
+    function refreshDefaultReceiving(data) {
+		console.log(data);
+		var container = $('.DefaultReceivingBox');
+        container.find('.DefaultReceivingName').text(data['name']);
+        container.find('.DefaultReceivingTel').text(data['tel']);
+        container.find('.DefaultReceivingAddress').text(data['address_full']);
+
+        $('.radioCheckBox input').first().trigger('click');
+    }
+
+    function refreshOrderList(preOrderData) {
+        var totalShowPrice = 0;
+        var totalPayPrice = 0;
+        console.log(preOrderData);
+//        var orders = preOrderData['order_list'];
+        var orders = preOrderData;
+
+        var orderContainer = $('.OrdersList');
+        orderContainer.empty();
+        $.each(orders,function(k,v){
+            var orderBox=elementList['#OrderElement'].clone();
+            orderBox.removeClass('hiddenElement');
+            orderBox.removeAttr('id');
+            orderBox.find('.OrderID').text(v['pre_order_id']);
+//            orderBox.find('.orderNum').text(v['pre_order_num']);
+            orderBox.find('.OrderTag').hide();
+
+            var itemContainer = orderBox.find('.itemList');
+            itemContainer.empty();
+            $.each(v['item_list'],function (key, value) {
+                var itemBox=elementList['#itemElement'].clone();
+                itemBox.removeClass('hiddenElement');
+                itemBox.addClass('displayed_item');
+                itemBox.removeAttr('id');
+                itemBox.find('.itemTitle').text(value['title']);
+                itemBox.find('.itemProp').text(value['props']);
+                itemBox.find('img').attr('src',value['img']);
+                itemBox.find('img').attr('alt',value['title']);
+                itemBox.find('.itemPrice').text(disPlayPrice(value['show_price']));
+                itemBox.find('.itemNum').text(value['num']);
+                itemBox.find('.itemID').text(value['item_id']);
+
+                var discountAmount = value['show_price'] - value['pay_price'];
+                if(discountAmount > 0){
+                    itemBox.find('.discountAmount').text(disPlayPrice(discountAmount));
+                    itemBox.find('.discount').removeClass('hiddenElement');
+				}
+
+                itemContainer.append(itemBox);
+
+                totalShowPrice += value['show_price'] * value['num'];
+                totalPayPrice += value['pay_price'] * value['num'];
+            });
+
+            orderContainer.append(orderBox);
+        });
+        console.log(totalShowPrice);
+        console.log(totalPayPrice);
+        var orderBillInfo = $('.OrderBillInfo');
+//        orderBillInfo.find('.totalShowPrice').text(disPlayPrice(preOrderData['total_show_price']));
+//        orderBillInfo.find('.totalOffPrice').text(disPlayPrice(preOrderData['total_show_price']-preOrderData['total_pay_price']));
+//        orderBillInfo.find('.totalPayPrice').text(disPlayPrice(preOrderData['total_pay_price']));
+        orderBillInfo.find('.totalShowPrice').text(disPlayPrice(totalShowPrice));
+        orderBillInfo.find('.totalOffPrice').text(disPlayPrice(totalShowPrice-totalPayPrice));
+        orderBillInfo.find('.totalPayPrice').text(disPlayPrice(totalPayPrice));
+    }
+
+    function refreshServiceList(data) {
+        var serviceList = data['service_list'];
+        console.log(serviceList);
+        var container = $('.serviceList');
+        container.empty();
+
+        var firstOption=elementList['#serviceSpotElement'].clone();
+        firstOption.removeClass('hiddenElement');
+        firstOption.removeAttr('id');
+        firstOption.attr('value','');
+        firstOption.text('请选择网点');
+        container.append(firstOption);
+        $.each(serviceList,function(k,v){
+            var serviceSpot=elementList['#serviceSpotElement'].clone();
+            serviceSpot.removeClass('hiddenElement');
+            serviceSpot.removeAttr('id');
+            serviceSpot.attr('value',v['service_name']);
+            serviceSpot.text(v['service_name']);
+
+
+            container.append(serviceSpot);
+        });
+    }
+</script>

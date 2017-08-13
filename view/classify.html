@@ -22,7 +22,7 @@
 			font-size: 13px;
 			flex-wrap: wrap;
 			justify-content: center;
-			align-items: center;
+			align-items: flex-start;
 			border-right: 1px solid #ddd;
 		}
 		.leftNavElement{
@@ -33,6 +33,15 @@
 			text-align: center;
 			padding: 5px;
 			border-radius: 18px;
+			margin-top: 15px;
+		}
+		#categoryContainer{
+			width: 100%;
+			height: auto;
+			max-height: 100%;
+			flex-wrap: wrap;
+			justify-content: center;
+			overflow: auto;
 		}
 		.selectedNav{
 			color: #ffffff;
@@ -46,62 +55,41 @@
 			height: 100%;
 			font-size: 13px;
 			justify-content: center;
-		}
-		.itemContainer{
-			height: 100%;
-			width: 96%;
 			flex-wrap: wrap;
-			justify-content: space-around;
 			align-items: flex-start;
+			border-right: 1px solid #ddd;
+		}
+		.subCategoryContainer{
+			width: 100%;
+			height: auto;
+			max-height: 100%;
+			flex-wrap: wrap;
+			justify-content: flex-start;
 			overflow: auto;
 		}
-		.itemElement{
-			width: 30%;
-			height: 20%;
-			margin-top: 15px;
-			flex-wrap: wrap;
-			justify-content: center;
-			align-items: center;
-			border: 1px solid #ddd;
-		}
-		.itemIMG{
-			width: 100%;
-			height: 75%;
-			justify-content: center;
-			align-items: center;
-		}
-		.itemBox {
-			width: 30%;
-			padding: 20px 15px;
-			border: 1px solid #ddd;
+		.SubCategoryBox {
+			width: 33%;
+			padding: 10px 8px;
+			/*border: 1px solid #ddd;*/
 			box-sizing: border-box;
 			margin: 1px 0;
 			background-color: #fff;
-			box-shadow: 0 2px 2px rgba(0,0,0,.1);
+			/*box-shadow: 0 2px 2px rgba(0,0,0,.1);*/
 		}
-		.itemBox .itemIMG {
-			height: 200px;
+		.SubCategoryBox .SubCategoryIMG {
+			height: 75px;
 			overflow: hidden;
 			align-items: center;
-			margin-bottom: 15px;
+			margin-bottom: 5px;
 			justify-content: center;
 		}
-		.itemBox .p-title{
+		.SubCategoryBox .SubCategoryTitle{
 			width: 100%;
 			font-size: 13px;
 			color: #333;
 			line-height: 1.2;
-			margin-bottom: 15px;
-		}
-		.itemBox .p-price em {
-			font-size: 18px;
-			font-weight: bold;
-		}
-		.itemBox .p-price span {
-			display: block;
-			font-size: 10px;
-			float: right;
-			color: #999;
+			margin-bottom: 8px;
+			text-align: center;
 		}
 	</style>
 </head>
@@ -112,122 +100,23 @@
 <div id="template_body">
 	<section class="clearfix flex fullHeight">
 		<div class="leftNav flex">
-			<div class="leftNavElement selectedNav">美容美妆</div>
-			<div class="leftNavElement">奶粉纸尿裤</div>
-			<div class="leftNavElement">母婴专区</div>
-			<div class="leftNavElement">箱包服饰</div>
-			<div class="leftNavElement">家居个护</div>
-			<div class="leftNavElement">营养保健</div>
-			<div class="leftNavElement">服饰鞋靴</div>
-			<div class="leftNavElement">数码家电</div>
-			<div class="leftNavElement">家装材料</div>
-			<div class="leftNavElement">运动户外</div>
-			<div class="leftNavElement">环球美食</div>
-			<div class="leftNavElement">生鲜</div>
+			<div class="flex" id="categoryContainer">
+				<div class="leftNavElement hiddenElement" id="categoryElement">
+					<i class="category-id hiddenElement"></i>
+					<i class="category-name">分类名称</i>
+				</div>
+			</div>
 		</div>
 		<div class="rightContainer flex fullHeight">
-			<div class="itemContainer flex">
-				<div class="itemBox">
-					<i class="itemID hiddenElement"></i>
-					<div class="itemIMG flex">
+			<div class="subCategoryContainer flex">
+				<div class="SubCategoryBox hiddenElement" id="SubCategoryElement">
+					<i class="SubCategoryID hiddenElement"></i>
+					<div class="SubCategoryIMG flex">
 						<div>
-							<img src="../images/1.jpg">
+							<img src="../images/11.png">
 						</div>
 					</div>
-					<p class="p-title itemTitle">Ryoe 吕 棕吕防脱发洗护套装</p>
-					<p class="p-price"><em class="red">￥<i class="itemPrice">NAN</i> </em><span>销量 <i class="soldNum">NAN</i> </span></p>
-				</div>
-				<div class="itemBox">
-					<i class="itemID hiddenElement"></i>
-					<div class="itemIMG flex">
-						<div>
-							<img src="../images/1.jpg">
-						</div>
-					</div>
-					<p class="p-title itemTitle">Ryoe 吕 棕吕防脱发洗护套装</p>
-					<p class="p-price"><em class="red">￥<i class="itemPrice">NAN</i> </em><span>销量 <i class="soldNum">NAN</i> </span></p>
-				</div>
-				<div class="itemBox">
-					<i class="itemID hiddenElement"></i>
-					<div class="itemIMG flex">
-						<div>
-							<img src="../images/1.jpg">
-						</div>
-					</div>
-					<p class="p-title itemTitle">Ryoe 吕 棕吕防脱发洗护套装</p>
-					<p class="p-price"><em class="red">￥<i class="itemPrice">NAN</i> </em><span>销量 <i class="soldNum">NAN</i> </span></p>
-				</div>
-				<div class="itemElement flex">
-					<div class="itemIMG"><img src="../images/11.png"></div>
-					<div class="li-name">洗发护发</div>
-				</div>
-				<div class="itemElement flex">
-					<div class="itemIMG"><img src="../images/22.png"></div>
-					<div class="li-name">糖果/巧克力</div>
-				</div>
-				<div class="itemElement flex">
-					<div class="itemIMG"><img src="../images/33.png"></div>
-					<div class="li-name">饼干</div>
-				</div>
-				<div class="itemElement flex">
-					<div class="itemIMG"><img src="../images/11.png"></div>
-					<div class="li-name">洗发护发</div>
-				</div>
-				<div class="itemElement flex">
-					<div class="itemIMG"><img src="../images/22.png"></div>
-					<div class="li-name">糖果/巧克力</div>
-				</div>
-				<div class="itemElement flex">
-					<div class="itemIMG"><img src="../images/33.png"></div>
-					<div class="li-name">饼干</div>
-				</div>
-				<div class="itemElement flex">
-					<div class="itemIMG"><img src="../images/11.png"></div>
-					<div class="li-name">洗发护发</div>
-				</div>
-				<div class="itemElement flex">
-					<div class="itemIMG"><img src="../images/22.png"></div>
-					<div class="li-name">糖果/巧克力</div>
-				</div>
-				<div class="itemElement flex">
-					<div class="itemIMG"><img src="../images/33.png"></div>
-					<div class="li-name">饼干</div>
-				</div>
-				<div class="itemElement flex">
-					<div class="itemIMG"><img src="../images/11.png"></div>
-					<div class="li-name">洗发护发</div>
-				</div>
-				<div class="itemElement flex">
-					<div class="itemIMG"><img src="../images/22.png"></div>
-					<div class="li-name">糖果/巧克力</div>
-				</div>
-				<div class="itemElement flex">
-					<div class="itemIMG"><img src="../images/33.png"></div>
-					<div class="li-name">饼干</div>
-				</div>
-				<div class="itemElement flex">
-					<div class="itemIMG"><img src="../images/11.png"></div>
-					<div class="li-name">洗发护发</div>
-				</div>
-				<div class="itemElement flex">
-					<div class="itemIMG"><img src="../images/22.png"></div>
-					<div class="li-name">糖果/巧克力</div>
-				</div>
-				<div class="itemElement flex">
-					<div class="itemIMG"><img src="../images/33.png"></div>
-					<div class="li-name">饼干</div>
-				</div>
-				<div class="itemElement flex">
-					<div class="itemIMG"><img src="../images/11.png"></div>
-					<div class="li-name">洗发护发</div>
-				</div>
-				<div class="itemElement flex">
-					<div class="itemIMG"><img src="../images/22.png"></div>
-					<div class="li-name">糖果/巧克力</div>
-				</div>
-				<div class="itemElement flex">
-					<div class="itemIMG"><img src="../images/33.png"></div>
-					<div class="li-name">饼干</div>
+					<p class="SubCategoryTitle">洗发护发</p>
 				</div>
 			</div>
 		</div>
@@ -242,7 +131,7 @@
 </html>
 
 <script>
-    var fromPage, mall_type, category, hasMore, page, orderState;
+    var fromPage, mall_type, category;
 
     $(document).ready(function () {
         Templates.loadTemplates('classify','产品分类');
@@ -271,56 +160,32 @@
         category = '';
 
         //克隆元素列表
-        elementList=prepareElement('#itemBoxElement','.category-element');
-
-        //是否有更多商品
-        hasMore = false;
-
-        //当前页面
-        page = 0;
-
-        //当前排序
-        orderState = {
-            'order': null,
-            'increase':false
-        };
+        elementList=prepareElement('#SubCategoryElement','#categoryElement');
     }
 
     function registerClickEvent() {
         $(document).on('click','.header-back',function () {
             header(fromPage);
         });
-        $(document).on('click','.aside-left li',function () {
-            $('.aside-cur').removeClass('aside-cur');
-            $(this).addClass('aside-cur');
+        $(document).on('click','.leftNavElement',function () {
+            $('.leftNavElement').removeClass('selectedNav');
+            $(this).addClass('selectedNav');
+			category = $(this).find('.category-id').text();
+			askSubCategory(category);
+        });
+        $(document).on('click','.loadMoreDiv',function () {
+            askMoreItem();
+        });
+        $(document).on('click','.displayed-subCategory',function () {
+			var cid = $(this).find('.SubCategoryID').text();
+            headerShopList(cid);
         });
     }
 
     function initPage() {
        	app('category_index',{level:1});
-        getItemList();
     }
 
-    function getItemList() {
-        var param = {};
-		var functionName = 'item_list';
-		category = category?category:'';
-		param['cid'] = category;
-
-        param['p'] = page;
-
-        if(orderState['order']){
-            param['order'] = orderState['order'];
-            if(orderState['increase']){
-                param['sort'] = 'asc';
-            }else{
-                param['sort'] = 'desc';
-            }
-        }
-
-        console.log(param);
-        app(functionName,param);
-    }
 
     function callback_jsonCallback(back) {
         var backValue = handleBack(back);
@@ -331,13 +196,69 @@
         }
 
         switch (backValue['callback']) {
-            case 'item_list':
-//                displayItems(backValue['data']);
-//                checkImgLoad('.itemList','../images/img-load-error.jpeg');
-                break;
             case 'category_index':
-//                refreshCategory($('.category-container'), backValue.data['categories']);
+                console.log(backValue);
+                if(backValue.data['level'] == 1){
+                    refreshCategory($('#categoryContainer'), backValue.data['categories']);
+				}else{
+                    refreshSubCategory(backValue.data['categories']);
+				}
                 break;
         }
+    }
+
+    var categoryData;
+    function refreshCategory(container,categories) {
+        console.log(categories);
+        categoryData = categories;
+        container.empty();
+        $.each(categories,function(k,v){
+            var category=elementList['#categoryElement'].clone();
+            category.removeClass('hiddenElement');
+            category.find('.category-id').text(v['cid']);
+            category.find('.category-name').text(v['name']);
+            container.append(category);
+        });
+        $('.leftNavElement').first().trigger('click');
+    }
+
+
+    function askSubCategory(cid) {
+		var targetCategory;
+		for(var index in categoryData){
+		    if(cid == categoryData[index]['cid']){
+                targetCategory = categoryData[index];
+		        break;
+			}
+		}
+		if(targetCategory['has_child'] == false){
+            headerShopList(targetCategory['cid']);
+		    return;
+		}else{
+            app('category_index',{level:2,cid:cid});
+		}
+    }
+    function refreshSubCategory(subCategories) {
+
+		console.log(subCategories);
+		var container = $('.subCategoryContainer');
+		container.empty();
+		for(var index in subCategories){
+		    var cate = subCategories[index];
+            var SubCategoryBox = elementList['#SubCategoryElement'].clone();
+            SubCategoryBox.removeAttr('id');
+            SubCategoryBox.addClass('displayed-subCategory');
+            SubCategoryBox.removeClass('hiddenElement');
+            SubCategoryBox.find('.SubCategoryID').text(cate['cid']);
+            SubCategoryBox.find('img').attr('src',cate['img']);
+            SubCategoryBox.find('.SubCategoryTitle').text(cate['name']);
+
+            container.append(SubCategoryBox);
+		}
+    }
+
+    function headerShopList(cid) {
+		console.log('header shopList cid: '+cid);
+		header('shopList',{'cid':cid});
     }
 </script>

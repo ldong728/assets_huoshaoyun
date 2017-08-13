@@ -5111,6 +5111,7 @@ var apiInfoList = {
     userreceiving_info_default: {api:'UserReceiving/info_default',  method:'get'},
     userreceiving_modify:       {api:'UserReceiving/modify',        method:'post'},
     userreceiving_del:          {api:'UserReceiving/del',           method:'post'},
+    userreceiving_set_default:  {api:'UserReceiving/set_default',   method:'post'},
     area_index:                 {api:'Area/index',                  method:'get'},
     ads_index:                  {api:'Ads/index',                   method:'get'},
     item_list:                  {api:'Item/list',                   method:'get'},
@@ -5119,7 +5120,7 @@ var apiInfoList = {
     category_index:             {api:'Category/index',              method:'get'},
     cart_modify:                {api:'Cart/Modify',                 method:'post'},
     cart_del:                   {api:'Cart/del',                    method:'post'},
-    cart_list:                  {api:'Cart/list',                   method:'post'},
+    cart_list:                  {api:'Cart/list',                   method:'get'},
     order_pre_order:            {api:'Order/pre_order',             method:'post'},
     order_pre_order_info:       {api:'Order/pre_order_info',        method:'get'},
     order_add:                  {api:'Order/add',                   method:'post'},
@@ -5143,8 +5144,9 @@ var apiInfoList = {
     // test:{api:'User/test',method:'post'},
     index_index:                {api:'Index/index',                 method:'get'},
     order_my_orders_data:       {api:'Order/my_orders_data',        method:'get'},
-    index_sections:              {api:'Index/sections',             method:'get'}
+    index_sections:             {api:'Index/sections',              method:'get'}
 };
+
 
 function app(functionName,sData) {
     if(debug){

@@ -14,7 +14,9 @@ var Pattern={
         location: /^[\u4e00-\u9fa5\w\d#\- _.]*$/,
         bank_name: /^[\u4e00-\u9fa5\w\d#\-_.]*$/,
         bank_account: /^\d{10,30}$/,
-        company_industry: /^[\u4e00-\u9fa5\w\d#\- _.]*$/
+        company_industry: /^[\u4e00-\u9fa5\w\d#\- _.]*$/,
+        disabled_tel:/^\d{8,11}$/,
+        disabled_id:/^\d{20}$/
 
     },
     data_name : {
@@ -40,10 +42,14 @@ var Pattern={
         bank_name: '开户行',
         bank_account: '开户行账号',
         company_industry: '所属行业',
+        disabled_name:'姓名',
+        disabled_tel:'联系电话',
+        disabled_id:'证件号',
         inviter_code: '邀请码'
     },
     maxLength : {
         name: 5,
+        disabled_name: 5,
         address: 255,
         tel:11,
         entity_name:8,

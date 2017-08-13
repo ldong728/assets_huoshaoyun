@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    <meta name="format-detection" content="telephone=no" />
 	<title>产品详情</title>
 	<link href="../css/main.css" rel="stylesheet">
 	<script type="text/javascript" src="../js/jquery.min.js"></script>
@@ -37,6 +38,9 @@
         .liCur{background-color: #ff6800!important;color: #fff;}
         .disabled{color: #636363
         }
+		.itemIMGBox{
+			width: 100%;
+		}
     </style>
 
 </head>
@@ -47,13 +51,9 @@
 <div id="template_header"></div>
 
 <div id="template_body">
-	<header class="g-detail">
-        <div><img class="img item-img" src="../images/4.jpg" style="position: absolute"></div>
-		<div class="h-button">
-			<a class="left"><i class="icon icon-angle-left"></i></a>
-			<a class="right"><i class="icon icon-shopping-cart"></i></a>
-		</div>
-	</header>
+	<div class="g-detail flex flex-center">
+        <div class="itemIMGBox"><img class="img item-img" src="../images/4.jpg"></div>
+	</div>
 	<section>
 		<div class="container">
 			<div class="row bg-magin magin-b5" style="padding:15px;">
@@ -136,8 +136,10 @@
 <div id="template_footer"></div>
 <div class="popup sku-js">
     <div class="popupTop">
-        <div class="clearfix popupTop_left">
-            <img id="item-img" src="../images/123.jpg">
+        <div class="clearfix popupTop_left flex flex-center">
+			<div class="itemIMGBox">
+				<img class="item-img" src="../images/123.jpg">
+			</div>
         </div>
         <div class="clearfix popupTop_right">
             <p class="red">￥<i class="sku-price">29</i></p >
@@ -177,190 +179,58 @@
     </div>
 </div>
 <script>
-    Templates.loadTemplates('goodsDetail','商品详情');
-//    var fromPage='goodsDetail';
-    var elementList=prepareElement('.parent-element','.sub-element');
-    var selected={};
-    var skus=false;
-    var properties={};
-    var propertiesNum=0;
-    var sku=false;
-    var id,type,fromPage;
-</script>
-<script>
-    var data={
-                skus:{
-                    v_1_4_6:{//属性值id从小到大组合
-
-                        id:'v1',
-                        price:'￥29',
-                        num:'0',
-                        values:'1_4_6'
-                    },
-                    v_2_4_6:{//属性值id从小到大组合
-                        id:'v2',
-                        price:'￥39',
-                        num:'88',
-                        values:'2_4_6'
-                    },
-                    v_3_4_6:{//属性值id从小到大组合
-                        id:'v2',
-                        price:'￥39',
-                        num:'168',
-                        values:'3_4_6'
-                    },
-                    v_1_5_6:{//属性值id从小到大组合
-
-                        id:'v1',
-                        price:'￥29',
-                        num:'35',
-                        values:'1_5_6'
-                    },
-                    v_2_5_6:{//属性值id从小到大组合
-                        id:'v2',
-                        price:'￥39',
-                        num:'0',
-                        values:'2_5_6'
-                    },
-                    v_3_5_6:{//属性值id从小到大组合
-                        id:'v2',
-                        price:'￥39',
-                        num:'8',
-                        values:'3_5_6'
-                    },
-                    v_1_4_7:{//属性值id从小到大组合
-                        id:'v2',
-                        price:'￥39',
-                        num:'888',
-                        values:'1_4_7'
-                    },
-                    v_1_4_8:{//属性值id从小到大组合
-                        id:'v2',
-                        price:'￥39',
-                        num:'888',
-                        values:'1_4_8'
-                    },
-                    v_2_4_7:{//属性值id从小到大组合
-                        id:'v2',
-                        price:'￥39',
-                        num:'0',
-                        values:'2_4_7'
-                    },
-                    v_2_4_8:{//属性值id从小到大组合
-                        id:'v2',
-                        price:'￥39',
-                        num:'888',
-                        values:'2_4_8'
-                    },
-                    v_3_4_7:{//属性值id从小到大组合
-                        id:'v2',
-                        price:'￥39',
-                        num:'888',
-                        values:'3_4_7'
-                    },
-                    v_3_4_8:{//属性值id从小到大组合
-                        id:'v2',
-                        price:'￥39',
-                        num:'888',
-                        values:'3_4_8'
-                    },
-                    v_3_5_7:{//属性值id从小到大组合
-                        id:'v2',
-                        price:'￥39',
-                        num:'888',
-                        values:'3_5_7'
-                    },
-                    v_3_5_8:{//属性值id从小到大组合
-                        id:'v2',
-                        price:'￥39',
-                        num:'888',
-                        values:'3_5_8'
-                    }
-                },
-                properties:[
-                    {
-                        id:'li1',
-                        name:'颜色分类',
-                        values:[
-                            {
-                                id:'1',
-                                name:'木纹蓝鞋'
-                            },
-                            {
-                                id:'2',
-                                name:'木纹白鞋'
-                            },
-                            {
-                                id:'3',
-                                name:'木纹红鞋'
-                            }
-                        ]
-                    },
-                    {
-                        id:'li2',
-                        name:'情侣款',
-                        values:[
-                            {
-                                id:'4',
-                                name:'男款'
-                            },
-                            {
-                                id:'5',
-                                name:'女款'
-                            },
-                        ]
-                    },
-                    {
-                        id:'li3',
-                        name:'尺码',
-                        values:[
-                            {
-                                id:'6',
-                                name:'37XS'
-                            },
-                            {
-                                id:'7',
-                                name:'38XS'
-                            },
-                            {
-                                id:'8',
-                                name:'39S'
-                            }
-                        ]
-                    }
-                ]
-
-            };
+    var id,type,fromPage,elementList,selected,skus,properties,propertiesNum,sku;
 
     $(document).ready(function(){
+        Templates.loadTemplates('goodsDetail','商品详情');
+        setInitParam();
         registerClickEvent();
-        id=getUrlParam('itemId');
-        type=getUrlParam('type');
-        fromPage=getUrlParam('fromPage')||'index';
+        resizeBody();
+        scrollWatcher(null,null);
 //        id=25;
         app('item_detail',{item_id:id});
-        app('item_skus',{pid:id});
         app('itemcomment_list',{item_id:id});
 
     });
 
-
+    function resizeBody() {
+        var body = $('#template_body');
+        body.children()[0].remove();
+        var totalHeight = window.screen.height;
+        console.log(totalHeight);
+        var footerHeight = $('#template_footer').height();
+        var headerHeight = $('#template_header').height();
+        body.height(totalHeight-footerHeight);
+        body.css('top',0);
+    }
 
     function setInitParam() {
-        fromPage = getUrlParam('fromPage');
-        if(fromPage == ''){
-            fromPage = 'pageCur';
+        id=getUrlParam('itemId');
+        type=getUrlParam('type');
+        fromPage=getUrlParam('fromPage');
+        if(!fromPage){
+            fromPage = 'index';
         }
+
+        elementList=prepareElement('.parent-element','.sub-element');
+        selected={};
+        skus=false;
+        properties={};
+        propertiesNum=0;
+        sku=false;
     }
 
     function registerClickEvent() {
         $(document).on('click','.header-back',function () {
             header(fromPage);
         });
+        $(document).on('click','.header-cart',function () {
+            header('shopCart');
+        });
         $(document).on('click','.choose-js',function(){
             $('.sku-js').show();
 //            if(!skus||!properties){
-                initSkuSelector(data);
+//                initSkuSelector(data);
 //            }
 
         });
@@ -378,6 +248,7 @@
                    $('.group'+parentId).removeClass('liCur');
                    $(this).addClass('liCur');
                }
+               refreshPropertyTag();
            }
         });
 
@@ -387,7 +258,7 @@
                 return;
             }
            if($(this).hasClass('add-to-cart')){
-               var data={iid:id,sku_id:sku.id,num:parseInt($('.buy-num').text())};
+               var data={'item_id':id,'sku_id':sku.id,'num':parseInt($('.buy-num').text())};
                console.log(data);
                 app('cart_modify',data);
            }else{
@@ -421,20 +292,21 @@
             return;
         }
         switch (backValue['callback']) {
-            case 'item_detail':
+			case 'item_detail':
                 console.log(backValue['data']);
-                    initItemInf(backValue['data'])
+                app('item_skus',{pid:backValue['data']["pid"]});
+               	initItemInf(backValue['data']);
                 break;
             case 'item_skus':
-                    initSkuSelector(backValue.data);
-//                alert(backValue['message']);
+               	initSkuSelector(backValue['data']);
                 break;
             case 'cart_modify':
                 alert('已加入购物车');
                 break;
             case 'order_pre_order':
                 var preOrderId=backValue.data.pre_order_ids;
-                header('order_by',{preOrderIds:preOrderId});
+//                console.log(preOrderId);
+                header('orderBy',{preOrderIds:preOrderId});
                 break;
             case 'itemcomment_list':
                 initComment(backValue['data']);
@@ -444,7 +316,9 @@
                 break;
         }
     }
+    var pcontent;
     function callback_getContent(data){
+        pcontent = data;
         var content;
         if(data instanceof Object){
             content = data.content;
@@ -455,9 +329,10 @@
         }
     }
     function initItemInf(data){
-        $('#item-img').attr('src',data.img);
+        console.log(data);
+        $('.item-img').attr('src',data.img);
         $('#item-desc').text(data.desc);
-        $('#item-price').text(disPlayPrice(data.price));
+        $('#item-price').text(disPlayPrice(data.show_price));
     }
     function initComment(data){
         var content=data.comments;
@@ -472,7 +347,6 @@
             propertiesNum=data.properties.length;
 
             $.each(data.properties,function(kp,vp){
-
                 var parentElement=elementList['.parent-element'].clone();
                 parentElement.find('.parent-name').text(vp.name);
                 parentElement.find('.parent-name').attr('id','pro'+vp.id);
@@ -481,6 +355,7 @@
                 parentContainer.empty();
                 properties[vp.id]={id:vp.id,name:vp.name,values:{}};
 //                properties[vp.id].values={};
+				console.log(vp);
                 $.each(vp.values,function(ks,vs){
                     properties[vp.id].values[vs.id]=vs.name;
                     var subElement=elementList['.sub-element'].clone();
@@ -493,46 +368,69 @@
             });
             $.each(data.skus,function(k,v){
                 v.array= v.values.split('_');
+                v.array.shift();
                 skus[v.values]=v;
             });
         }else{//无分类
-
+            sku=data.skus;
+            var parentElement=elementList['.parent-element'].clone();
+            parentElement.find('.parent-name').text('规格选择');
+            var parentContainer=parentElement.find('.parent-container');
+            var subElement=elementList['.sub-element'].clone();
+            subElement.text('默认');
+            subElement.removeClass('sku-option');
+            subElement.addClass('liCur');
+            parentContainer.append(subElement);
+            $('.properties-container').append(parentElement);
         }
 
     }
     function setSkuStatus(parentId,id,choose){
-        if(choose)selected[parentId]=id;
+        if(choose){
+            selected[parentId]=id;
+        }
         else{
             delete selected[parentId]
         }
 //        if(selected[parentId]){
-            var deleteFlag=false;
-            var selectArray=[];
-            var selectStr=[];
-            $.each(selected,function(k,v){
-               if(deleteFlag)delete selected[k];
-                else selectArray.push(v);
-                if(k==parentId)deleteFlag=true;
-            });
+//        var deleteFlag=false;
+        var selectArray=[];
+        var selectStr=[];
+        console.log(selected);
+        $.each(selected,function(k,v){
+//            console.log(k,v);
+//            if(deleteFlag){
+//                delete selected[k];
+//            }else{
+                selectArray.push(v);
+//            }
+//            if(k==parentId){
+//                console.log('in delete','key:'+k,'parentId:'+parentId,'id:'+id,'choose:'+choose);
+//                deleteFlag=true;
+//            }
+        });
 
 //        }
+
+        console.log(selectArray);
         selectArray.sort();
         selectStr=selectArray.join('.*');
         console.log(selectStr);
         var enableList=[];
         var patten=new RegExp(selectStr);
         var matchList=[];
+//        console.log(skus);
         $.each(skus,function(k,v){
             if(k.match(patten)&& parseInt(v.num)>0){
+                console.log(k);
                 matchList.push(v);
-//                console.log(v);
                 $.each(v.array,function(k2,id){
                     if(enableList.indexOf(id)<0)enableList.push(id);
                 });
-
             }
         });
-        console.log(enableList.sort());
+//        console.log(matchList);
+//        console.log(enableList.sort());
         if(1==matchList.length)sku=matchList[0];
         else sku=false;
         //显示结果
@@ -552,14 +450,26 @@
             }
         });
         $('.selected-display').empty();
-        $.each(selected,function(k,v){
-            $('.selected-display').append('<span>'+properties[k].values[v]+'</span>')
-        });
-        $('.sku-price').text(displaySku.show_price);
+//        $.each(selected,function(k,v){
+//            console.log(properties[k]);
+//            $('.selected-display').append('<span>'+properties[k].values[v]+'</span>')
+//        });
+//		console.log(displaySku);
+        $('.sku-price').text(disPlayPrice(displaySku.normal_price));
 
         $('.sku-num').text(displaySku.num);
         if(parseInt($('.buy-num').text())>displaySku.num)$('.buy-num').text(displaySku.num);
-        console.log(selected);
+//        console.log(selected);
+    }
+
+    function refreshPropertyTag() {
+        var selected = $('.properties-container').find('.liCur');
+        var container = $('.selected-display');
+        container.empty();
+        $.each(selected,function (k,v) {
+//			console.log($(v).text());
+            container.append('<span>'+$(v).text()+'</span>')
+        });
     }
 
 

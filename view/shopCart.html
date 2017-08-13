@@ -21,38 +21,24 @@
 		.product_element{
 			display: none;
 		}
-
-		.custom_checkbox {
-			display: none;
+		.product_prop{
+			color: #666;
+			font-size: .8em;
+		}
+		.product_name{
+			font-size: 1.2em;
 		}
 
-		.custom_checkbox + label {
-			display: flex;
-			display: -webkit-flex;
-			border: 2px solid gray;
-			border-radius: 50%;
-
-			width: 15px;
-			height: 15px;
-
-			font-size: 18px;
-			line-height: 15px;
+		.margin-right15{
+			margin-right: 15px;
 		}
 
-		.custom_checkbox:checked + label {
-			border: 2px solid black;
-			/*background: black;*/
-		}
-
-		.custom_checkbox:checked + label:after {
-			/* content: ' '; */
-			content: "\f058";
+		.noItemContainer{
+			height: 50%;
 			width: 100%;
-			height: 100%;
-			/* background: lawngreen; */
-			/* border: 2px solid white; */
-			border-radius: 50%;
+			color: #888;
 		}
+
 	</style>
 </head>
 
@@ -61,15 +47,18 @@
 <div id="template_header"></div>
 
 <div id="template_body">
+	<div class="noItemContainer hiddenElement flex flex-center">
+		<div class="message">asdf</div>
+	</div>
 	<section class="magin-footer">
-		<div class="container">
+		<div class="container haveItemContainer">
 			<!--商店容器-->
 			<div class="row bg-magin" id="cart_container">
 				<!--商店元素-->
 				<div class="goods-type bg-magin border-bottom2 box_element" id="cart_box_element">
 					<!--元素头-->
 					<div class="bg-magin clearfix cart-tab">
-						<button class="h2 btn-white left btn1">
+						<button class="h2 btn-white left btn1 margin-right15">
 							<!--<i class="icon icon-circle-thin"></i>-->
 							<div class="left h2 outerCheckBox">
 								<input type="checkbox" class="custom_checkbox" />
@@ -87,7 +76,8 @@
 					<!--元素体 商店产品容器-->
 					<div class="all-goods product_container">
 						<div class="color3 goods-li clearfix padding20 product_element" id="cart_product_element">
-							<i class="itemID" style="display: none;"></i>
+							<i class="itemID hiddenElement"></i>
+							<i class="skuID hiddenElement"></i>
 							<button class="h2 btn-white left" style="height: 100%;margin-top: 30px;">
 								<!--<i class="icon icon-check-circle "></i>-->
 								<div class="left h2 innerCheckBox">
@@ -98,7 +88,8 @@
 							<dl>
 								<dt><img src="../images/未标题-2.jpg" class="product_img" alt="商品图片"></dt>
 								<dd>
-									<p class="goods-name magin-top magin-left product_name">新鲜番茄</p>
+									<p class="goods-name magin-top magin-left product_name">产品名称</p>
+									<p class="goods-name magin-top magin-left product_prop">参数信息</p>
 									<p class="magin-left det-goods-r clearfix edit_mode">
 										<span class="num_btn num_minus"><i class="icon icon-minus"></i></span>
 										<span><i class="product_count"></i></span>
@@ -123,7 +114,7 @@
 				<div class="height50 text-center bg-magin h4 border-bottom">
 					<p>总金额 <span class="red size16"> ￥ <i id="total_price">0.00</i></span></p>
 				</div>
-				<button class="btn bg-red magintop15">结&nbsp;&nbsp;算</button>
+				<button class="btn bg-red magintop15 checkOutBtn">结&nbsp;&nbsp;算</button>
 			</div>
 		</div>
 	</section>
@@ -137,7 +128,7 @@
 
 
 <script>
-    var fromPage,elementList,deletedItemList;
+    var fromPage,elementList,deletedItemList,deletedSkuList;
     setInitParam();
 
     $(document).ready(function () {
@@ -148,7 +139,7 @@
 
     function setInitParam() {
         fromPage = getUrlParam('fromPage');
-        if(fromPage == null){
+        if(!fromPage){
             fromPage = 'index';
         }
 
@@ -156,11 +147,12 @@
         elementList=prepareElement('#cart_box_element','#cart_product_element');
         //删除物品id列表
         deletedItemList = [];
+        deletedSkuList = [];
     }
 
     function registerClickEvent() {
         $(document).on('click','.header-back',function () {
-            header(fromPage);
+            header(fromPage,{'fromPage':''});
         });
         $(document).on('change','.innerCheckBox',function () {
             var item = $(this).parent().parent();
@@ -232,25 +224,29 @@
                     count--;
                     numTag.text(count);
                     $('.product_count').trigger('change');
-				}
+				}else{return;}
 			}
-            if(btn.hasClass('num_plus')){
+            else if(btn.hasClass('num_plus')){
                 if(count<99){
                     count++;
                     numTag.text(count);
                     $('.product_count').trigger('change');
-                }
-            }
-            var id = product.find('.itemID').text();
+                }else{return;}
+            }else{return;}
+            var itemId = product.find('.itemID').text();
+            var skuId = product.find('.skuID').text();
 //            console.log('id is '+ id + ' count is '+ count);
-            cartModify(id,count);
+            cartModify(itemId,skuId,count);
         });
         $(document).on('change','.product_count',function () {
 			calculateSum();
         });
         $(document).on('click','.delete_btn',function () {
-			var item = $(this).parent().parent();
-			deleteItem(item);
+            var item = $(this).parent().parent();
+            deleteItem(item);
+        });
+        $(document).on('click','.checkOutBtn',function () {
+            preOrder();
         });
     }
 
@@ -258,7 +254,12 @@
         var backValue = handleBack(back);
         console.log(backValue);
         if(backValue['success'] == false){
-            console.log('callback ERR: '+backValue['message']);
+            if(backValue['callback'] == 'cart_list' && backValue['error_code'] == 100){
+                hidePage(backValue['message']);
+			}else{
+                console.log('callback ERR: '+backValue['message']);
+			}
+
             return;
         }
 
@@ -269,7 +270,27 @@
             case 'cart_del':
                 console.log(backValue['message']);
                 break;
+            case 'order_pre_order':
+                var preOrderIds = backValue['data']['pre_order_ids'];
+                header('orderBy',{'preOrderIds': preOrderIds});
+                break;
         }
+    }
+
+    function hidePage(message) {
+        $('.haveItemContainer').addClass('hiddenElement');
+        $('.noItemContainer').removeClass('hiddenElement');
+        $('.noItemContainer .message').text(message);
+        var header = $('#template_header');
+        var footer = $('#template_footer');
+        var body = $('#template_body');
+        var totalHeight = window.screen.height;
+        var headerHeight = header.height();
+        body.children()[0].remove();
+        body.css('top',headerHeight);
+        body.css('overflow-y','hidden');
+        body.height(totalHeight-headerHeight);
+        footer.hide();
     }
 
     function refreshCartList(data) {
@@ -293,15 +314,17 @@
                 product_box.addClass('displayed_product');
                 product_box.removeAttr('id');
                 product_box.find('.product_name').text(value['title']);
+                product_box.find('.product_prop').text(value['props']);
                 product_box.find('.product_img').attr('src',value['img']);
                 product_box.find('.product_img').attr('alt',value['title']);
                 product_box.find('.product_price').text(disPlayPrice(value['price']));
                 product_box.find('.product_count').text(value['num']);
                 product_box.find('.itemID').text(value['item_id']);
+                product_box.find('.skuID').text(value['sku_id']);
 
                 var innerCheckBox = product_box.find('.innerCheckBox');
-                innerCheckBox.find('input').attr('id','itemId_'+value['item_id']);
-                innerCheckBox.find('label').attr('for','itemId_'+value['item_id']);
+                innerCheckBox.find('input').attr('id','skuId_'+value['sku_id']);
+                innerCheckBox.find('label').attr('for','skuId_'+value['sku_id']);
                 product_container.append(product_box);
             });
 
@@ -337,6 +360,7 @@
 
     function deleteItem(item) {
         var itemID = item.find('.itemID').text();
+        var skuID = item.find('.skuID').text();
 		console.log('should delete '+ item.find('.product_name').text());
         console.log('its itemId is '+ itemID);
         item.removeClass('displayed_product');
@@ -349,21 +373,39 @@
             cartDelete();
 		}
         deletedItemList.push(itemID);
+        deletedSkuList.push(skuID);
     }
 
     function cartDelete() {
         if(deletedItemList.length>0){
             var idString = deletedItemList.join('_');
-            var deleteInfo = {item_ids:idString};
+            var skuString = deletedSkuList.join('_');
+            var deleteInfo = {iids:idString,sku_ids:skuString};
             app('cart_del',deleteInfo);
 		}
     }
 
-    function cartModify(id,num) {
-        var info = {iid: id, num: num};
+    function cartModify(itemId,skuId,num) {
+        var info = {item_id: itemId, sku_id: skuId, num: num};
         console.log(info);
         app('cart_modify',info);
     }
 
+    function preOrder() {
+        var itemList = [];
+        $('.selected').each(function () {
+            var idTag = $(this).find('.itemID')[0];
+            var skuTag = $(this).find('.skuID')[0];
+            var numTag = $(this).find('.product_count')[0];
+            var id = $(idTag).text();
+            var skuId = $(skuTag).text();
+            var num = $(numTag).text();
+            var item = {"item_id":id,"num":num,"sku_id":skuId};
+            itemList.push(item);
+        });
+        console.log(itemList);
+        var param = {"items":itemList};
+        app('order_pre_order',param);
+    }
 
 </script>

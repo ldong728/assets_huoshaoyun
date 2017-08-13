@@ -9,37 +9,42 @@
 	<script type="text/javascript" src="../js/main.js"></script>
 	<script type="text/javascript" src="../js/template.js"></script>
 	<style>
-		.custom_checkbox {
-			display: none;
+		.flexRow{
+			width: 100%;
 		}
-
-		.custom_checkbox + label {
-			border: 2px solid gray;
-			width: 15px;
-			height: 15px;
-			border-radius: 50%;
-			display: inline-block;
-			position: relative;
+		.addressList{
+			flex-wrap: wrap;
 		}
-
-		.custom_checkbox:checked + label {
-			border: 2px solid black;
-			color: #243441;
+		.addressBox{
+			margin-bottom: 15px;
+			padding-top: 15px;
+			padding-bottom: 15px;
+			line-height: 20px;
 		}
-
-		.custom_checkbox:checked + label:after {
-			/* content: ' '; */
-			content: "\f058";
-			display: block;
-			width: 15px;
-			height: 15px;
-			font-size: 22px;
-			line-height: 18px;
-			padding: 0;
-			/* background: lawngreen; */
-			/* border: 2px solid white; */
-			margin: -2px;
-			border-radius: 50%;
+		.addressBox .leftPart{
+			width:20%;
+		}
+		.addressBox .rightPart{
+			width:80%;
+			flex-wrap: wrap;
+		}
+		.addressBox .rightPart .upperPart{
+			width: 90%;
+			justify-content: flex-start;
+			margin-bottom: 5px;
+		}
+		.addressBox .rightPart .underPart{
+			width: 90%;
+			justify-content: flex-start;
+			margin-bottom: 5px;
+		}
+		.addressBox .AddressTel{
+			margin-left: 30px;
+		}
+		.addressBox .AddressDefaultTag{
+			margin-left: 30px;
+			color:#666;
+			font-size: .8em;
 		}
 	</style>
 </head>
@@ -51,31 +56,24 @@
 <div id="template_body">
 	<section>
 		<div class="container">
-			<div class="row set-place delivery address">
-				<div class="li">
-					<div class="bg-magin h4 bg-white border-bottom clearfix">
-					<div class="li-left left">
-						<div class="first bg-black">
-							<i class="icon icon-check"></i>
+			<div class="row set-place delivery address addressList flex">
+				<div class="flex flex-center flexRow addressBox bg-magin h4 bg-white hiddenElement" id="addressElement">
+					<div class="flex flex-center leftPart">
+						<div class="left h2 CheckBox">
+							<input type="radio" name="address" class="custom_checkbox" id="checkBox" />
+							<label class="icon" for="checkBox"></label>
 						</div>
 					</div>
-					<div class="li-right left">
-						<p class="height50">MC大队长<span class="span-left">158 **** 6789</span></p>
-						<p class="lineheight15 magin-bottom">浙江省宁波市慈溪市古塘街道科技路18号智慧谷1号楼1606室</p>
-					</div>
-					</div>
-				</div>
-				<div class="li">
-					<div class="bg-magin h4 bg-white border-bottom clearfix">
-					<div class="li-left left">
-						<div class="first">
-							<div></div>
+					<div class="flex rightPart">
+						<div class="flex upperPart">
+							<i class="AddressId hiddenElement"></i>
+							<div class="AddressName">MC大队长</div>
+							<div class="AddressTel">158 **** 6789</div>
+							<div class="AddressDefaultTag hiddenElement">默认地址</div>
 						</div>
-					</div>
-					<div class="li-right left">
-						<p class="height50">MC大队长<span class="span-left">158 **** 6789</span></p>
-						<p class="lineheight15 magin-bottom">浙江省宁波市慈溪市古塘街道科技路18号智慧谷1号楼1606室</p>
-					</div>
+						<div class="flex underPart">
+							<div class="AddressFullAddress">浙江省宁波市慈溪市古塘街道科技路18号智慧谷1号楼1606室</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -90,27 +88,100 @@
 <div id="template_footer"></div>
 
 <script>
-    var fromPage;
+    var fromPage,elementList,selectedAddressID,preOrderIds;
     setInitParam();
 
     $(document).ready(function () {
         Templates.loadTemplates('shopAddress','收货地址');
         registerClickEvent();
+        app('userreceiving_info');
     });
 
     function setInitParam() {
+        //初始化预订单ID
+        preOrderIds = getUrlParam('preOrderIds');
         fromPage = getUrlParam('fromPage');
-        if(fromPage == ''){
+        if(preOrderIds == ''){
             fromPage = 'pageCur';
-        }
+        }else{
+            fromPage = 'orderBy';
+		}
+        //克隆元素列表
+        elementList=prepareElement('#addressElement');
+
+        selectedAddressID = '';
     }
 
     function registerClickEvent() {
         $(document).on('click','.header-back',function () {
-            header(fromPage);
+            if(preOrderIds){
+                header(fromPage,{'fromPage':'','preOrderIds':preOrderIds,'addressId':selectedAddressID});
+			}else{
+                header(fromPage,{'fromPage':''});
+			}
         });
         $(document).on('click','.addAddress_btn',function () {
-            header('newAddress');
+            header('newAddress',{'preOrderIds':preOrderIds});
+        });
+
+        $(document).on('click','.custom_checkbox',function () {
+            var id = $(this).attr('id');
+            var checked = $(this).prop('checked');
+
+            if(checked){
+                selectedAddressID = id;
+			}else{
+                selectedAddressID = '';
+			}
+
+            console.log(selectedAddressID);
+        });
+    }
+
+    function callback_jsonCallback(back) {
+        var backValue = handleBack(back);
+        console.log(backValue);
+        if(backValue['success'] == false){
+            console.log('callback ERR: '+backValue['message']);
+            return;
+        }
+
+        switch (backValue['callback']) {
+            case 'userreceiving_info':
+                console.log(backValue['data']);
+                displayReceivingList(backValue['data']['list']);
+                break;
+        }
+    }
+
+    function displayReceivingList(list) {
+        console.log(list);
+        var container = $('.addressList');
+
+        $.each(list,function(k,v) {
+//            console.log(v);
+            var address_element = elementList['#addressElement'].clone();
+            address_element.removeClass('hiddenElement');
+            address_element.removeAttr('id');
+            address_element.addClass('displayedAddress');
+
+            address_element.find('.CheckBox input').attr('id',v['id']);
+            address_element.find('.CheckBox label').attr('for',v['id']);
+
+            address_element.find('.AddressId').text(v['id']);
+            address_element.find('.AddressName').text(v['name']);
+            address_element.find('.AddressTel').text(v['tel']);
+            address_element.find('.AddressFullAddress').text(v['address_full']);
+            if(v['is_default']){
+                address_element.find('.AddressDefaultTag').removeClass('hiddenElement');
+                address_element.find('.custom_checkbox').trigger('click');
+                selectedAddressID = v['id'];
+            }
+
+
+
+
+            container.append(address_element);
         });
     }
 </script>

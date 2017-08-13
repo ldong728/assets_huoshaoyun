@@ -163,16 +163,16 @@
 			}
 
         });
-        $(document).on('click','button.btn-xiu',function(){
-			$(this).addClass('btn-wan').html('完成').removeClass('btn-xiu');
-			$('.m-section:eq(0)').show().siblings('.m-section').hide();
-		});
-		$(document).on('click','button.btn-wan',function(){
-            confirm_edit();
-		});
-		$(document).on('click','.btn-delete-js',function(){
-			$(this).next('input[type=text]').val('').focus();
-		});
+//        $(document).on('click','button.btn-xiu',function(){
+//			$(this).addClass('btn-wan').html('完成').removeClass('btn-xiu');
+//			$('.m-section:eq(0)').show().siblings('.m-section').hide();
+//		});
+//        $(document).on('click','button.btn-wan',function(){
+//            confirm_edit();
+//        });
+//		$(document).on('click','.btn-delete-js',function(){
+//			$(this).next('input[type=text]').val('').focus();
+//		});
         $(document).on('click','.verify_btn',function(){
             header('smrz');
         });

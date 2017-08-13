@@ -9,27 +9,6 @@
 	<script type="text/javascript" src="../js/main.js"></script>
 	<script type="text/javascript" src="../js/template.js"></script>
 	<style>
-		.hiddenElement{
-			display: none;
-		}
-		.flex{
-			display: -webkit-flex; /* Safari */
-			display: flex;
-		}
-		.filter_nav{
-			justify-content: space-around;
-			width: 100%;
-		}
-		.filter_box {
-			text-align: center;
-			width: 40%;
-			height: 50px;
-			line-height: 50px;
-			font-size: 15px;
-			color: #666;
-			border-bottom: 1px solid #ddd;
-			box-sizing: border-box;
-		}
 		.itemList{
 			flex-wrap: wrap;
 			justify-content: flex-start;
@@ -143,42 +122,6 @@
 						</div>
 						<p class="p-title itemTitle">Ryoe 吕 棕吕防脱发洗护套装</p>
 						<p class="p-price"><em class="red">￥<i class="itemPrice">NAN</i> </em><span>销量 <i class="soldNum">NAN</i> </span></p>
-					</div>
-					<div class="itemBox">
-						<div class="itemIMG flex">
-							<div>
-								<img src="../images/1.jpg">
-							</div>
-						</div>
-						<p class="p-title">Ryoe 吕 棕吕防脱发洗护套装</p>
-						<p class="p-price"><em class="red">￥88</em><span>销量 4521</span></p>
-					</div>
-					<div class="itemBox">
-						<div class="itemIMG flex">
-							<div>
-								<img src="../images/未标题-5.jpg">
-							</div>
-						</div>
-						<p class="p-title">Ryoe 吕 棕吕防脱发洗护套装</p>
-						<p class="p-price"><em class="red">￥88</em><span>销量 4521</span></p>
-					</div>
-					<div class="itemBox">
-						<div class="itemIMG flex">
-							<div>
-								<img src="../images/1.jpg">
-							</div>
-						</div>
-						<p class="p-title">Ryoe 吕 棕吕防脱发洗护套装</p>
-						<p class="p-price"><em class="red">￥88</em><span>销量 4521</span></p>
-					</div>
-					<div class="itemBox">
-						<div class="itemIMG flex">
-							<div>
-								<img src="../images/1.jpg">
-							</div>
-						</div>
-						<p class="p-title">Ryoe 吕 棕吕防脱发洗护套装</p>
-						<p class="p-price"><em class="red">￥88</em><span>销量 4521</span></p>
 					</div>
 				</div>
 			</div>
@@ -324,7 +267,7 @@
 
     function askMoreItem() {
         if(hasMore){
-            page++;
+            hasMore = false;
             getItemList();
 		}else{
             $('.noMoreDiv').parent().removeClass('hiddenElement');
@@ -336,6 +279,7 @@
         if(page == 0){
             container.empty();
 		}
+        page++;
         console.log(data);
         hasMore = data['has_more'];
         var items = data['list'];
@@ -343,10 +287,10 @@
             var itemBox = elementList['#itemBoxElement'].clone();
             itemBox.addClass('displayed-item');
             itemBox.removeClass('hiddenElement');
-            itemBox.find('itemID').text(item['item_id']);
+            itemBox.find('.itemID').text(item['item_id']);
             itemBox.find('img').attr('src',item['img']);
             itemBox.find('.itemTitle').text(item['title']);
-            itemBox.find('.itemPrice').text(disPlayPrice(item['price']));
+            itemBox.find('.itemPrice').text(disPlayPrice(item['show_price']));
             itemBox.find('.soldNum').text(item['sold_num']);
 
             container.append(itemBox);
@@ -360,8 +304,9 @@
     }
 
     function headerGoodsDetail(itemBox) {
-        var id = itemBox.find('.itemID').text();
-        console.log('header goods detail, type = ' + mall_type + ' itemId = '+ id);
+        var itemID = itemBox.find('.itemID').text();
+        console.log('header goods detail, type = ' + mall_type + ' itemId = '+ itemID);
+        header('goodsDetail',{'type':mall_type, 'itemId': itemID});
     }
 
     function getItemList() {

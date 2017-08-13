@@ -8,6 +8,7 @@
 	<script type="text/javascript" src="../js/jquery.min.js"></script>
 	<script type="text/javascript" src="../js/main.js"></script>
 	<script type="text/javascript" src="../js/template.js"></script>
+	<script type="text/javascript" src="../js/Pattern.js"></script>
 </head>
 
 <body class="gray">
@@ -20,19 +21,19 @@
 				<div class="input bg-white border-bottom safe">
 					<label class="label-con">姓&nbsp;&nbsp;&nbsp;名</label>
 					<button class="ab-btn btn-white"></button>
-					<input type="text" name="name" placeholder="MC大队长" class="btn-white right text-left new-input">
+					<input type="text" name="name" placeholder="MC大队长" class="btn-white right text-left new-input newDataInfo" data-field="disabled_name">
 				</div>
 				<div class="input bg-white border-bottom safe">
-					<label class="label-con">身份证号</label>
-					<input type="text" name="IDcard" placeholder="请输入身份证号" class="btn-white right text-left new-input">
+					<label class="label-con">联系电话</label>
+					<input type="text" name="IDcard" placeholder="请输入身份证号" class="btn-white right text-left new-input newDataInfo" data-field="disabled_tel">
 				</div>
 				<div class="input bg-white border-bottom safe">
 					<label class="label-con">残疾证号</label>
-					<input type="text" name="cid" placeholder="请输入残疾证号" class="btn-white right text-left new-input">
+					<input type="text" name="cid" placeholder="请输入残疾证号" class="btn-white right text-left new-input newDataInfo" data-field="disabled_id">
 				</div>
 			</div>
 			<div class="row">
-				<button value="phone-login" class="btn bg-black">确&nbsp;&nbsp;认</button>
+				<button value="phone-login" class="btn bg-black submit_btn">确&nbsp;&nbsp;认</button>
 			</div>
 		</div>
 	</section>
@@ -46,10 +47,10 @@
 
 <script>
     var fromPage;
-    setInitParam();
 
     $(document).ready(function () {
         Templates.loadTemplates('dealer','申请经销商');
+        setInitParam();
         registerClickEvent();
     });
 
@@ -64,6 +65,49 @@
         $(document).on('click','.header-back',function () {
             header(fromPage);
         });
+        $(document).on('click','.submit_btn',function () {
+            submitInfo();
+        });
+    }
+
+    function callback_jsonCallback(back) {
+        var backValue = handleBack(back);
+        console.log(backValue);
+        if(backValue['success'] == false){
+            console.log('callback ERR: '+backValue['message']);
+            return;
+        }
+
+        switch (backValue['callback']) {
+            case 'user_disabled_verify':
+                alert(backValue['message']);
+                header(fromPage,{'fromPage':''});
+                break;
+        }
+    }
+
+    function submitInfo() {
+        var inputs=$('.newDataInfo');
+        var newDataInfo={};
+        var hasError=false;
+
+
+        inputs.each(function(k,v){
+            var dataField=$(v).data('field');
+            hasError=Pattern.checkErr(dataField, v.value);
+            if(hasError){
+                return false;
+            }
+            newDataInfo[dataField]= v.value;
+        });
+
+        if(hasError){
+            alert(hasError);
+            return false;
+        }
+
+        console.log(newDataInfo);
+        app('user_disabled_verify',newDataInfo);
     }
 
 </script>

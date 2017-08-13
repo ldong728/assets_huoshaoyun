@@ -104,12 +104,10 @@
         });
     }
 
-    var mUserInf;
+
     function callback_getDefaultUser(userInf){
-        mUserInf=userInf;
-        console.log(mUserInf);
         var userValue=handleBack(userInf);
-//        console.log();
+        //console.log();
         if(Number(userValue.error_code)){
             hideLoadingLayer(true);
             console.log('no default user');

@@ -17,6 +17,7 @@
 		}
 		.noMoreDiv {
 			height: 60px;
+			width: 100%;
 			line-height: 60px;
 			text-align: center;
 			color: #777;
@@ -191,11 +192,16 @@
 				</div>
 			</div>
 		</div>
+		<!--底部没有更多标签-->
+		<div class="hiddenElement">
+			<div class="noMoreDiv flex flex-center">
+				<div>
+					----没有更多----
+				</div>
+			</div>
+		</div>
 	</section>
-	<!--底部没有更多标签-->
-	<div class="hiddenElement noMoreDiv">
-		----没有更多----
-	</div>
+
 </div>
 
 <div id="template_footer"></div>
@@ -294,7 +300,7 @@
         });
         checkImgLoad('#OrderContainer',"../images/未标题-2.jpg");
         if(!hasMore){
-            $('.noMoreDiv').removeClass('hiddenElement');
+            $('.noMoreDiv').parent().removeClass('hiddenElement');
         }
     }
     function displayOrderButtonGroup(orderElement, status) {

@@ -151,17 +151,14 @@
                 alert(backValue.message);
             }
         }
-
-
-    }
-    function callback_getSession(data){
-        alert('getSession');
-        var backValue=handleBack(data);
-        if(backValue.success){
-            app.saveUserInf(values);
-            header('index');
-        }else{
-            alert(backValue.message);
+        if('user_regist'==backValue.callback){
+            if(backValue.success){
+                alert(backValue.message);
+                app('saveUser',{'user_tel':values.user_tel,'user_password':values.user_password});
+                header('index');
+            }else{
+                alert(backValue.message);
+            }
         }
 
     }

@@ -256,7 +256,7 @@ $(document).on('keypress','.input-in-layer',function(event){
 var bodyHeight=0;
 $(window).resize(function(){
     //return;//临时禁用
-    var newHeight=document.body.clientHeight;
+    var newHeight=window.screen.height;
     if(0==bodyHeight||newHeight<bodyHeight){
         var element=$(document.activeElement);
         var inputElement=element.clone();
@@ -268,7 +268,7 @@ $(window).resize(function(){
     }else{
         hideInputLayer();
     }
-    console.log(document.body.clientHeight);
+    console.log(window.screen.height);
 
 
     bodyHeight=newHeight;
